@@ -100,10 +100,11 @@ subtree never participates in SSR — no hydration mismatch from `matchMedia` or
 
 Five tours, keyed by `tourKey`. Step lists are built by `buildTours({ desktop, menuKey })`.
 
-Common shape for every tour: open on the sidebar navigation, close on the sidebar footer
-(profile / switch account / sign out).
+Common shape for every tour (desktop): sidebar navigation → header → the role's page
+steps → sidebar footer (profile / switch account / sign out). On mobile the sidebar pair
+collapses into the single trigger step described in §8.
 
-| tourKey | roles (`menuKey`) | Steps after the two sidebar anchors |
+| tourKey | roles (`menuKey`) | Steps after the chrome anchors |
 |---|---|---|
 | `admin` | `admin`, `schooladministrator` | `admin` only: Tahun Ajaran → Cabang/Sekolah → Users; both: Kelas → Presensi |
 | `treasurer` | `treasurer` | Jenis Pembayaran → Tagihan → Pembayaran → Data Siswa |
@@ -135,22 +136,23 @@ Step targets:
 |---|---|---|
 | Sidebar navigation | `[data-slot="sidebar-content"]` | shadcn sidebar primitive, already in the tree |
 | Sidebar footer / profile | `[data-slot="sidebar-footer"]` | same |
-| Dashboard header | `[data-tour="header"]` | added on the sticky `header` in `ConditionalLayout` |
-| A specific page's primary heading/action | `[data-tour="…"]` | one attribute added per visited page |
+| Dashboard header | `[data-tour="header"]` | one attribute added to the `header` in `ConditionalLayout` |
+| The page being explained | **no selector** — card renders centered | deliberate; see below |
 
-Page-level steps target **one heading or primary action per page**, never a table row or
-a metric card: a fresh tenant's pages are empty, and a step pointing at absent data would
-degrade to a centered card.
+Page-level steps carry **no selector on purpose**. Evidence from the 20 pages the tours
+visit: 19 have no page-level `h1`/`h2`/`CardTitle` at all (`teacher/exam` is the only
+one with a real `<h1>`; `student/schedule` and `student/attendance` have an `<h2>` buried
+inside a section, at lines 433 and 560, not at page level). A step per page would
+therefore need 20 bespoke, layout-dependent anchors — and nextstepjs has **no selector
+fallback**: a selector that matches nothing already degrades to a centered card, which is
+exactly what a selector-less step renders by design. So the page steps use the library's
+documented no-selector behavior: the card explains the page while `nextRoute` takes the
+user there, and the spotlight is reserved for the three chrome anchors that exist on
+every page. `tours.ts` exports `TOUR_ROUTES` so the self-check asserts every route a step
+uses has a `page.tsx` on disk.
 
-Pages receiving one `data-tour` attribute each (20 total, mechanical, no logic):
-`admin/master/academicyear`, `admin/master/branchs`, `admin/master/users`,
-`admin/master/classes`, `admin/attendance`, `treasurer/paymenttype`, `treasurer/billing`,
-`treasurer/payment`, `treasurer/studentinformation`, `teacher/schedule`,
-`teacher/attendance`, `teacher/exam`, `teacher/violations`, `student/schedule`,
-`student/attendance`, `student/tahfidzrecord`, `student/payment`, `parent`,
-`parent/development`, `parent/development/report`.
-
-Step-level options applied to every step: `scrollOffset` tuned to the sticky dashboard
+Step-level options applied to every step that has a selector: `scrollOffset` tuned to the
+sticky dashboard
 header's real height during verification (start at 88 — the header is `px-4 py-7` plus a
 `size-7` trigger), `selectorRetryAttempts: 3`, `selectorRetryDelay: 250` (pages fetch
 through TanStack Query), and `pointerPadding: 8`, `pointerRadius: 12` to match the house
@@ -185,17 +187,21 @@ tour hook. One mapping, not two: a second copy would drift the moment a role is 
 
 | File | Action | Contents |
 |---|---|---|
-| `package.json`, `bun.lock` | modify | `bun add nextstepjs` (2.3.0). `motion` already present |
-| `lib/ui/roleKey.ts` | new | `getRoleMenuKey(role, school?)`, extracted verbatim from `appSidebar` |
+| `package.json`, `bun.lock` | modify | `bun add nextstepjs` (2.3.0). `motion` already present — not added |
+| `lib/ui/roleKey.ts` | new | `getRoleMenuKey(role, school?)`, extracted from `appSidebar` |
+| `lib/tours/tourModel.ts` | new | pure, no React: `STORAGE_PREFIX`, `storageKey()`, `readTourDone()`, `writeTourDone()`, `tourKeyForMenuKey()`, `TourKey` |
 | `lib/tours/selectors.ts` | new | selector constants + the `data-tour` names, one place both sides read |
-| `lib/tours/tours.tsx` | new | `buildTours({ desktop, menuKey })` → `Tour[]`; step copy |
-| `lib/tours/useTour.ts` | new | `useTourAutoStart()`, `useTourReplay()`, role→tourKey map, storage read/write with `try/catch` |
-| `lib/tours/tour.check.ts` | new | assert-based self-check: role→tourKey mapping and storage-key shape |
+| `lib/tours/tours.ts` | new | `buildTours({ desktop, menuKey })` → `Tour[]`, plus `TOUR_ROUTES`. `.ts`, not `.tsx`: step content is a string and no step renders an icon |
+| `lib/tours/useTour.ts` | new | `useTourKey()`, `useTourAutoStart()`, `useTourReplay()` — the only React in `lib/tours` |
+| `lib/tours/tour.check.ts` | new | assert-based self-check: role→menuKey→tourKey, storage-key shape, and every route in `TOUR_ROUTES` has a `page.tsx` |
 | `components/tour/TourCard.tsx` | new | custom card in house style (`cardComponent`) |
-| `components/tour/TourProvider.tsx` | new | `"use client"`; `NextStepProvider` + `NextStep`; mount-gated |
-| `components/appSidebar.tsx` | modify | import `getRoleMenuKey` (delete the local copy); no other change |
-| `components/ConditionalLayout.tsx` | modify | wrap the shell branch in `TourProvider`; `data-tour="header"`; `Panduan` button in the header |
-| 20 dashboard pages | modify | one `data-tour` attribute each |
+| `components/tour/TourProvider.tsx` | new | `"use client"`; `NextStepProvider` + `NextStep`; mount-gated; writes status from `onComplete` / `onSkip` |
+| `components/tour/TourReplayButton.tsx` | new | the header button, calling `useTourReplay()` |
+| `components/appSidebar.tsx` | modify | import `getRoleMenuKey` instead of the local copy — no other change |
+| `components/ConditionalLayout.tsx` | modify | wrap the shell branch in `TourProvider`; `data-tour="header"`; render `TourReplayButton` |
+| `AGENTS.md` | modify | §Testing: add `bun run lib/tours/tour.check.ts` next to the existing `retry.check.ts` line |
+
+No dashboard page is edited; §5 explains why.
 
 `TourCard.tsx` — nextstepjs strips `showControls` / `showSkip` from the step types when
 `cardComponent` is supplied, so the card owns its own controls. It receives
@@ -222,14 +228,14 @@ the page-level steps. `desktop` comes from
 |---|---|
 | Sticky header covers the highlighted element | `scrollOffset: 88` on every step |
 | Target element renders after data fetch | `selectorRetryAttempts: 3`, `selectorRetryDelay: 250` |
-| Fresh tenant: empty pages, no data rows | Steps target headings/primary actions only, never data. A missing target degrades to a centered card rather than a broken tour |
+| Fresh tenant: empty pages | Page steps carry no selector, so an empty page changes nothing; no step points at data, a table row, or a metric |
 | Tour points at a route the role lacks | Routes pinned to the audited per-role live lists in §5; `admin`-only steps filtered by `menuKey` |
 | Dead menu routes (3 found) leaked into a step | Audit result recorded in §1; none of the 5 tours uses them |
 | Sidebar off-canvas on mobile | Separate mobile step list (§8) |
 | Hydration mismatch from `matchMedia` / `localStorage` | `NextStep` renders only after mount |
 | `localStorage` unavailable (private mode) | `try/catch` on read and write; degrades to "runs every time" |
 | Double auto-start (React 19 StrictMode remounts, re-renders) | `useRef` latch for the whole session, plus a check of `isNextStepVisible` from `useNextStep()` |
-| Tour content drifts when a menu route changes | The route audit in §1 is re-runnable; §11 records it as a follow-up check, not new tooling |
+| Tour content drifts when a menu route is moved or deleted | `lib/tours/tour.check.ts` asserts every route in `TOUR_ROUTES` has a `page.tsx`; run it after any route change |
 | Landing/auth animations disturbed | Provider is mounted inside the dashboard branch of `ConditionalLayout` only |
 
 ## 10. Verification
@@ -242,10 +248,12 @@ No test framework exists in this repo (`AGENTS.md` §Testing), so verification i
    self-check, `tsc`, and `build`, and the browser walkthrough is handed to the user.
 
 1. `bun run lib/tours/tour.check.ts` — assert-based, no broker/framework, matching the
-   existing `lib/rabbitMQ/retry.check.ts` convention. Covers role→tourKey mapping
-   (including `null`, and `admin` vs `schooladministrator`) and the storage-key shape.
+   existing `lib/rabbitMQ/retry.check.ts` convention. Covers role→menuKey→tourKey mapping
+   (including `null`, and `admin` vs `schooladministrator`), the storage-key shape, and
+   that every route in `TOUR_ROUTES` resolves to a real `page.tsx`.
 2. Browser, dev server on `:8999`:
-   - clear `localStorage` → sign in as admin → tour auto-starts, 7 steps, cross-page
+   - clear `localStorage` → sign in as admin → tour auto-starts, 8 steps (5 if a branch is
+     already selected), cross-page
      `nextRoute` navigation lands and the highlight appears;
    - a step whose target is missing degrades to a centered card (confirms the
      `nextstepjs` behavior assumed in §9);
