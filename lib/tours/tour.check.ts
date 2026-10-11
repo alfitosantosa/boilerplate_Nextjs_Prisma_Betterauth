@@ -68,13 +68,14 @@ for (const route of ALL_TOUR_ROUTES) {
   );
 }
 
-// Tur admin: langkah tingkat yayasan hanya untuk menuKey admin, bukan schooladministrator.
-const routesOf = (tour: Tour): string[] =>
-  tour.steps.flatMap((step) =>
-    [step.nextRoute, step.prevRoute].filter(
-      (route): route is string => typeof route === "string",
-    ),
-  );
+// Rantai navigasi MAJU: nextstepjs berpindah halaman lewat `nextRoute` langkah sebelum
+// langkah yang ditampilkan, jadi rantai ini harus menyentuh setiap halaman berurutan.
+// Assertion `includes` terlalu lemah — bug rute halaman pertama yang tidak pernah
+// dinavigasi lolos dari `includes`, jadi yang diperiksa adalah urutannya.
+const forwardRoutes = (tour: Tour): string[] =>
+  tour.steps
+    .map((step) => step.nextRoute)
+    .filter((route): route is string => typeof route === "string");
 const adminTour = buildTours({ desktop: true, menuKey: "admin" }).find(
   (tour) => tour.tour === "admin",
 );
@@ -84,9 +85,18 @@ const schoolTour = buildTours({
 }).find((tour) => tour.tour === "admin");
 assert.ok(adminTour);
 assert.ok(schoolTour);
-assert.ok(routesOf(adminTour).includes(TOUR_ROUTES.admin.academicYear));
-assert.ok(!routesOf(schoolTour).includes(TOUR_ROUTES.admin.academicYear));
-assert.ok(routesOf(schoolTour).includes(TOUR_ROUTES.admin.attendance));
+assert.deepEqual(forwardRoutes(adminTour), [
+  TOUR_ROUTES.admin.academicYear,
+  TOUR_ROUTES.admin.branchs,
+  TOUR_ROUTES.admin.users,
+  TOUR_ROUTES.admin.classes,
+  TOUR_ROUTES.admin.attendance,
+]);
+// Admin sekolah tidak punya menu tingkat yayasan, jadi rantainya lebih pendek.
+assert.deepEqual(forwardRoutes(schoolTour), [
+  TOUR_ROUTES.admin.classes,
+  TOUR_ROUTES.admin.attendance,
+]);
 
 // Desktop memakai anchor sidebar; mobile menggantinya dengan tombol pembuka sidebar.
 const desktopAdmin = adminTour.steps.map((step) => step.selector);

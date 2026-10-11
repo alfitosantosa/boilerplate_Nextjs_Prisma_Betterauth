@@ -264,26 +264,24 @@ export function buildTours({
   const adminPages =
     menuKey === "schooladministrator" ? ADMIN_SCHOOL_PAGES : ADMIN_PAGES;
 
+  // nextstepjs berpindah halaman lewat `nextRoute` langkah SEBELUM langkah yang
+  // ditampilkan, jadi rute halaman pertama harus menempel pada langkah krom terakhir —
+  // tanpa itu kartu halaman pertama tampil di halaman tempat pengguna sedang berada.
+  const stepsFor = (pages: PageStep[]): Step[] => [
+    ...chrome.map((step, index) =>
+      index === chrome.length - 1
+        ? { ...step, nextRoute: pages[0].route }
+        : step,
+    ),
+    ...pageSteps(pages),
+    closing,
+  ];
+
   return [
-    {
-      tour: "admin" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(adminPages), closing],
-    },
-    {
-      tour: "treasurer" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(TREASURER_PAGES), closing],
-    },
-    {
-      tour: "teacher" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(TEACHER_PAGES), closing],
-    },
-    {
-      tour: "student" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(STUDENT_PAGES), closing],
-    },
-    {
-      tour: "parent" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(PARENT_PAGES), closing],
-    },
+    { tour: "admin" satisfies TourKey, steps: stepsFor(adminPages) },
+    { tour: "treasurer" satisfies TourKey, steps: stepsFor(TREASURER_PAGES) },
+    { tour: "teacher" satisfies TourKey, steps: stepsFor(TEACHER_PAGES) },
+    { tour: "student" satisfies TourKey, steps: stepsFor(STUDENT_PAGES) },
+    { tour: "parent" satisfies TourKey, steps: stepsFor(PARENT_PAGES) },
   ];
 }
