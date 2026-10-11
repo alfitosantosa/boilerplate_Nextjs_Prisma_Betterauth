@@ -8,6 +8,7 @@ import { buildTours } from "@/lib/tours/tours";
 import { isTourKey, writeTourDone } from "@/lib/tours/tourModel";
 import { useTourAutoStart, useTourKey } from "@/lib/tours/useTour";
 import { TourCard } from "./TourCard";
+import { TourDialogSync } from "./TourDialogSync";
 
 const DESKTOP_QUERY = "(min-width: 768px)";
 
@@ -52,6 +53,7 @@ export function TourProvider({ children }: { children: ReactNode }) {
         {children}
       </NextStep>
       <TourAutoStart />
+      <TourDialogSync tours={tours} />
     </NextStepProvider>
   );
 }

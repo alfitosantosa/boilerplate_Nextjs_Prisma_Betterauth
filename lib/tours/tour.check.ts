@@ -14,9 +14,24 @@ import { fileURLToPath } from "node:url";
 import type { Tour } from "nextstepjs";
 
 import { getRoleMenuKey } from "../ui/roleKey";
-import { SELECTORS, TOUR_ATTR, TOUR_CREATE, TOUR_HEADER } from "./selectors";
+import {
+  FIELD_SELECTOR,
+  SELECTORS,
+  TOUR_ATTR,
+  TOUR_CREATE,
+  TOUR_DIALOG_VALUE,
+  TOUR_FIELD_VALUE,
+  TOUR_HEADER,
+  type TourDialogKey,
+  type TourFieldKey,
+} from "./selectors";
 import { isTourKey, storageKey, tourKeyForMenuKey } from "./tourModel";
-import { ALL_TOUR_ROUTES, buildTours, TOUR_ROUTES } from "./tours";
+import {
+  ALL_TOUR_ROUTES,
+  buildTours,
+  TOUR_ROUTES,
+  type DialogStep,
+} from "./tours";
 
 // role -> menu key: perilaku hasil ekstraksi dari appSidebar, tidak boleh berubah.
 assert.equal(getRoleMenuKey("Admin Yayasan"), "admin");
@@ -110,15 +125,20 @@ assert.ok(mobileAdmin.includes(SELECTORS.sidebarTrigger));
 assert.ok(!mobileAdmin.includes(SELECTORS.sidebarNav));
 assert.ok(!mobileAdmin.includes(SELECTORS.sidebarFooter));
 
-// Tiga halaman master menyorot tombol buatnya supaya pengguna mengisi satu data pertama.
-// Ketiga langkah itu harus memakai sisi `left`: tombolnya ada di kanan, dan `left` adalah
+// Empat halaman master menyorot tombol buatnya supaya pengguna mengisi satu data pertama.
+// Keempat langkah itu harus memakai sisi `left`: tombolnya ada di kanan, dan `left` adalah
 // satu-satunya sisi yang tidak dibalik library demi ruang tepi layar.
 const createSteps = adminTour.steps.filter(
   (step) => step.selector === SELECTORS.createButton,
 );
 assert.deepEqual(
   createSteps.map((step) => step.title),
-  ["Mulai dari Tahun Ajaran", "Daftarkan tiap sekolah", "Susun kelas"],
+  [
+    "Mulai dari Tahun Ajaran",
+    "Daftarkan tiap sekolah",
+    "Undang guru, siswa, dan orang tua",
+    "Susun kelas",
+  ],
 );
 for (const step of createSteps) {
   assert.equal(step.side, "left", `sisi salah pada langkah: ${step.title}`);
@@ -131,6 +151,7 @@ assert.ok(!mobileAdmin.includes(SELECTORS.createButton));
 const CREATE_ROUTES = [
   TOUR_ROUTES.admin.academicYear,
   TOUR_ROUTES.admin.branchs,
+  TOUR_ROUTES.admin.users,
   TOUR_ROUTES.admin.classes,
 ];
 for (const route of CREATE_ROUTES) {
@@ -163,5 +184,111 @@ for (const tour of semuaTur) {
     );
   }
 }
+
+/**
+ * Blok dialog: tur masuk ke dalam dialog tambah-data, dan `TourDialogSync` memindahkannya
+ * berdasarkan penanda `data-tour` yang ada di DOM. Penanda yang salah ketik tidak error di
+ * runtime — langkahnya diam-diam berubah jadi kartu tengah — jadi setiap penanda diperiksa
+ * di sini terhadap berkas yang benar-benar memasangnya.
+ */
+const repoRoot = fileURLToPath(new URL("../../", import.meta.url));
+
+const DIALOG_TARGETS: {
+  file: string;
+  dialog: TourDialogKey;
+  fields: TourFieldKey[];
+}[] = [
+  {
+    file: "app/(frontend)/(dashboard)/dashboard/admin/master/academicyear/page.tsx",
+    dialog: "academicYear",
+    fields: ["academicYearName", "academicYearRange", "academicYearActive"],
+  },
+  {
+    file: "app/(frontend)/(dashboard)/dashboard/admin/master/branchs/page.tsx",
+    dialog: "sekolah",
+    fields: ["sekolahCode", "sekolahName", "sekolahAdmin"],
+  },
+  {
+    // Form tambah pengguna tinggal di komponen bersama, bukan di halaman users.
+    file: "components/dialog/DialogUser.tsx",
+    dialog: "pengguna",
+    fields: ["penggunaName", "penggunaEmail", "penggunaRole"],
+  },
+  {
+    file: "app/(frontend)/(dashboard)/dashboard/admin/master/classes/page.tsx",
+    dialog: "kelas",
+    fields: ["kelasName", "kelasGrade", "kelasBranch"],
+  },
+];
+
+const dialogIndex = adminTour.steps
+  .map((step, index) => ({ dialog: (step as DialogStep).dialog, index }))
+  .filter((entry) => entry.dialog !== undefined);
+
+const coveredDialogs = DIALOG_TARGETS.map((target) => target.dialog);
+assert.ok(
+  dialogIndex.every((entry) => coveredDialogs.includes(entry.dialog!)),
+  "ada blok dialog di tur yang tidak diperiksa di sini",
+);
+
+for (const target of DIALOG_TARGETS) {
+  // Berkas yang memiliki dialog benar-benar memasang penandanya.
+  const source = readFileSync(join(repoRoot, target.file), "utf8");
+  assert.ok(
+    source.includes(`data-tour={TOUR_DIALOG_VALUE.${target.dialog}}`),
+    `isi dialog tanpa data-tour: ${target.file}`,
+  );
+  assert.ok(
+    source.includes("data-tour={TOUR_SUBMIT}"),
+    `tombol simpan tanpa data-tour: ${target.file}`,
+  );
+  for (const field of target.fields) {
+    assert.ok(
+      source.includes(`data-tour={TOUR_FIELD_VALUE.${field}}`),
+      `kolom ${field} tanpa data-tour: ${target.file}`,
+    );
+  }
+
+  // Langkahnya berurutan — `TourDialogSync` membacanya sebagai satu rentang indeks.
+  const indices: number[] = dialogIndex
+    .filter((entry) => entry.dialog === target.dialog)
+    .map((entry) => entry.index);
+  assert.ok(indices.length > 0, `blok dialog tidak ada di tur: ${target.dialog}`);
+  assert.equal(
+    indices.at(-1)! - indices[0] + 1,
+    indices.length,
+    `langkah dialog ${target.dialog} tidak berurutan`,
+  );
+
+  // Blok selalu diawali langkah tombol buat: tanpa itu tidak ada yang membuka dialognya.
+  assert.equal(
+    adminTour.steps[indices[0] - 1]?.selector,
+    SELECTORS.createButton,
+    `blok ${target.dialog} tidak didahului langkah tombol buat`,
+  );
+
+  // Setiap kolom punya langkahnya, dan blok diakhiri tombol simpan.
+  const blockSelectors: (string | undefined)[] = indices.map(
+    (index) => adminTour.steps[index]?.selector,
+  );
+  for (const field of target.fields) {
+    assert.ok(
+      blockSelectors.includes(FIELD_SELECTOR[field]),
+      `langkah kolom ${field} hilang dari blok ${target.dialog}`,
+    );
+  }
+  assert.equal(
+    blockSelectors.at(-1),
+    SELECTORS.submit,
+    `blok ${target.dialog} tidak diakhiri tombol simpan`,
+  );
+}
+
+// Di mobile blok dialog dilewati seluruhnya: formulirnya sering lebih tinggi dari layar,
+// dan tombol simpannya di luar pandangan.
+const mobileDialogSteps = buildTours({ desktop: false, menuKey: "admin" })
+  .find((tour) => tour.tour === "admin")!
+  .steps.filter((step) => (step as DialogStep).dialog !== undefined);
+assert.equal(mobileDialogSteps.length, 0, "blok dialog harus kosong di mobile");
 
 console.log("tour.check.ts: semua assert lolos");

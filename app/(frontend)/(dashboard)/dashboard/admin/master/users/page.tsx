@@ -35,6 +35,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useSession } from "@/lib/betterauth/authClients";
+import { TOUR_CREATE } from "@/lib/tours/selectors";
 import {
   type ColumnDef,
   type ColumnFiltersState,
@@ -807,7 +808,10 @@ function UserDashboard({ foundationId }: { foundationId: string }) {
             </Button>
           )}
 
-          <Button onClick={() => setCreateDialogOpen(true)}>
+          <Button
+            onClick={() => setCreateDialogOpen(true)}
+            data-tour={TOUR_CREATE}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Tambah User
           </Button>

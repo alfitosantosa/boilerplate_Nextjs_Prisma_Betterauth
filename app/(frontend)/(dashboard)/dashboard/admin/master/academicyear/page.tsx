@@ -55,7 +55,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useSession } from "@/lib/betterauth/authClients";
-import { TOUR_CREATE } from "@/lib/tours/selectors";
+import {
+  TOUR_CREATE,
+  TOUR_DIALOG_VALUE,
+  TOUR_FIELD_VALUE,
+  TOUR_SUBMIT,
+} from "@/lib/tours/selectors";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   type ColumnDef,
@@ -153,7 +158,10 @@ function AcademicYearFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md">
+      <DialogContent
+        className="max-w-md"
+        data-tour={TOUR_DIALOG_VALUE.academicYear}
+      >
         <DialogHeader>
           <DialogTitle>
             {editData ? "Edit Tahun Ajaran" : "Tambah Tahun Ajaran Baru"}
@@ -165,6 +173,7 @@ function AcademicYearFormDialog({
             <Label htmlFor="year">Tahun Ajaran</Label>
             <Input
               id="year"
+              data-tour={TOUR_FIELD_VALUE.academicYearName}
               placeholder="Contoh: 2024/2025"
               {...register("year")}
             />
@@ -175,7 +184,12 @@ function AcademicYearFormDialog({
 
           <div className="space-y-2">
             <Label htmlFor="startDate">Tanggal Mulai</Label>
-            <Input id="startDate" type="date" {...register("startDate")} />
+            <Input
+              id="startDate"
+              data-tour={TOUR_FIELD_VALUE.academicYearRange}
+              type="date"
+              {...register("startDate")}
+            />
             {errors.startDate && (
               <p className="text-destructive text-sm">
                 {errors.startDate.message}
@@ -196,6 +210,7 @@ function AcademicYearFormDialog({
           <div className="flex items-center space-x-2">
             <Switch
               id="isActive"
+              data-tour={TOUR_FIELD_VALUE.academicYearActive}
               checked={isActiveValue}
               onCheckedChange={(checked) => setValue("isActive", checked)}
             />
@@ -212,6 +227,7 @@ function AcademicYearFormDialog({
             </Button>
             <Button
               type="submit"
+              data-tour={TOUR_SUBMIT}
               disabled={
                 createAcademicYear.isPending || updateAcademicYear.isPending
               }

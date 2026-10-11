@@ -52,7 +52,12 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { useSession } from "@/lib/betterauth/authClients";
-import { TOUR_CREATE } from "@/lib/tours/selectors";
+import {
+  TOUR_CREATE,
+  TOUR_DIALOG_VALUE,
+  TOUR_FIELD_VALUE,
+  TOUR_SUBMIT,
+} from "@/lib/tours/selectors";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   type ColumnDef,
@@ -409,7 +414,10 @@ function BranchFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] max-w-lg overflow-y-auto">
+      <DialogContent
+        className="max-h-[90vh] max-w-lg overflow-y-auto"
+        data-tour={TOUR_DIALOG_VALUE.sekolah}
+      >
         <DialogHeader>
           <DialogTitle>
             {editData ? "Edit Sekolah" : "Tambah Sekolah Baru"}
@@ -423,7 +431,12 @@ function BranchFormDialog({
               <Label htmlFor="code">
                 Kode Sekolah <span className="text-destructive">*</span>
               </Label>
-              <Input id="code" placeholder="SMAIT001" {...register("code")} />
+              <Input
+                id="code"
+                data-tour={TOUR_FIELD_VALUE.sekolahCode}
+                placeholder="SMAIT001"
+                {...register("code")}
+              />
               {errors.code && (
                 <p className="text-destructive text-sm">
                   {errors.code.message}
@@ -455,6 +468,7 @@ function BranchFormDialog({
             </Label>
             <Input
               id="name"
+              data-tour={TOUR_FIELD_VALUE.sekolahName}
               placeholder={`Contoh: SMA IT ${process.env.NEXT_PUBLIC_CLIENT_NAME?.toUpperCase()}`}
               {...register("name")}
             />
@@ -513,6 +527,7 @@ function BranchFormDialog({
               </Label>
               <Input
                 id="adminName"
+                data-tour={TOUR_FIELD_VALUE.sekolahAdmin}
                 placeholder="Nama bendahara..."
                 {...register("adminName")}
               />
@@ -541,6 +556,7 @@ function BranchFormDialog({
             </Button>
             <Button
               type="submit"
+              data-tour={TOUR_SUBMIT}
               disabled={createBranch.isPending || updateBranch.isPending}
             >
               {createBranch.isPending || updateBranch.isPending

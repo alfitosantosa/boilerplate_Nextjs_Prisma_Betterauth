@@ -38,6 +38,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  TOUR_DIALOG_VALUE,
+  TOUR_FIELD_VALUE,
+  TOUR_SUBMIT,
+} from "@/lib/tours/selectors";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -1460,7 +1465,10 @@ export function UserFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
+      <DialogContent
+        className="max-h-[90vh] max-w-4xl overflow-y-auto"
+        data-tour={TOUR_DIALOG_VALUE.pengguna}
+      >
         <DialogHeader>
           <DialogTitle>
             {editData ? "Edit User" : "Tambah User Baru"}
@@ -1485,6 +1493,7 @@ export function UserFormDialog({
                 <Label htmlFor="name">Nama Lengkap *</Label>
                 <Input
                   id="name"
+                  data-tour={TOUR_FIELD_VALUE.penggunaName}
                   placeholder="Masukkan nama lengkap"
                   {...register("name")}
                 />
@@ -1498,6 +1507,7 @@ export function UserFormDialog({
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  data-tour={TOUR_FIELD_VALUE.penggunaEmail}
                   type="email"
                   placeholder="user@example.com"
                   {...register("email")}
@@ -1517,7 +1527,7 @@ export function UserFormDialog({
                   onValueChange={(value) => setValue("roleId", value)}
                   value={watch("roleId")}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger data-tour={TOUR_FIELD_VALUE.penggunaRole}>
                     <SelectValue placeholder="Pilih role" />
                   </SelectTrigger>
                   <SelectContent>
@@ -1599,6 +1609,7 @@ export function UserFormDialog({
             </Button>
             <Button
               type="submit"
+              data-tour={TOUR_SUBMIT}
               disabled={createUser.isPending || updateUser.isPending}
             >
               {createUser.isPending || updateUser.isPending

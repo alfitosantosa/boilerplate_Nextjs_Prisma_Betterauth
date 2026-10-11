@@ -63,7 +63,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useSession } from "@/lib/betterauth/authClients";
-import { TOUR_CREATE } from "@/lib/tours/selectors";
+import {
+  TOUR_CREATE,
+  TOUR_DIALOG_VALUE,
+  TOUR_FIELD_VALUE,
+  TOUR_SUBMIT,
+} from "@/lib/tours/selectors";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   type ColumnDef,
@@ -162,7 +167,7 @@ function ClassFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md" data-tour={TOUR_DIALOG_VALUE.kelas}>
         <DialogHeader>
           <DialogTitle>
             {editData ? "Edit Kelas" : "Tambah Kelas Baru"}
@@ -174,6 +179,7 @@ function ClassFormDialog({
             <Label htmlFor="name">Nama Kelas</Label>
             <Input
               id="name"
+              data-tour={TOUR_FIELD_VALUE.kelasName}
               placeholder="Contoh: X IPA 1"
               {...register("name")}
             />
@@ -186,6 +192,7 @@ function ClassFormDialog({
             <Label htmlFor="grade">Tingkat</Label>
             <Input
               id="grade"
+              data-tour={TOUR_FIELD_VALUE.kelasGrade}
               type="number"
               placeholder="10, 11, 12"
               {...register("grade", { valueAsNumber: true })}
@@ -201,7 +208,7 @@ function ClassFormDialog({
               value={selectedBranchId}
               onValueChange={(value) => setValue("branchId", value)}
             >
-              <SelectTrigger>
+              <SelectTrigger data-tour={TOUR_FIELD_VALUE.kelasBranch}>
                 <SelectValue placeholder="Pilih Sekolah" />
               </SelectTrigger>
               <SelectContent>
@@ -268,6 +275,7 @@ function ClassFormDialog({
             </Button>
             <Button
               type="submit"
+              data-tour={TOUR_SUBMIT}
               disabled={createClass.isPending || updateClass.isPending}
             >
               {createClass.isPending || updateClass.isPending

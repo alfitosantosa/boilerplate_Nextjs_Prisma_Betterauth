@@ -1,6 +1,6 @@
 import type { Step, Tour } from "nextstepjs";
 
-import { SELECTORS } from "./selectors";
+import { FIELD_SELECTOR, SELECTORS, type TourDialogKey } from "./selectors";
 import type { TourKey } from "./tourModel";
 
 /**
@@ -65,29 +65,73 @@ const ANCHOR = {
  * ketemu berakhir sebagai kartu tengah, persis seperti ini.
  *
  * Halaman yang punya tombol buat (`data-tour="create"`) boleh menunjuk tombolnya, supaya
- * pengguna tahu apa yang harus diklik untuk mengisi data pertama.
+ * pengguna tahu apa yang harus diklik untuk mengisi data pertama. Kalau halaman itu juga
+ * punya `dialog`, langkahnya berlanjut ke dalam dialog yang terbuka setelah tombol itu
+ * ditekan — `TourDialogSync` yang memindahkannya.
  */
+type DialogFieldStep = {
+  title: string;
+  content: string;
+  selector: string;
+  side?: Step["side"];
+};
+
 type PageStep = {
   route: string;
   title: string;
   content: string;
   selector?: string;
   side?: Step["side"];
+  /** Langkah yang berjalan di dalam dialog tambah-data halaman ini. */
+  dialog?: { name: TourDialogKey; fields: DialogFieldStep[] };
 };
 
+/**
+ * `Step` dengan penanda dialog: `dialog` memberi tahu `TourDialogSync` bahwa langkah ini
+ * hanya berlaku selama dialog itu terbuka. nextstepjs mengabaikan kolom yang tidak
+ * dikenalnya, jadi penanda ini tidak menuntut perubahan apa pun di library.
+ */
+export type DialogStep = Step & { dialog?: TourDialogKey };
+
 function pageSteps(pages: PageStep[], desktop: boolean): Step[] {
-  return pages.map((page, index) => ({
-    title: page.title,
-    content: page.content,
-    // Langkah terakhir tidak mengarahkan apa-apa: langkah penutup ada di sidebar.
-    ...(index < pages.length - 1 ? { nextRoute: pages[index + 1].route } : {}),
-    ...(index > 0 ? { prevRoute: pages[index - 1].route } : {}),
-    // Sorotan tombol buat hanya di desktop: di mobile tombol itu sering berada di luar
-    // layar, dan kartu yang menempel padanya ikut keluar layar.
-    ...(desktop && page.selector
-      ? { selector: page.selector, side: page.side, ...ANCHOR }
-      : {}),
-  }));
+  const steps: DialogStep[] = [];
+
+  pages.forEach((page, index) => {
+    const nextRoute = index < pages.length - 1 ? pages[index + 1].route : null;
+    const prevRoute = index > 0 ? pages[index - 1].route : null;
+    // Blok dialog hanya jalan di desktop, sama seperti sorotan tombolnya: di mobile
+    // formulir sering lebih tinggi dari layar dan tombol simpannya di luar pandangan.
+    const fields = desktop ? (page.dialog?.fields ?? []) : [];
+
+    steps.push({
+      title: page.title,
+      content: page.content,
+      // Langkah terakhir tidak mengarahkan apa-apa: langkah penutup ada di sidebar.
+      // Kalau halaman ini punya blok dialog, tongkatnya diserahkan ke langkah pertama di
+      // dalam dialog, bukan ke halaman berikutnya.
+      ...(nextRoute && fields.length === 0 ? { nextRoute } : {}),
+      ...(prevRoute ? { prevRoute } : {}),
+      // Sorotan tombol buat hanya di desktop: di mobile tombol itu sering berada di luar
+      // layar, dan kartu yang menempel padanya ikut keluar layar.
+      ...(desktop && page.selector
+        ? { selector: page.selector, side: page.side, ...ANCHOR }
+        : {}),
+    });
+
+    fields.forEach((field, fieldIndex) => {
+      steps.push({
+        title: field.title,
+        content: field.content,
+        selector: field.selector,
+        ...(field.side ? { side: field.side } : {}),
+        ...ANCHOR,
+        ...(page.dialog ? { dialog: page.dialog.name } : {}),
+        ...(fieldIndex === fields.length - 1 && nextRoute ? { nextRoute } : {}),
+      });
+    });
+  });
+
+  return steps;
 }
 
 const NAV_STEP: Step = {
@@ -154,6 +198,39 @@ const ADMIN_PAGES: PageStep[] = [
       "Buat satu tahun ajaran dulu lewat tombol Tambah Tahun Ajaran. Kelas, jadwal, dan tagihan menempel ke tahun ajaran yang aktif.",
     selector: SELECTORS.createButton,
     side: "left",
+    dialog: {
+      name: "academicYear",
+      fields: [
+        {
+          title: "Isi nama tahun ajaran",
+          content:
+            "Tulis dengan pola tahun/tahun, misal 2025/2026. Nama inilah yang muncul di setiap rapor dan tagihan.",
+          selector: FIELD_SELECTOR.academicYearName,
+          side: "right",
+        },
+        {
+          title: "Tentukan rentang tanggal",
+          content:
+            "Tanggal mulai dan tanggal selesai menentukan periode yang dihitung di rapor dan tagihan. Isi keduanya, jangan hanya tanggal mulai.",
+          selector: FIELD_SELECTOR.academicYearRange,
+          side: "right",
+        },
+        {
+          title: "Nyalakan status Aktif",
+          content:
+            "Tahun ajaran yang aktif jadi acuan halaman lain: kelas, jadwal, dan tagihan mengambil tahun berjalan dari sini.",
+          selector: FIELD_SELECTOR.academicYearActive,
+          side: "right",
+        },
+        {
+          title: "Simpan",
+          content:
+            "Tekan Simpan. Tahun ajaran langsung masuk daftar dan bisa dipilih saat membuat kelas.",
+          selector: SELECTORS.submit,
+          side: "top",
+        },
+      ],
+    },
   },
   {
     route: TOUR_ROUTES.admin.branchs,
@@ -162,12 +239,80 @@ const ADMIN_PAGES: PageStep[] = [
       "Tambah Sekolah mendaftarkan SMP, SMA, dan SMK IT sebagai cabang. Data antar cabang terpisah, termasuk rekening kasnya.",
     selector: SELECTORS.createButton,
     side: "left",
+    dialog: {
+      name: "sekolah",
+      fields: [
+        {
+          title: "Kode sekolah",
+          content:
+            "Kode jadi penanda unik tiap unit, misal SMAIT001. Isi sekali dan jangan diubah setelah dipakai, karena kode ikut tercetak di kuitansi.",
+          selector: FIELD_SELECTOR.sekolahCode,
+          side: "right",
+        },
+        {
+          title: "Nama sekolah",
+          content:
+            "Nama unit ini yang tampil di menu, laporan yayasan, dan tagihan yang dilihat orang tua.",
+          selector: FIELD_SELECTOR.sekolahName,
+          side: "right",
+        },
+        {
+          title: "Pengelola unit",
+          content:
+            "Nama pengelola atau bendahara unit — orang yang dihubungi orang tua soal pembayaran. Kolom lain seperti alamat dan telepon sifatnya opsional.",
+          selector: FIELD_SELECTOR.sekolahAdmin,
+          side: "right",
+        },
+        {
+          title: "Simpan, lalu ulangi per jenjang",
+          content:
+            "Simpan unit pertama. Ulangi langkah yang sama untuk setiap jenjang: SMP, SMA, dan SMK IT.",
+          selector: SELECTORS.submit,
+          side: "top",
+        },
+      ],
+    },
   },
   {
     route: TOUR_ROUTES.admin.users,
     title: "Undang guru, siswa, dan orang tua",
     content:
-      "Akun dibuat di sini. Pengguna hanya melihat data cabangnya sendiri.",
+      "Akun dibuat lewat tombol Tambah User. Pengguna hanya melihat data cabangnya sendiri.",
+    selector: SELECTORS.createButton,
+    side: "left",
+    dialog: {
+      name: "pengguna",
+      fields: [
+        {
+          title: "Nama lengkap",
+          content:
+            "Isi nama seperti tercatat di sekolah — nama ini yang muncul di daftar pengguna dan di laporan.",
+          selector: FIELD_SELECTOR.penggunaName,
+          side: "right",
+        },
+        {
+          title: "Email",
+          content:
+            "Email dipakai pengguna untuk masuk dan menerima kuitansi. Pastikan penulisannya benar sebelum disimpan.",
+          selector: FIELD_SELECTOR.penggunaEmail,
+          side: "right",
+        },
+        {
+          title: "Peran menentukan sisanya",
+          content:
+            "Pilih peran lebih dulu: siswa, guru, bendahara, atau orang tua. Kolom di bawahnya menyesuaikan peran yang dipilih — siswa akan diminta NISN dan kelas, guru diminta NIP dan posisi.",
+          selector: FIELD_SELECTOR.penggunaRole,
+          side: "right",
+        },
+        {
+          title: "Simpan akun",
+          content:
+            "Tekan Simpan. Akun aktif di cabang yang dipilih, dengan hak akses mengikuti perannya.",
+          selector: SELECTORS.submit,
+          side: "top",
+        },
+      ],
+    },
   },
   {
     route: TOUR_ROUTES.admin.classes,
@@ -176,6 +321,38 @@ const ADMIN_PAGES: PageStep[] = [
       "Setelah tahun ajaran ada, buat satu kelas lewat tombol Tambah Kelas, lalu tunjuk wali kelasnya.",
     selector: SELECTORS.createButton,
     side: "left",
+    dialog: {
+      name: "kelas",
+      fields: [
+        {
+          title: "Nama kelas",
+          content:
+            "Tulis nama kelas seperti yang muncul di jadwal, misal X IPA 1 atau VII-A.",
+          selector: FIELD_SELECTOR.kelasName,
+          side: "right",
+        },
+        {
+          title: "Tingkat",
+          content: "Tingkat diisi angka saja: 10, 11, atau 12.",
+          selector: FIELD_SELECTOR.kelasGrade,
+          side: "right",
+        },
+        {
+          title: "Sekolah pemilik kelas",
+          content:
+            "Pilih cabang pemilik kelas ini. Pilihannya hanya cabang yang sudah didaftarkan, jadi daftarkan sekolahnya lebih dulu.",
+          selector: FIELD_SELECTOR.kelasBranch,
+          side: "right",
+        },
+        {
+          title: "Simpan kelas",
+          content:
+            "Tekan Simpan. Kelas siap dipakai untuk jadwal, presensi, dan tagihan.",
+          selector: SELECTORS.submit,
+          side: "top",
+        },
+      ],
+    },
   },
   {
     route: TOUR_ROUTES.admin.attendance,
