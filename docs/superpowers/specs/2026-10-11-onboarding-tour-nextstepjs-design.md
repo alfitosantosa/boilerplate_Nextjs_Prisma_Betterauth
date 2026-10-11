@@ -291,3 +291,31 @@ No test framework exists in this repo (`AGENTS.md` §Testing), so verification i
    deferred and not covered here.
 4. **Persistence is per browser.** If the tour status must follow the user across devices
    later, that is a `user_data` column plus an endpoint — a separate change.
+
+## 12. Amendment (2026-10-11, after the browser walkthrough)
+
+Two placements from §5/§8 clipped the card: nextstepjs centres a card on the spotlight box
+and never clamps it to the viewport, so anchoring a card to an element on a screen edge
+pushes it off-screen.
+
+- **Closing step (step 8, "Akun Anda").** The account block sits on the viewport's bottom
+  edge, so `side: "right"` centred the 196px card on it and pushed 60px — the whole
+  "Kembali / Selesai" row — below the fold. `right-bottom` is not a fix:
+  `checkSideCutOff` swaps it for `right-top` whenever `body.scrollHeight - boxBottom < 256`,
+  which holds on every real dashboard page (982px body at a 1280x800 viewport). The step
+  now uses `side: "top-left"` — the card grows upward off the anchor, so the anchor's
+  position on the screen cannot clip it — plus `pointerPadding: 0`, because the footer
+  starts at x=0 and an 8px pointer pad otherwise starts the card at x=-4.
+- **Mobile nav step.** `side: "bottom"` centred a full-width card on the 44px sidebar
+  trigger at the header's left edge, leaving 146px of it off-screen. `side: "bottom-left"`.
+
+Measured after the change in Chromium at 1280x800 (8 steps) and 390x844 (7 steps): every
+card fits the viewport with zero clipped edges, the spotlight lands on the account block
+and on the sidebar trigger, and "Selesai" is reachable and writes the `done` key.
+
+Page steps now carry a selector on the three pages that have a create button
+(`data-tour="create"` on the Tambah buttons in Tahun Ajaran, Sekolah, and Kelas), so the
+tour points at the button the user presses to create their first record of each. Desktop
+only: on mobile those buttons sit outside the viewport. `lib/tours/tour.check.ts` asserts
+the three anchors, their `left` side, that the mobile tour drops them, and that the three
+page files still carry the attribute.

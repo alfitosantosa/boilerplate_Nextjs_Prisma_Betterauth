@@ -7,14 +7,14 @@
  * @types/bun (belum terpasang) yang membuat `tsc --noEmit` gagal.
  */
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import type { Tour } from "nextstepjs";
 
 import { getRoleMenuKey } from "../ui/roleKey";
-import { SELECTORS, TOUR_ATTR, TOUR_HEADER } from "./selectors";
+import { SELECTORS, TOUR_ATTR, TOUR_CREATE, TOUR_HEADER } from "./selectors";
 import { isTourKey, storageKey, tourKeyForMenuKey } from "./tourModel";
 import { ALL_TOUR_ROUTES, buildTours, TOUR_ROUTES } from "./tours";
 
@@ -52,6 +52,7 @@ assert.equal(storageKey("u2", "parent"), "lms.tour.v1.u2.parent");
 
 // `data-tour` di header dipasang lewat konstanta ini; pastikan tidak tertukar.
 assert.equal(SELECTORS.header, `[${TOUR_ATTR}="${TOUR_HEADER}"]`);
+assert.equal(SELECTORS.createButton, `[${TOUR_ATTR}="${TOUR_CREATE}"]`);
 
 // Setiap rute yang dipakai tur harus punya page.tsx — kalau tidak, tur menabrak 404.
 const pagesDir = fileURLToPath(
@@ -108,6 +109,43 @@ const mobileAdmin = buildTours({ desktop: false, menuKey: "admin" })
 assert.ok(mobileAdmin.includes(SELECTORS.sidebarTrigger));
 assert.ok(!mobileAdmin.includes(SELECTORS.sidebarNav));
 assert.ok(!mobileAdmin.includes(SELECTORS.sidebarFooter));
+
+// Tiga halaman master menyorot tombol buatnya supaya pengguna mengisi satu data pertama.
+// Ketiga langkah itu harus memakai sisi `left`: tombolnya ada di kanan, dan `left` adalah
+// satu-satunya sisi yang tidak dibalik library demi ruang tepi layar.
+const createSteps = adminTour.steps.filter(
+  (step) => step.selector === SELECTORS.createButton,
+);
+assert.deepEqual(
+  createSteps.map((step) => step.title),
+  ["Mulai dari Tahun Ajaran", "Daftarkan tiap sekolah", "Susun kelas"],
+);
+for (const step of createSteps) {
+  assert.equal(step.side, "left", `sisi salah pada langkah: ${step.title}`);
+}
+// Di mobile tombol buat sering di luar layar, jadi langkah-langkah itu tanpa selector.
+assert.ok(!mobileAdmin.includes(SELECTORS.createButton));
+
+// Tombol buat di berkas halaman harus benar-benar ditandai; selector yang tidak ketemu
+// diam-diam berubah jadi kartu tengah, jadi jangan andalkan runtime untuk menangkapnya.
+const CREATE_ROUTES = [
+  TOUR_ROUTES.admin.academicYear,
+  TOUR_ROUTES.admin.branchs,
+  TOUR_ROUTES.admin.classes,
+];
+for (const route of CREATE_ROUTES) {
+  const file = join(pagesDir, `${route}/page.tsx`);
+  assert.ok(
+    readFileSync(file, "utf8").includes("data-tour={TOUR_CREATE}"),
+    `tombol buat tanpa data-tour: ${route}`,
+  );
+}
+
+// Langkah penutup menyorot blok akun dari ATAS: blok itu menempel di dasar viewport, jadi
+// kartu di sisi `right`/`left` selalu terpotong tepi bawah (bug yang pernah terjadi).
+const closingStep = adminTour.steps[adminTour.steps.length - 1];
+assert.equal(closingStep.selector, SELECTORS.sidebarFooter);
+assert.equal(closingStep.side, "top-left");
 
 // Lima tur, semua berisi langkah berjudul dan berisi teks.
 const semuaTur = buildTours({ desktop: true, menuKey: "student" });

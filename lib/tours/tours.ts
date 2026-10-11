@@ -59,20 +59,34 @@ const ANCHOR = {
 } as const;
 
 /**
- * Langkah halaman sengaja TANPA selector: kartunya tampil di tengah dan `nextRoute` yang
- * memindahkan pengguna. 19 dari 20 halaman yang dikunjungi tidak punya judul level
- * halaman, jadi anchor per halaman akan rapuh; nextstepjs juga tidak punya fallback
- * selector — selector yang tidak ketemu berakhir sebagai kartu tengah, persis seperti ini.
+ * Langkah halaman: kartunya tampil di tengah dan `nextRoute` yang memindahkan pengguna.
+ * 19 dari 20 halaman yang dikunjungi tidak punya judul level halaman, jadi anchor per
+ * halaman akan rapuh; nextstepjs juga tidak punya fallback selector — selector yang tidak
+ * ketemu berakhir sebagai kartu tengah, persis seperti ini.
+ *
+ * Halaman yang punya tombol buat (`data-tour="create"`) boleh menunjuk tombolnya, supaya
+ * pengguna tahu apa yang harus diklik untuk mengisi data pertama.
  */
-type PageStep = { route: string; title: string; content: string };
+type PageStep = {
+  route: string;
+  title: string;
+  content: string;
+  selector?: string;
+  side?: Step["side"];
+};
 
-function pageSteps(pages: PageStep[]): Step[] {
+function pageSteps(pages: PageStep[], desktop: boolean): Step[] {
   return pages.map((page, index) => ({
     title: page.title,
     content: page.content,
     // Langkah terakhir tidak mengarahkan apa-apa: langkah penutup ada di sidebar.
     ...(index < pages.length - 1 ? { nextRoute: pages[index + 1].route } : {}),
     ...(index > 0 ? { prevRoute: pages[index - 1].route } : {}),
+    // Sorotan tombol buat hanya di desktop: di mobile tombol itu sering berada di luar
+    // layar, dan kartu yang menempel padanya ikut keluar layar.
+    ...(desktop && page.selector
+      ? { selector: page.selector, side: page.side, ...ANCHOR }
+      : {}),
   }));
 }
 
@@ -98,7 +112,10 @@ const MOBILE_NAV_STEP: Step = {
   title: "Menu kerja Anda",
   content: "Tombol ini membuka seluruh menu. Isinya mengikuti role akun ini.",
   selector: SELECTORS.sidebarTrigger,
-  side: "bottom",
+  // Tombolnya di tepi kiri header: sisi `bottom` memusatkan kartu selebar layar pada
+  // tombol 44px, dan separuh kartunya keluar layar. `bottom-left` membuatnya mulai di
+  // tepi kiri tombol, seperti blok akun di langkah penutup.
+  side: "bottom-left",
   ...ANCHOR,
 };
 
@@ -107,8 +124,16 @@ const CLOSING_STEP: Step = {
   content:
     "Profil, ganti akun, dan keluar ada di sini. Tur ini bisa diputar ulang dari tombol Panduan.",
   selector: SELECTORS.sidebarFooter,
-  side: "right",
+  // Kartu ditaruh DI ATAS blok akun, bukan di sampingnya. Blok akun menempel di dasar
+  // viewport, dan nextstepjs memusatkan kartu pada titik sorot: sisi `right` membuat 60px
+  // bawah kartu (baris tombolnya) keluar layar, `right-bottom` malah dibalik library ke
+  // `right-top` karena ruang bawah dianggap sempit. `top-left` satu-satunya sisi yang
+  // tidak pernah dibalik dan tidak menyisakan kartu terpotong.
+  side: "top-left",
   ...ANCHOR,
+  // Blok akun menempel di tepi kiri layar; padding sorot 8px membuat kotaknya mulai di
+  // x=-4, dan kartu `top-left` ikut mulai di situ — 4px sisi kirinya terpotong.
+  pointerPadding: 0,
 };
 
 /**
@@ -126,13 +151,17 @@ const ADMIN_PAGES: PageStep[] = [
     route: TOUR_ROUTES.admin.academicYear,
     title: "Mulai dari Tahun Ajaran",
     content:
-      "Buat tahun ajaran lebih dulu. Kelas, jadwal, dan tagihan menempel ke tahun ajaran yang aktif.",
+      "Buat satu tahun ajaran dulu lewat tombol Tambah Tahun Ajaran. Kelas, jadwal, dan tagihan menempel ke tahun ajaran yang aktif.",
+    selector: SELECTORS.createButton,
+    side: "left",
   },
   {
     route: TOUR_ROUTES.admin.branchs,
     title: "Daftarkan tiap sekolah",
     content:
-      "SMP, SMA, dan SMK IT didaftarkan sebagai cabang. Data antar cabang terpisah, termasuk rekening kasnya.",
+      "Tambah Sekolah mendaftarkan SMP, SMA, dan SMK IT sebagai cabang. Data antar cabang terpisah, termasuk rekening kasnya.",
+    selector: SELECTORS.createButton,
+    side: "left",
   },
   {
     route: TOUR_ROUTES.admin.users,
@@ -143,7 +172,10 @@ const ADMIN_PAGES: PageStep[] = [
   {
     route: TOUR_ROUTES.admin.classes,
     title: "Susun kelas",
-    content: "Setelah tahun ajaran ada, susun kelas dan wali kelasnya.",
+    content:
+      "Setelah tahun ajaran ada, buat satu kelas lewat tombol Tambah Kelas, lalu tunjuk wali kelasnya.",
+    selector: SELECTORS.createButton,
+    side: "left",
   },
   {
     route: TOUR_ROUTES.admin.attendance,
@@ -274,7 +306,7 @@ export function buildTours({
         ? { ...step, nextRoute: pages[0].route }
         : step,
     ),
-    ...pageSteps(pages),
+    ...pageSteps(pages, desktop),
     closing,
   ];
 

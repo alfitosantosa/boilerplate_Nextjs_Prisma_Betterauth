@@ -377,3 +377,13 @@ than by reading a dead-lettered body.
 | `docker-compose.yml` | modify — add `worker` service |
 | `package.json` | modify — `worker` script, drop `bullmq` |
 | `.env.production` | modify (ops) — add `RABBITMQ_URL` |
+
+## 14. Amendment (2026-10-11): shipped worker filename
+
+The consumer shipped as **`worker/whatsapp-worker.ts`**, not `worker/index.ts` (the name
+used in §5, §11, §13 and the CMD block). `package.json` has pointed at the real file since
+the feature landed, but the `Dockerfile` worker stage kept
+`CMD ["bun", "worker/index.ts"]` — so `docker compose up worker` crash-looped with
+`error: Module not found "worker/index.ts"` and nothing consumed `botwa.bulk.send.q`.
+The stage now runs `bun worker/whatsapp-worker.ts`; keep that path identical to the
+`worker` script in `package.json`.

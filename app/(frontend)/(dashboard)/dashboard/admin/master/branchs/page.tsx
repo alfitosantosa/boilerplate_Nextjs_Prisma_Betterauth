@@ -52,6 +52,7 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { useSession } from "@/lib/betterauth/authClients";
+import { TOUR_CREATE } from "@/lib/tours/selectors";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   type ColumnDef,
@@ -1094,7 +1095,10 @@ function BranchDataTable() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button onClick={() => setCreateDialogOpen(true)}>
+          <Button
+            data-tour={TOUR_CREATE}
+            onClick={() => setCreateDialogOpen(true)}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Tambah Sekolah
           </Button>
