@@ -1153,7 +1153,10 @@ Common adjustments, in the order worth trying: raise or lower `scrollOffset` in 
 
 - [ ] **Step 4: Record the new check in AGENTS.md**
 
-In `AGENTS.md`, §"Testing & QA" → "Quality Verification Strategy for AI Assistants", item 7 currently documents `bun run lib/rabbitMQ/retry.check.ts`. Append:
+Note: `.gitignore` line 29 ignores `AGENTS.md`, so this edit stays local and cannot be
+committed. Make the edit anyway — it is what a future agent session in this checkout
+reads. In §"Testing & QA" → "Quality Verification Strategy for AI Assistants", item 7
+currently documents `bun run lib/rabbitMQ/retry.check.ts`. Append:
 
 ```markdown
 8. **Onboarding tour self-check**: `bun run lib/tours/tour.check.ts` — `assert`-based, no

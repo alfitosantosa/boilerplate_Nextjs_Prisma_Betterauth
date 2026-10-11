@@ -213,8 +213,8 @@ tour hook. One mapping, not two: a second copy would drift the moment a role is 
 | `components/tour/TourProvider.tsx` | new | `"use client"`; `NextStepProvider` + `NextStep`; mount-gated; writes status from `onComplete` / `onSkip` |
 | `components/tour/TourReplayButton.tsx` | new | the header button, calling `useTourReplay()` |
 | `components/appSidebar.tsx` | modify | import `getRoleMenuKey` instead of the local copy — no other change |
-| `components/ConditionalLayout.tsx` | modify | wrap the shell branch in `TourProvider`; `data-tour="header"`; render `TourReplayButton` |
-| `AGENTS.md` | modify | §Testing: add `bun run lib/tours/tour.check.ts` next to the existing `retry.check.ts` line |
+| `components/ConditionalLayout.tsx` | modify | wrap the shell from **outside** `SidebarProvider` (see §4); `data-tour="header"`; render `TourReplayButton` |
+| `AGENTS.md` | modify | §Testing: add `bun run lib/tours/tour.check.ts` next to the existing `retry.check.ts` line. **Git-ignored in this repo**, so this is a local-only edit — it cannot be committed |
 
 No dashboard page is edited; §5 explains why.
 
