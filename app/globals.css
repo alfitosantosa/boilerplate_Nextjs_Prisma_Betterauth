@@ -127,67 +127,76 @@
 }
 
 /*
- * Design system — single source of truth. See DESIGN.md.
+ * Design system — single source of truth. See DESIGN.md (the Stripe track).
  *
- * DESIGN.md's "Accessible Clarity": a white canvas carrying one teal accent on
- * every call to action, with coral and gold reserved for status. Three roles:
- *   teal (--primary / --ring)       = an action, or the control you are touching
- *   stamp / margin (--success-*, --destructive-* / --margin) = verified, or owed
- *   gold (--warning-*, --caution-*) = a deadline, a soft warning
+ * A white canvas carrying one purple accent on every call to action, Deep Navy
+ * for text, and the status families untouched. Two roles:
+ *   purple (--primary / --ring / --interactive) = an action, or the control you
+ *                                                 are touching
+ *   status (--success-*, --warning-*, --destructive-*, --info-*, --tertiary-*)
+ *                                               = a fact about the record
  *
  * Values are DESIGN.md's where they clear WCAG AA; where DESIGN.md's own tone
- * does not (its #0284c5 CTA carries only 3.8:1 under white text, its #b8860b
- * badge 2.7:1 on white) the same hue is taken one step deeper and DESIGN.md's
- * exact tone keeps the non-text role. Each deviation is commented.
+ * does not (its #15be53 carries only 2.5:1, its #e5edf5 hairline only 1.18:1 on
+ * white) the same hue is taken one step deeper and DESIGN.md's exact tone keeps
+ * the non-text role. Each deviation is commented.
+ *
+ * Tokens are written as hex rather than oklch because `scripts/color-audit.mjs`
+ * reads only hex — an oklch token is collected and then silently skipped, so it
+ * is effectively unaudited. Light mode is now fully enforced.
  *
  * Contrast — verified by `bun scripts/color-audit.mjs`, which parses this file.
- * Light (WCAG AA, on the white canvas): ink 19.6 · muted 6.1 · teal 5.9 ·
- * stamp 5.3 · margin 4.9 · ring 5.9 · every `-strong` on its `-chip` >= 4.5.
+ * Light (WCAG AA, on the white canvas): ink 15.5 · muted 7.8 · purple 6.2 ·
+ * ring 6.2 · every `-strong` on its `-chip` >= 4.5 · every hairline >= 1.2:1.
  */
 :root {
   --radius: 0.625rem;
 
-  /* shadcn Neutral */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --primary-hover: oklch(0.269 0 0);
-  --primary-active: oklch(0.145 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  /* Stripe track — DESIGN.md §2/§4: canvas, ink, and the one accent. */
+  --background: #ffffff;
+  --foreground: #0a2540;
+  --card: #ffffff;
+  --card-foreground: #0a2540;
+  --popover: #ffffff;
+  --popover-foreground: #0a2540;
+  --primary: #533afd;
+  --primary-foreground: #ffffff;
+  --primary-hover: #4328d9;
+  --primary-active: #3620b0;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0a2540;
+  --muted: #f1f5f9;
+  --muted-foreground: #425466;
+  --accent: #f1f5f9;
+  --accent-foreground: #0a2540;
+  /* DESIGN.md's #e5edf5 hairline is only 1.18:1 on white and 1.12:1 on the
+     panel tint — under the house 1.2:1 floor. Same hue, one step deeper. */
+  --border: #d4dcea;
+  --input: #d4dcea;
+  --ring: #533afd;
 
-  --brand-tint: oklch(0.97 0 0);
-  --brand-accent: oklch(0.205 0 0);
+  --brand-tint: #f1f5f9;
+  --brand-accent: #533afd;
   --margin: oklch(0.577 0.245 27.325);
 
   /* Interaction (link / checkbox / fokus) */
-  --interactive: #0070f3;
-  --interactive-fill: #0070f3;
-  --interactive-border: #bfdbfe;
-  --interactive-surface: #eff6ff;
+  --interactive: #533afd;
+  --interactive-fill: #533afd;
+  --interactive-border: #dcd5fe;
+  --interactive-surface: #f4f1ff;
 
   /* Inverse surfaces */
-  --navy: oklch(0.145 0 0);
-  --navy-foreground: oklch(0.985 0 0);
-  --navy-muted: oklch(0.708 0 0);
+  --navy: #0a2540;
+  --navy-foreground: #ffffff;
+  --navy-muted: #94a3b8;
   --navy-border: oklch(1 0 0 / 10%);
-  --navy-accent: #60a5fa;
+  --navy-accent: #b4a7fe;
   --navy-info: #67e8f9;
   --navy-success: #6ee7b7;
 
-  /* Status */
+  /* Status — DESIGN.md names only Success Green, and #15be53 is 2.5:1 on white
+     and 2.5:1 under a white label, so it cannot fill either role. Every family
+     keeps the deeper tone the audit already cleared. */
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-solid: #dc2626;
   --destructive-surface: #fef2f2;
@@ -223,12 +232,14 @@
   --info-border: #bfdbfe;
   --info-strong: #1e3a8a;
 
-  --tertiary: #6d28d9;
-  --tertiary-solid: #6d28d9;
-  --tertiary-surface: #f5f3ff;
-  --tertiary-chip: #ede9fe;
-  --tertiary-border: #ddd6fe;
-  --tertiary-strong: #4c1d95;
+  /* --tertiary carries the `sakit` attendance chip. As a violet it would now
+     read as a second primary, so it moves to the neutral slate family. */
+  --tertiary: #3c4f69;
+  --tertiary-solid: #3c4f69;
+  --tertiary-surface: #f1f5f9;
+  --tertiary-chip: #e2e8f0;
+  --tertiary-border: #cbd5e1;
+  --tertiary-strong: #1e293b;
 
   /* Charts (shadcn default, 6–10 tambahan) */
   --chart-1: oklch(0.646 0.222 41.116);
@@ -238,21 +249,22 @@
   --chart-5: oklch(0.769 0.188 70.08);
   --chart-6: #2563eb;
   --chart-7: #16a34a;
-  --chart-8: #9333ea;
+  /* was #9333ea — a purple twin of --primary. */
+  --chart-8: #0d9488;
   --chart-9: #db2777;
   --chart-10: #64748b;
 
   /* Sidebar */
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-active: oklch(0.205 0 0);
-  --sidebar-active-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #f8fafd;
+  --sidebar-foreground: #0a2540;
+  --sidebar-primary: #533afd;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1eeff;
+  --sidebar-accent-foreground: #0a2540;
+  --sidebar-active: #533afd;
+  --sidebar-active-foreground: #ffffff;
+  --sidebar-border: #d4dcea;
+  --sidebar-ring: #533afd;
 }
 
 .dark {
@@ -262,10 +274,15 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --primary-hover: oklch(0.985 0 0);
-  --primary-active: oklch(0.87 0 0);
+  /* The purple fill survives dark mode; only the label flips light. One token
+     serves both `bg-primary` and `text-primary`, and their contrast needs are
+     opposite — so `text-primary` on the dark canvas is the single accepted
+     sub-AA pairing. Flipping `--primary` light, as shadcn's default does, would
+     put a light label on a light fill. */
+  --primary: #533afd;
+  --primary-foreground: #fafafa;
+  --primary-hover: #4328d9;
+  --primary-active: #3620b0;
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -274,22 +291,24 @@
   --accent-foreground: oklch(0.985 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  /* #533afd is only 3.2:1 on the dark canvas, so the ring brightens. */
+  --ring: #b4a7fe;
 
   --brand-tint: oklch(0.269 0 0);
-  --brand-accent: oklch(0.922 0 0);
+  --brand-accent: #b4a7fe;
   --margin: oklch(0.704 0.191 22.216);
 
-  --interactive: #60a5fa;
-  --interactive-fill: #3b82f6;
-  --interactive-border: #1e40af;
-  --interactive-surface: #172554;
+  /* A link must be legible on the canvas, where #533afd is only 3.2:1. */
+  --interactive: #b4a7fe;
+  --interactive-fill: #b4a7fe;
+  --interactive-border: #4c3fa8;
+  --interactive-surface: #1b1145;
 
   --navy: oklch(0.1 0 0);
   --navy-foreground: oklch(0.985 0 0);
   --navy-muted: oklch(0.708 0 0);
   --navy-border: oklch(1 0 0 / 10%);
-  --navy-accent: #60a5fa;
+  --navy-accent: #b4a7fe;
   --navy-info: #67e8f9;
   --navy-success: #6ee7b7;
 
@@ -328,12 +347,14 @@
   --info-border: #1e40af;
   --info-strong: #bfdbfe;
 
-  --tertiary: #c4b5fd;
-  --tertiary-solid: #6d28d9;
-  --tertiary-surface: #1e1236;
-  --tertiary-chip: #2e1065;
-  --tertiary-border: #5b21b6;
-  --tertiary-strong: #ddd6fe;
+  /* Mirror of the light deviation: the `sakit` chip is neutral slate, not the
+     violet that would read as a second primary. */
+  --tertiary: #94a3b8;
+  --tertiary-solid: #475569;
+  --tertiary-surface: #1e293b;
+  --tertiary-chip: #334155;
+  --tertiary-border: #475569;
+  --tertiary-strong: #e2e8f0;
 
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
@@ -342,20 +363,21 @@
   --chart-5: oklch(0.645 0.246 16.439);
   --chart-6: #60a5fa;
   --chart-7: #4ade80;
-  --chart-8: #c084fc;
+  /* was #c084fc — a purple twin of --primary. */
+  --chart-8: #2dd4bf;
   --chart-9: #f472b6;
   --chart-10: #94a3b8;
 
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary: #533afd;
+  --sidebar-primary-foreground: #fafafa;
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-active: oklch(0.269 0 0);
-  --sidebar-active-foreground: oklch(0.985 0 0);
+  --sidebar-active: #533afd;
+  --sidebar-active-foreground: #fafafa;
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: #b4a7fe;
 }
 
 @layer base {
