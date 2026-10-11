@@ -6,11 +6,11 @@ const LINK_COLUMNS = [
   {
     title: "Modul",
     links: [
-      { label: "Presensi & Disiplin", href: "#fitur" },
-      { label: "E-Rapor", href: "#fitur" },
+      { label: "Akademik & jadwal", href: "#fitur" },
+      { label: "Presensi & disiplin", href: "#fitur" },
       { label: "Tahfidz Al-Qur'an", href: "#fitur" },
-      { label: "Penilaian Perkembangan", href: "#fitur" },
-      { label: "Bot WhatsApp Orang Tua", href: "#fitur" },
+      { label: "Penilaian & rapor", href: "#fitur" },
+      { label: "Bot WhatsApp orang tua", href: "#fitur" },
     ],
   },
   {
@@ -25,6 +25,7 @@ const LINK_COLUMNS = [
   {
     title: "Sekolah & data",
     links: [
+      { label: "Jenjang sekolah", href: "#jenjang" },
       { label: "Cara kerja sistemnya", href: "#cara-kerja" },
       { label: "Isolasi data tiap cabang", href: "#faq" },
       { label: "Peran & hak akses", href: "#faq" },
@@ -38,17 +39,17 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-border bg-background text-secondary-foreground border-t px-6 pt-16 pb-12">
+    <footer className="border-border bg-secondary border-t px-6 pt-16 pb-10">
       <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-2 gap-8 pb-12 sm:grid-cols-5">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-12 sm:grid-cols-5">
           {/* The masthead, closed the way it opened. */}
           <div className="col-span-2 space-y-4">
             <Link
               href="/"
-              className="focus-visible:ring-ring/80 inline-block rounded-2xl focus-visible:ring-[3px] focus-visible:outline-none"
+              className="focus-visible:ring-ring/80 inline-block rounded-xl focus-visible:ring-[3px] focus-visible:outline-none"
             >
               <SeraLogo
-                markClassName="h-10 w-auto"
+                markClassName="h-9 w-auto"
                 subtitle="Sistem informasi sekolah"
               />
             </Link>
@@ -66,10 +67,10 @@ export function Footer() {
           </div>
 
           {LINK_COLUMNS.map((column) => (
-            <div key={column.title}>
-              <h4 className="text-foreground text-sm font-semibold">
+            <nav key={column.title} aria-label={column.title}>
+              <h3 className="text-foreground text-sm font-semibold">
                 {column.title}
-              </h4>
+              </h3>
               <ul className="text-muted-foreground mt-4 space-y-2.5 text-xs">
                 {column.links.map((link) => (
                   <li key={link.label}>
@@ -82,19 +83,18 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
         </div>
 
         <Separator className="bg-border" />
 
-        {/* Bottom attribution */}
         <div className="text-muted-foreground flex flex-col items-center justify-between gap-3 pt-6 text-xs sm:flex-row">
           <span>
-            &copy; {currentYear} PT Santosa Tech Indonesia (Persero). Seluruh
-            hak cipta dilindungi.
+            &copy; {currentYear} PT Santosa Tech Indonesia. Seluruh hak cipta
+            dilindungi.
           </span>
-          <span>Dibuat khusus untuk Yayasan &amp; Sekolah Modern.</span>
+          <span>Dibuat khusus untuk yayasan &amp; sekolah modern.</span>
         </div>
       </div>
     </footer>

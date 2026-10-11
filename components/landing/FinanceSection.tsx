@@ -69,10 +69,10 @@ export function FinanceSection() {
   ];
 
   return (
-    <section id="keuangan" className="bg-background py-24">
+    <section id="keuangan" className="bg-secondary py-24 lg:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-[68ch]">
-          <h2 className="text-foreground text-3xl font-semibold tracking-tight">
+          <h2 className="text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance">
             Keuangan cabang: tagihan, transfer, dan kwitansi dalam satu buku.
           </h2>
           <p className="text-secondary-foreground mt-3 text-base leading-relaxed">

@@ -33,10 +33,10 @@ export function HowItWorks() {
   ];
 
   return (
-    <section id="cara-kerja" className="bg-secondary py-24">
+    <section id="cara-kerja" className="bg-background py-24 lg:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-[68ch]">
-          <h2 className="text-foreground text-3xl font-semibold tracking-tight">
+          <h2 className="text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance">
             Satu catatan masuk, tiga langkah sampai ke orang tua.
           </h2>
           <p className="text-muted-foreground mt-3 text-base leading-relaxed">

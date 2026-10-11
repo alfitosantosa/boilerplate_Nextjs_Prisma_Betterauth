@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronRight, LogOut, Menu, UserIcon } from "lucide-react";
+import { useState } from "react";
+import { LogOut, Menu, UserIcon } from "lucide-react";
 import { SeraLogo } from "@/components/SeraLogo";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState } from "react";
-import { signOut, useSession } from "@/lib/betterauth/authClients";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,181 +15,146 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { signOut, useSession } from "@/lib/betterauth/authClients";
 
 export const NAV_LINKS = [
   { label: "Modul", href: "#fitur" },
+  { label: "Jenjang", href: "#jenjang" },
   { label: "Cara kerja", href: "#cara-kerja" },
   { label: "Keuangan", href: "#keuangan" },
   { label: "Pertanyaan", href: "#faq" },
 ];
 
 /**
- * The register's top rule: a constant hairline, not a chrome effect that
- * appears on scroll. Two actions only — masuk, and mendaftarkan yayasan.
+ * The register's top rule: a constant hairline rather than chrome that appears
+ * on scroll. One navigation, one sign-in, and the one action the whole page is
+ * asking for — mendaftarkan yayasan.
  */
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const router = useRouter();
-
-  const goToSignIn = () => {
-    setMobileOpen(false);
-    router.push("/auth/sign-in");
-  };
+  const { data: session } = useSession();
 
   const handleSignOut = async () => {
     await signOut();
-    router.push("/auth/sign-in");
+    setMobileOpen(false);
+    router.push("/");
   };
 
-  const session = useSession();
-
-  console.log("session", session);
+  const user = session?.user;
+  const initials = (user?.name ?? user?.email ?? "?")
+    .split(" ")
+    .map((part) => part[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
 
   return (
-    <nav className="bg-background/95 border-border sticky top-0 z-50 border-b backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3.5">
+    <nav className="bg-background/85 border-border sticky top-0 z-50 border-b backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-6">
         <Link
           href="/"
-          className="focus-visible:ring-ring/80 rounded-2xl focus-visible:ring-[3px] focus-visible:outline-none"
+          className="focus-visible:ring-ring/80 shrink-0 rounded-xl focus-visible:ring-[3px] focus-visible:outline-none"
+          aria-label="Sera App — beranda"
         >
           <SeraLogo markClassName="h-8 w-auto" />
         </Link>
 
-        <div className="hidden items-center gap-7 md:flex">
+        <ul className="hidden flex-1 items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-secondary-foreground hover:text-foreground text-sm underline-offset-4 transition-colors hover:underline"
-            >
-              {link.label}
-            </a>
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="text-muted-foreground hover:text-foreground focus-visible:ring-ring/80 rounded-xl px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-[3px] focus-visible:outline-none"
+              >
+                {link.label}
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <Button variant="ghost" onClick={goToSignIn} className="text-sm">
-            Masuk
-          </Button>
-          <Button onClick={goToSignIn} className="text-sm">
-            Daftar yayasan
-          </Button>
-        </div>
+        <div className="ml-auto flex items-center gap-2">
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  className="focus-visible:ring-ring/80 rounded-full focus-visible:ring-[3px] focus-visible:outline-none"
+                  aria-label="Akun Anda"
+                >
+                  <Avatar className="size-9">
+                    <AvatarImage src={user.image ?? undefined} alt="" />
+                    <AvatarFallback className="text-xs">
+                      {initials || <UserIcon className="size-4" />}
+                    </AvatarFallback>
+                  </Avatar>
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel className="truncate">
+                  {user.name ?? user.email}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard">Buka dasbor</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={handleSignOut}>
+                  <LogOut className="mr-2 size-4" aria-hidden />
+                  Keluar dari akun
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+                <Link href="/auth/sign-in">Masuk</Link>
+              </Button>
+              <Button asChild size="sm">
+                <Link href="/landing/register/foundation">Daftar yayasan</Link>
+              </Button>
+            </>
+          )}
 
-        <div className="flex md:hidden">
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
-                className="h-10 w-10"
-                aria-label="Buka menu navigasi"
+                className="lg:hidden"
+                aria-label="Buka menu"
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="size-5" aria-hidden />
               </Button>
             </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="flex w-full flex-col justify-between p-0 sm:w-84"
-            >
-              <div>
-                <div className="border-border flex items-center justify-between border-b px-5 py-4">
-                  <SeraLogo markClassName="h-7 w-auto" />
-                </div>
-
-                <nav className="flex flex-col py-2">
-                  {NAV_LINKS.map((link) => (
+            <SheetContent side="right" className="w-72 p-0">
+              <div className="border-border border-b px-5 py-4">
+                <SeraLogo markClassName="h-8 w-auto" />
+              </div>
+              <ul className="p-3">
+                {NAV_LINKS.map((link) => (
+                  <li key={link.href}>
                     <a
-                      key={link.href}
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className="text-secondary-foreground hover:bg-accent hover:text-foreground flex min-h-11 items-center px-5 py-2.5 text-sm transition-colors"
+                      className="text-foreground hover:bg-accent block rounded-xl px-3 py-3 text-sm font-medium transition-colors"
                     >
                       {link.label}
                     </a>
-                  ))}
-                </nav>
-
-                <Separator />
-                {session.data?.user ? (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button className="group hover:border-border hover:bg-secondary flex w-full items-center gap-2.5 rounded-2xl border border-transparent p-2 text-left transition-all">
-                        <Avatar className="border-border bg-brand-tint text-primary h-8 w-8 rounded-full border">
-                          <AvatarFallback className="bg-brand-tint text-primary text-[11px] font-bold">
-                            {session.data.user.name?.[0] || "U"}
-                          </AvatarFallback>
-                        </Avatar>
-
-                        <div className="flex min-w-0 flex-1 flex-col">
-                          <span className="text-foreground truncate text-xs font-bold">
-                            {session.data.user.name || "Pengguna"}
-                          </span>
-                          <span className="text-muted-foreground truncate text-[10px]">
-                            {session.data.user.email}
-                          </span>
-                        </div>
-
-                        <ChevronRight className="text-muted-foreground h-3.5 w-3.5 opacity-60 transition-transform group-hover:translate-x-0.5" />
-                      </button>
-                    </DropdownMenuTrigger>
-
-                    <DropdownMenuContent
-                      align="end"
-                      side="right"
-                      className="border-border w-56 rounded-3xl p-1.5 shadow-lg"
-                    >
-                      <DropdownMenuLabel className="text-muted-foreground px-2 py-1.5 text-xs">
-                        <div>Akun Terhubung</div>
-                        <div className="text-foreground truncate font-bold">
-                          {session.data.user.email || "user@sekolah.com"}
-                        </div>
-                      </DropdownMenuLabel>
-                      <DropdownMenuSeparator className="bg-border" />
-
-                      <DropdownMenuItem
-                        onClick={() => router.push("/dashboard/profile")}
-                        className="text-secondary-foreground hover:bg-secondary hover:text-primary cursor-pointer rounded-lg px-2.5 py-2 text-xs font-medium"
-                      >
-                        <UserIcon className="text-primary mr-2 h-4 w-4" />
-                        <span>Profil Pengguna</span>
-                      </DropdownMenuItem>
-
-                      <DropdownMenuSeparator className="bg-border" />
-
-                      <DropdownMenuItem
-                        onClick={handleSignOut}
-                        className="text-destructive hover:bg-destructive-chip cursor-pointer rounded-lg px-2.5 py-2 text-xs font-medium"
-                      >
-                        <LogOut className="text-destructive mr-2 h-4 w-4" />
-                        <span>Keluar dari Akun</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                ) : (
-                  <div className="space-y-2 p-5">
-                    <Button onClick={goToSignIn} className="w-full">
-                      Daftar yayasan
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={goToSignIn}
-                      className="w-full"
-                    >
+                  </li>
+                ))}
+              </ul>
+              {!user ? (
+                <div className="border-border border-t p-3">
+                  <Button asChild variant="outline" className="w-full">
+                    <Link href="/auth/sign-in" onClick={() => setMobileOpen(false)}>
                       Masuk
-                    </Button>
-                  </div>
-                )}
-              </div>
-              <div className="border-border text-muted-foreground border-t p-5 text-xs">
-                <p className="text-foreground font-medium">
-                  PT Santosa Tech Indonesia
-                </p>
-                <p className="mt-0.5">
-                  Sistem manajemen sekolah multi-cabang untuk yayasan.
-                </p>
-              </div>
+                    </Link>
+                  </Button>
+                </div>
+              ) : null}
             </SheetContent>
           </Sheet>
         </div>

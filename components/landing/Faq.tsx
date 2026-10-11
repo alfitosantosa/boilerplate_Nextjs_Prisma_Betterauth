@@ -33,19 +33,28 @@ export function Faq() {
       q: "Bagaimana impor data lama dari Excel?",
       a: "Tersedia impor massal dari berkas Excel untuk data master seperti siswa, guru, dan kelas. Berkas diunggah lalu dibaca langsung oleh sistem, sehingga data lama tidak perlu diketik ulang satu per satu, dan setelah masuk data tersebut mengikuti struktur yayasan serta cabang yang sudah didaftarkan.",
     },
+    {
+      q: "Apakah orang tua perlu memasang aplikasi?",
+      a: "Tidak. Orang tua membuka portalnya lewat peramban biasa, dan ringkasan kehadiran, poin kedisiplinan, serta kuitansi pembayaran dikirim ke nomor WhatsApp mereka. Tidak ada berkas yang perlu dipasang di ponsel orang tua.",
+    },
+    {
+      q: "Di mana datanya disimpan, dan siapa yang bisa membukanya?",
+      a: "Seluruh data berada di satu basis data PostgreSQL terpusat. Tiap cabang memakai branchId-nya sendiri, dan setiap akun terikat pada satu cabang serta satu peran. Jadi yang dapat dibuka seseorang adalah data cabangnya, sesuai perannya masing-masing — bukan seluruh yayasan.",
+    },
   ];
 
   return (
-    <section id="faq" className="bg-secondary py-24">
+    <section id="faq" className="bg-background py-24 lg:py-28">
       <div className="mx-auto max-w-3xl px-6">
         <div className="max-w-[68ch]">
-          <h2 className="text-foreground text-3xl font-semibold tracking-tight">
+          <h2 className="text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance">
             Pertanyaan yang muncul sebelum data dipindahkan.
           </h2>
-          <p className="text-secondary-foreground mt-3 max-w-[68ch] text-base leading-relaxed">
-            Enam hal yang paling sering ditanyakan yayasan: pemisahan data antar
-            unit, penambahan cabang, pembayaran SPP, pencatatan tahfidz, hak
-            akses, dan impor data lama.
+          <p className="text-muted-foreground mt-4 max-w-[68ch] text-base leading-relaxed">
+            Delapan hal yang paling sering ditanyakan yayasan sebelum
+            memindahkan datanya: pemisahan data antar unit, penambahan cabang,
+            pembayaran SPP, pencatatan tahfidz, hak akses, impor data lama,
+            akses untuk orang tua, dan penyimpanan data.
           </p>
         </div>
 
