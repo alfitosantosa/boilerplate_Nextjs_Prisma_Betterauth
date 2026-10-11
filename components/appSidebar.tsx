@@ -55,6 +55,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { signOut, useSession } from "@/lib/betterauth/authClients";
+import { getRoleMenuKey } from "@/lib/ui/roleKey";
 import { useEffect, useState, type ElementType } from "react";
 import {
   Select,
@@ -144,43 +145,7 @@ export function AppSidebar() {
   const userRoleLower = userRole.toLowerCase();
   const permissions = userData?.role?.permissions || [];
 
-  // Map role names to menu group keys (menuGroups uses lowercase keys)
-  const getRoleMenuKey = (role: string): string => {
-    const r = role.toLowerCase();
-
-    // Admin School role - always use schooladministrator menu
-    if (r.includes("admin school")) {
-      return "schooladministrator";
-    }
-
-    // If admin/yayasan selects a specific school, use schooladministrator menu
-    if (
-      (r.includes("admin") || r.includes("yayasan")) &&
-      school &&
-      school !== "all"
-    ) {
-      return "schooladministrator";
-    }
-
-    // Otherwise use default role menus
-    if (r.includes("admin") || r.includes("yayasan")) return "admin";
-    if (r.includes("bendahara") || r.includes("treasurer")) return "treasurer";
-    if (
-      r.includes("teacher") ||
-      r.includes("head of school") ||
-      r.includes("guru") ||
-      r.includes("kepala sekolah")
-    )
-      return "teacher";
-    if (r.includes("student") || r.includes("siswa")) return "student";
-    if (r.includes("parent") || r.includes("orang tua")) return "parent";
-    if (r.includes("admin school")) return "schooladministrator";
-
-    // Default fallback to student
-    return "null";
-  };
-
-  const roleMenuKey = getRoleMenuKey(userRole);
+  const roleMenuKey = getRoleMenuKey(userRole, school);
   const currentMenuGroups = menuGroups[roleMenuKey] || menuGroups.student;
 
   console.log("🔑 Role Debug:", {
