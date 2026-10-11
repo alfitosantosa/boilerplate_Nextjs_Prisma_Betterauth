@@ -327,19 +327,35 @@ for (const route of ALL_TOUR_ROUTES) {
   );
 }
 
-// Tur admin: langkah tingkat yayasan hanya untuk menuKey admin, bukan schooladministrator.
-const routesOf = (tour: Tour): string[] =>
-  tour.steps.flatMap((step) =>
-    [step.nextRoute, step.prevRoute].filter((r): r is string => typeof r === "string"),
-  );
-const adminTour = buildTours({ desktop: true, menuKey: "admin" }).find((t) => t.tour === "admin");
-const schoolTour = buildTours({ desktop: true, menuKey: "schooladministrator" }).find(
-  (t) => t.tour === "admin",
+// Rantai navigasi MAJU: nextstepjs berpindah halaman lewat `nextRoute` langkah sebelum
+// langkah yang ditampilkan, jadi rantai ini harus menyentuh setiap halaman berurutan.
+// Assertion `includes` terlalu lemah — bug rute halaman pertama yang tidak pernah
+// dinavigasi lolos dari `includes`, jadi yang diperiksa adalah urutannya.
+const forwardRoutes = (tour: Tour): string[] =>
+  tour.steps
+    .map((step) => step.nextRoute)
+    .filter((route): route is string => typeof route === "string");
+const adminTour = buildTours({ desktop: true, menuKey: "admin" }).find(
+  (tour) => tour.tour === "admin",
 );
-assert.ok(adminTour && schoolTour);
-assert.ok(routesOf(adminTour).includes(TOUR_ROUTES.admin.academicYear));
-assert.ok(!routesOf(schoolTour).includes(TOUR_ROUTES.admin.academicYear));
-assert.ok(routesOf(schoolTour).includes(TOUR_ROUTES.admin.attendance));
+const schoolTour = buildTours({
+  desktop: true,
+  menuKey: "schooladministrator",
+}).find((tour) => tour.tour === "admin");
+assert.ok(adminTour);
+assert.ok(schoolTour);
+assert.deepEqual(forwardRoutes(adminTour), [
+  TOUR_ROUTES.admin.academicYear,
+  TOUR_ROUTES.admin.branchs,
+  TOUR_ROUTES.admin.users,
+  TOUR_ROUTES.admin.classes,
+  TOUR_ROUTES.admin.attendance,
+]);
+// Admin sekolah tidak punya menu tingkat yayasan, jadi rantainya lebih pendek.
+assert.deepEqual(forwardRoutes(schoolTour), [
+  TOUR_ROUTES.admin.classes,
+  TOUR_ROUTES.admin.attendance,
+]);
 
 // Desktop memakai anchor sidebar; mobile menggantinya dengan tombol pembuka sidebar.
 const desktopAdmin = adminTour.steps.map((s) => s.selector);
@@ -696,24 +712,23 @@ export function buildTours({
   const closing = desktop ? CLOSING_STEP : CLOSING_STEP_MOBILE;
   const adminPages = menuKey === "schooladministrator" ? ADMIN_SCHOOL_PAGES : ADMIN_PAGES;
 
+  // nextstepjs berpindah halaman lewat `nextRoute` langkah SEBELUM langkah yang
+  // ditampilkan, jadi rute halaman pertama harus menempel pada langkah krom terakhir —
+  // tanpa itu kartu halaman pertama tampil di halaman tempat pengguna sedang berada.
+  const stepsFor = (pages: PageStep[]): Step[] => [
+    ...chrome.map((step, index) =>
+      index === chrome.length - 1 ? { ...step, nextRoute: pages[0].route } : step,
+    ),
+    ...pageSteps(pages),
+    closing,
+  ];
+
   return [
-    { tour: "admin" satisfies TourKey, steps: [...chrome, ...pageSteps(adminPages), closing] },
-    {
-      tour: "treasurer" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(TREASURER_PAGES), closing],
-    },
-    {
-      tour: "teacher" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(TEACHER_PAGES), closing],
-    },
-    {
-      tour: "student" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(STUDENT_PAGES), closing],
-    },
-    {
-      tour: "parent" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(PARENT_PAGES), closing],
-    },
+    { tour: "admin" satisfies TourKey, steps: stepsFor(adminPages) },
+    { tour: "treasurer" satisfies TourKey, steps: stepsFor(TREASURER_PAGES) },
+    { tour: "teacher" satisfies TourKey, steps: stepsFor(TEACHER_PAGES) },
+    { tour: "student" satisfies TourKey, steps: stepsFor(STUDENT_PAGES) },
+    { tour: "parent" satisfies TourKey, steps: stepsFor(PARENT_PAGES) },
   ];
 }
 ```
@@ -1006,8 +1021,8 @@ and replace the sidebar branch's return with:
 ```tsx
   // Render dengan sidebar
   return (
-    <SidebarProvider>
-      <TourProvider>
+    <TourProvider>
+      <SidebarProvider>
         <AppSidebar />
         <SidebarInset className="bg-background flex min-h-screen flex-col">
           <header
@@ -1024,10 +1039,17 @@ and replace the sidebar branch's return with:
           <Footer />
           <InstallButton />
         </SidebarInset>
-      </TourProvider>
-    </SidebarProvider>
+      </SidebarProvider>
+    </TourProvider>
   );
 ```
+
+**`TourProvider` sits OUTSIDE `SidebarProvider`, and that is load-bearing.** `nextstepjs`
+inserts its own DOM between a provider and its children. Wrapping the shell from inside
+`SidebarProvider` puts those nodes between `[data-slot="sidebar-wrapper"]` (a flex row) and
+the `Sidebar` / `SidebarInset` pair, so the sidebar's gap stops pushing the content and the
+sidebar's `fixed z-10` container covers the page — verified in the browser as
+`click blocked: covered by <div.min-h-0.flex-1>`. Outside, the shell's DOM is unchanged.
 
 - [ ] **Step 6: Type-check and build**
 

@@ -92,6 +92,13 @@ flowchart TD
 `scrollToTop={false}` (a tour that jumps the page to top on finish loses the user's
 place on long dashboard pages).
 
+**Placement is load-bearing:** `TourProvider` wraps the shell from **outside**
+`SidebarProvider`. nextstepjs inserts its own DOM between a provider and its children;
+from inside `SidebarProvider` those nodes land between `[data-slot="sidebar-wrapper"]` (a
+flex row) and the `Sidebar` / `SidebarInset` pair, the sidebar's gap stops pushing the
+content, and the sidebar's `fixed z-10` container covers the page — observed in the browser
+as `click blocked: covered by <div.min-h-0.flex-1>`. Outside, the shell's DOM is unchanged.
+
 `NextStep` is only rendered after mount (`useEffect`-gated `mounted` state), so the tour
 subtree never participates in SSR — no hydration mismatch from `matchMedia` or
 `localStorage`.
@@ -103,6 +110,14 @@ Five tours, keyed by `tourKey`. Step lists are built by `buildTours({ desktop, m
 Common shape for every tour (desktop): sidebar navigation → header → the role's page
 steps → sidebar footer (profile / switch account / sign out). On mobile the sidebar pair
 collapses into the single trigger step described in §8.
+
+**Navigation semantics.** nextstepjs navigates using the **preceding** step's `nextRoute`
+(and `prevRoute` for the back button) *before* showing the next/previous step. So the last
+chrome step carries the route of the first page step, and each page step carries the next
+page's route. The first page step has no `prevRoute`: the chrome anchors exist on every
+page. `tour.check.ts` asserts the forward chain as an exact ordered list — an `includes`
+check passed while the first page route was never actually navigated, so the assertion is
+on order, not membership.
 
 | tourKey | roles (`menuKey`) | Steps after the chrome anchors |
 |---|---|---|
