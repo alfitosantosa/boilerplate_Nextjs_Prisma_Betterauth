@@ -315,7 +315,10 @@ Append to `lib/tours/tour.check.ts` (after the storage-key asserts, before the f
 
 ```ts
 // Setiap rute yang dipakai tur harus punya page.tsx — kalau tidak, tur menabrak 404.
-const pagesDir = join(import.meta.dir, "..", "..", "app", "(frontend)", "(dashboard)");
+// `import.meta.dir` bukan API bertipe di repo ini (TS2339); pakai `import.meta.url`.
+const pagesDir = fileURLToPath(
+  new URL("../../app/(frontend)/(dashboard)", import.meta.url),
+);
 assert.ok(ALL_TOUR_ROUTES.length >= 19, `rute tur mengecil tak terduga: ${ALL_TOUR_ROUTES.length}`);
 for (const route of ALL_TOUR_ROUTES) {
   assert.ok(
@@ -369,6 +372,7 @@ Extend the import block at the top of the same file:
 ```ts
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import type { Tour } from "nextstepjs";
 
@@ -530,6 +534,19 @@ const CLOSING_STEP: Step = {
   ...ANCHOR,
 };
 
+/**
+ * Di mobile sidebar menjadi sheet, jadi blok profil tidak ada di DOM. Kartu penutupnya
+ * dibiarkan tanpa selector: tampil di tengah, tanpa menyorot apa pun yang keliru.
+ *
+ * Tanpa ini, `tour.check.ts` gagal pada `!mobileAdmin.includes(SELECTORS.sidebarFooter)` —
+ * assertion itulah yang menemukan celah ini.
+ */
+const CLOSING_STEP_MOBILE: Step = {
+  title: "Akun Anda",
+  content:
+    "Profil, ganti akun, dan keluar ada di dalam menu sidebar. Tur ini bisa diputar ulang dari tombol Panduan di header.",
+};
+
 const ADMIN_PAGES: PageStep[] = [
   {
     route: TOUR_ROUTES.admin.academicYear,
@@ -676,25 +693,26 @@ export function buildTours({
   menuKey: string;
 }): Tour[] {
   const chrome: Step[] = desktop ? [NAV_STEP, HEADER_STEP] : [MOBILE_NAV_STEP];
+  const closing = desktop ? CLOSING_STEP : CLOSING_STEP_MOBILE;
   const adminPages = menuKey === "schooladministrator" ? ADMIN_SCHOOL_PAGES : ADMIN_PAGES;
 
   return [
-    { tour: "admin" satisfies TourKey, steps: [...chrome, ...pageSteps(adminPages), CLOSING_STEP] },
+    { tour: "admin" satisfies TourKey, steps: [...chrome, ...pageSteps(adminPages), closing] },
     {
       tour: "treasurer" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(TREASURER_PAGES), CLOSING_STEP],
+      steps: [...chrome, ...pageSteps(TREASURER_PAGES), closing],
     },
     {
       tour: "teacher" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(TEACHER_PAGES), CLOSING_STEP],
+      steps: [...chrome, ...pageSteps(TEACHER_PAGES), closing],
     },
     {
       tour: "student" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(STUDENT_PAGES), CLOSING_STEP],
+      steps: [...chrome, ...pageSteps(STUDENT_PAGES), closing],
     },
     {
       tour: "parent" satisfies TourKey,
-      steps: [...chrome, ...pageSteps(PARENT_PAGES), CLOSING_STEP],
+      steps: [...chrome, ...pageSteps(PARENT_PAGES), closing],
     },
   ];
 }
@@ -1103,7 +1121,7 @@ Expected, in order:
 | Skip | `Lewati` closes the tour and the page is usable again |
 | No repeat | Reload → no auto-start |
 | Replay | `Panduan` in the header starts the tour again |
-| Mobile | At 390px width the sidebar steps are gone and the opener button is highlighted instead |
+| Mobile | At 390px width the sidebar steps are gone, the opener button is highlighted instead, and the closing card is centered |
 | Dark mode | Card, text, and buttons stay legible |
 | Console | No errors or React warnings from the tour |
 

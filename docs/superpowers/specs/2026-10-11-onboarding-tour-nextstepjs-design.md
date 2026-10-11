@@ -218,7 +218,9 @@ Below `768px` the sidebar is an off-canvas `Sheet` (`components/ui/sidebar.tsx`)
 `[data-slot="sidebar-content"]` is not in the DOM. `buildTours({ desktop: false })`
 therefore replaces the two sidebar-anchor steps with a single step targeting
 `[data-slot="sidebar-trigger"]` (the header button that opens the sheet) and keeps only
-the page-level steps. `desktop` comes from
+the page-level steps. The closing step loses its selector too (`CLOSING_STEP_MOBILE`): the
+profile block lives in the off-canvas sidebar, so a footer-targeted step would highlight
+nothing — it renders as a centered card instead. `desktop` comes from
 `window.matchMedia("(min-width: 768px)").matches`, read inside the mount-gated
 `useEffect` — never during render, so SSR and client agree.
 
