@@ -489,8 +489,9 @@ export const ALL_TOUR_ROUTES: string[] = Object.values(TOUR_ROUTES).flatMap((rou
 const ANCHOR = {
   pointerPadding: 8,
   pointerRadius: 12,
-  // Header dashboard sticky: tanpa ini sorotan di dekat tepi atas tertutup header.
-  scrollOffset: 88,
+  // Header dashboard sticky hasil ukur di browser: 121px. Tanpa ini sorotan di dekat tepi
+  // atas tertutup header; 136 = 121 + jeda 15px.
+  scrollOffset: 136,
   // Halaman merender setelah query-nya selesai.
   selectorRetryAttempts: 3,
   selectorRetryDelay: 250,
@@ -1193,6 +1194,37 @@ Expected: check passes, no TypeScript errors, production build succeeds.
 git add AGENTS.md "app/(frontend)/(dashboard)/dashboard/test/date/page.tsx"
 git commit -m "docs: record onboarding tour self-check"
 ```
+
+---
+
+## Verification results (2026-10-11, executed)
+
+Recorded from a real run — a freshly registered foundation admin, not a fixture.
+
+| Check | Result |
+|---|---|
+| `bun run lib/tours/tour.check.ts` | `semua assert lolos` |
+| `bunx tsc --noEmit` | exit 0 |
+| `bun run build` | exit 0 |
+| Auto-start | Started on its own on `/dashboard/profile` right after registration — `Langkah 1 dari 8`, "Menu kerja Anda" |
+| Step ↔ page pairing | Every card rendered on its own page: academic year → schools → users → classes → attendance |
+| Cross-page timing | 1174 / 918 / 615 / 926 / 648 ms per `nextRoute` hop (dev server, warm routes) |
+| Spotlight | 263×721 on the sidebar, 1192×129 on the header, 36×36 on the mobile trigger — target plus twice `pointerPadding` |
+| Completion | `localStorage["lms.tour.v1.<userId>.admin"] = "done"` |
+| No repeat | Reload → no auto-start |
+| Replay | Header button restarts at step 1 |
+| Mobile 390px | `Langkah 1 dari 7`, opener button highlighted, closing card centered |
+| Dark mode | Card follows the tokens: near-black surface, near-white text, 10% border, 24px radius |
+| Console | No errors on any step |
+| Header height | 121px measured → `scrollOffset` raised from 88 to 136 |
+
+An earlier run appeared to show "no navigation at all". That was a **measurement error**, not
+a bug: in dev, Turbopack compiles each first-visit route, and an 1800 ms sample window is
+shorter than that compile. Polling the URL showed every hop landing in under 1.2 s once warm.
+
+Side effect worth knowing: registering the foundation for this verification created
+Foundation `Yayasan Uji Onboarding` (`YAYASAN_UJI_ONB_1ANK`), its five scoped roles, and one
+`user_data` row for the test account, in the shared database from `.env`.
 
 ---
 

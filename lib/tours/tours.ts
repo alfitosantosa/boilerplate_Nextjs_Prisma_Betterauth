@@ -50,8 +50,9 @@ export const ALL_TOUR_ROUTES: string[] = Object.values(TOUR_ROUTES).flatMap(
 const ANCHOR = {
   pointerPadding: 8,
   pointerRadius: 12,
-  // Header dashboard sticky: tanpa ini sorotan di dekat tepi atas tertutup header.
-  scrollOffset: 88,
+  // Header dashboard sticky hasil ukur di browser: 121px. Tanpa ini sorotan di dekat tepi
+  // atas tertutup header; 136 = 121 + jeda 15px.
+  scrollOffset: 136,
   // Halaman merender setelah query-nya selesai.
   selectorRetryAttempts: 3,
   selectorRetryDelay: 250,

@@ -20,8 +20,7 @@ export function TourReplayButton() {
       className="text-muted-foreground gap-1.5"
     >
       <Compass />
-      <span className="hidden sm:inline">Panduan</span>
-      <span className="sr-only sm:hidden">Panduan</span>
+      Panduan
     </Button>
   );
 }

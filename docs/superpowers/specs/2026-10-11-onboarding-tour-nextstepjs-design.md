@@ -166,12 +166,10 @@ user there, and the spotlight is reserved for the three chrome anchors that exis
 every page. `tours.ts` exports `TOUR_ROUTES` so the self-check asserts every route a step
 uses has a `page.tsx` on disk.
 
-Step-level options applied to every step that has a selector: `scrollOffset` tuned to the
-sticky dashboard
-header's real height during verification (start at 88 — the header is `px-4 py-7` plus a
-`size-7` trigger), `selectorRetryAttempts: 3`, `selectorRetryDelay: 250` (pages fetch
-through TanStack Query), and `pointerPadding: 8`, `pointerRadius: 12` to match the house
-radii.
+Step-level options applied to every step that has a selector: `scrollOffset: 136`,
+measured in the browser (the sticky dashboard header renders **121px** tall; 136 leaves a
+15px gap), `selectorRetryAttempts: 3`, `selectorRetryDelay: 250` (pages fetch through
+TanStack Query), and `pointerPadding: 8`, `pointerRadius: 12` to match the house radii.
 
 Copy is written in Bahasa Indonesia, matching the UI language rule. Icons are lucide
 components, never emoji.
