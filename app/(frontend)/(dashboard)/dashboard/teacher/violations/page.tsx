@@ -7,6 +7,12 @@ import { useGetTypeViolations } from "@/app/(hooks)/hooks/Violations/useTypeViol
 import { useCreateViolation, useDeleteViolation, useUpdateViolation } from "@/app/(hooks)/hooks/Violations/useViolations";
 import { useGetViolationsByIdTeacher } from "@/app/(hooks)/hooks/Violations/useViolationsByIdTeacher";
 import { ViolationTypes } from "@/app/(types)";
+import {
+  TOUR_CREATE,
+  TOUR_DIALOG_VALUE,
+  TOUR_FIELD_VALUE,
+  TOUR_SUBMIT,
+} from "@/lib/tours/selectors";
 import Loading from "@/components/loading";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
@@ -273,14 +279,14 @@ function ViolationFormDialog({ open, onOpenChange, editData, onSuccess }: { open
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent data-tour={TOUR_DIALOG_VALUE.violation} className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{editData ? "Edit Pelanggaran" : "Tambah Pelanggaran Baru"}</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
+            <div className="space-y-2" data-tour={TOUR_FIELD_VALUE.violationStudent}>
               <Label>Siswa</Label>
               {usersLoading ? (
                 <div className="flex items-center justify-center h-10 border rounded-2xl">
@@ -313,7 +319,7 @@ function ViolationFormDialog({ open, onOpenChange, editData, onSuccess }: { open
           <div className="space-y-2">
             <Label>Jenis Pelanggaran</Label>
             <Select value={selectedViolationTypeId} onValueChange={(value) => setValue("violationTypeId", value)}>
-              <SelectTrigger>
+              <SelectTrigger data-tour={TOUR_FIELD_VALUE.violationType}>
                 <SelectValue placeholder="Pilih Jenis Pelanggaran" />
               </SelectTrigger>
               <SelectContent>
@@ -329,7 +335,7 @@ function ViolationFormDialog({ open, onOpenChange, editData, onSuccess }: { open
 
           <div className="space-y-2">
             <Label htmlFor="description">Deskripsi Tambahan</Label>
-            <Textarea id="description" placeholder="Deskripsi detail kejadian..." rows={3} {...register("description")} />
+            <Textarea id="description" data-tour={TOUR_FIELD_VALUE.violationNotes} placeholder="Deskripsi detail kejadian..." rows={3} {...register("description")} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -381,7 +387,7 @@ function ViolationFormDialog({ open, onOpenChange, editData, onSuccess }: { open
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Batal
             </Button>
-            <Button type="submit" disabled={createViolation.isPending || updateViolation.isPending}>
+            <Button type="submit" data-tour={TOUR_SUBMIT} disabled={createViolation.isPending || updateViolation.isPending}>
               {createViolation.isPending || updateViolation.isPending ? "Menyimpan..." : editData ? "Perbarui" : "Simpan"}
             </Button>
           </div>
@@ -801,7 +807,7 @@ function ViolationDataTable() {
                 </DropdownMenu>
               </div>
               <div>
-                <Button onClick={() => setCreateDialogOpen(true)}>
+                <Button data-tour={TOUR_CREATE} onClick={() => setCreateDialogOpen(true)}>
                   <Plus className="mr-2 h-4 w-4" />
                   Tambah Pelanggaran
                 </Button>

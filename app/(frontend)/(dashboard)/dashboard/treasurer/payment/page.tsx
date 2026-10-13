@@ -9,6 +9,12 @@ import {
 } from "react";
 
 import { createPDFKwitansi } from "@/app/(action)/createPDF/Invoice/studentInvoice";
+import {
+  TOUR_CREATE,
+  TOUR_DIALOG_VALUE,
+  TOUR_FIELD_VALUE,
+  TOUR_SUBMIT,
+} from "@/lib/tours/selectors";
 import { useGetAccountBankByIdBranch } from "@/app/(hooks)/hooks/AccountBank/useAccountBank";
 import {
   useCreatePayment,
@@ -730,7 +736,10 @@ function PaymentFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[95vh] max-w-3xl overflow-y-auto">
+      <DialogContent
+        className="max-h-[95vh] max-w-3xl overflow-y-auto"
+        data-tour={TOUR_DIALOG_VALUE.payment}
+      >
         <DialogHeader>
           <DialogTitle>
             {editData ? "Edit Pembayaran" : "Tambah Pembayaran Baru"}
@@ -747,7 +756,7 @@ function PaymentFormDialog({
           <input type="hidden" {...register("branchId")} />
 
           {/* Student Selection */}
-          <div className="space-y-2">
+          <div className="space-y-2" data-tour={TOUR_FIELD_VALUE.paymentStudent}>
             <Label>Siswa</Label>
             <Controller
               name="studentId"
@@ -794,7 +803,7 @@ function PaymentFormDialog({
                 control={control}
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
+                    <SelectTrigger data-tour={TOUR_FIELD_VALUE.paymentBank}>
                       <SelectValue placeholder="Pilih Rekening Bank" />
                     </SelectTrigger>
                     <SelectContent>
@@ -875,6 +884,7 @@ function PaymentFormDialog({
               <Label htmlFor="paymentDate">Tanggal Bayar</Label>
               <Input
                 id="paymentDate"
+                data-tour={TOUR_FIELD_VALUE.paymentDate}
                 type="date"
                 {...register("paymentDate")}
               />
@@ -1220,6 +1230,7 @@ function PaymentFormDialog({
               </Button>
               <Button
                 type="submit"
+                data-tour={TOUR_SUBMIT}
                 disabled={!isSubmitDisabled}
                 title={
                   selectedItemsCount === 0 ? "Pilih minimal 1 item" : undefined
@@ -1871,7 +1882,10 @@ function PaymentDataTable({
             <FileText className="mr-2 h-4 w-4" />
             {isExporting ? "Mengexport..." : "Export Excel"}
           </Button>
-          <Button onClick={() => setCreateDialogOpen(true)}>
+          <Button
+            data-tour={TOUR_CREATE}
+            onClick={() => setCreateDialogOpen(true)}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Tambah Pembayaran
           </Button>

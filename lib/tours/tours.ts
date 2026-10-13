@@ -370,19 +370,124 @@ const TREASURER_PAGES: PageStep[] = [
     route: TOUR_ROUTES.treasurer.paymentType,
     title: "Jenis tagihan",
     content:
-      "SPP bulanan, uang gedung, seragam, dan ujian didaftarkan di sini beserta tarifnya. Tagihan lahir dari daftar ini.",
+      "SPP bulanan, uang gedung, seragam, dan ujian didaftarkan di sini beserta tarifnya. Tagihan lahir dari daftar ini. Tekan Tambah Jenis Tagihan untuk mengisi yang pertama.",
+    selector: SELECTORS.createButton,
+    side: "left",
+    dialog: {
+      name: "paymentType",
+      fields: [
+        {
+          title: "Peruntukan tagihan",
+          content:
+            "Pilih Sekolah untuk tagihan resmi unit, atau Koperasi untuk penjualan koperasi. Pilihan ini yang memisahkan uang unit dari uang koperasi di laporan.",
+          selector: FIELD_SELECTOR.paymentTypeOwner,
+          side: "right",
+        },
+        {
+          title: "Nama jenis tagihan",
+          content:
+            "Tulis nama yang dikenali orang tua, misal SPP Bulanan atau Uang Gedung. Nama ini ikut tercetak di kuitansi.",
+          selector: FIELD_SELECTOR.paymentTypeName,
+          side: "right",
+        },
+        {
+          title: "Jumlah pembayaran",
+          content:
+            "Isi tarifnya dalam rupiah tanpa titik atau koma. Nominal inilah yang dipakai saat tagihan siswa dibuat nanti.",
+          selector: FIELD_SELECTOR.paymentTypeAmount,
+          side: "right",
+        },
+        {
+          title: "Simpan",
+          content:
+            "Tekan Simpan. Jenis tagihan langsung bisa dipakai untuk menyusun tagihan siswa.",
+          selector: SELECTORS.submit,
+          side: "top",
+        },
+      ],
+    },
   },
   {
     route: TOUR_ROUTES.treasurer.billing,
     title: "Susun tagihan",
     content:
-      "Tagihan dibuat per siswa per jenis. Yang belum dibayar otomatis terbaca sebagai tunggakan.",
+      "Tagihan dibuat per siswa per jenis. Yang belum dibayar otomatis terbaca sebagai tunggakan. Tekan Tambah Item untuk membuat yang pertama.",
+    selector: SELECTORS.createButton,
+    side: "left",
+    dialog: {
+      name: "billing",
+      fields: [
+        {
+          title: "Pilih siswa",
+          content:
+            "Cari nama siswa penerima tagihan. Setelah dipilih, daftar tagihan yang belum lunas miliknya muncul sendiri di bawah kolom ini.",
+          selector: FIELD_SELECTOR.billingStudent,
+          side: "right",
+        },
+        {
+          title: "Jenis tagihan",
+          content:
+            "Pilih dari jenis yang sudah didaftarkan; tarif dan deskripsinya ikut terisi. Kalau pilihannya kosong, daftarkan dulu jenisnya di halaman Jenis Tagihan.",
+          selector: FIELD_SELECTOR.billingType,
+          side: "right",
+        },
+        {
+          title: "Nama item",
+          content:
+            "Nama yang muncul di daftar tagihan dan kuitansi siswa, misal SPP Januari. Bulan dan tahun di bawahnya menentukan periode tagihannya.",
+          selector: FIELD_SELECTOR.billingName,
+          side: "right",
+        },
+        {
+          title: "Simpan",
+          content:
+            "Tekan Simpan. Tagihan masuk ke daftar siswa, dan pembayarannya diverifikasi di halaman Pembayaran.",
+          selector: SELECTORS.submit,
+          side: "top",
+        },
+      ],
+    },
   },
   {
     route: TOUR_ROUTES.treasurer.payment,
     title: "Verifikasi pembayaran",
     content:
-      "Pembayaran online lewat Midtrans masuk sendiri. Transfer manual Anda verifikasi di sini, lalu kuitansi bernomor terbit.",
+      "Pembayaran online lewat Midtrans masuk sendiri. Transfer manual Anda catat di sini lewat Tambah Pembayaran, lalu kuitansi bernomor terbit.",
+    selector: SELECTORS.createButton,
+    side: "left",
+    dialog: {
+      name: "payment",
+      fields: [
+        {
+          title: "Pilih siswa",
+          content:
+            "Tagihan yang belum lunas milik siswa ini muncul otomatis, siap dicentang.",
+          selector: FIELD_SELECTOR.paymentStudent,
+          side: "right",
+        },
+        {
+          title: "Rekening bank",
+          content:
+            "Pilih rekening tempat uang masuk. Rekeningnya didaftarkan lebih dulu di halaman Rekening Bank.",
+          selector: FIELD_SELECTOR.paymentBank,
+          side: "right",
+        },
+        {
+          title: "Tanggal bayar",
+          content:
+            "Tanggal uang benar-benar masuk, bukan tanggal pencatatan. Tanggal inilah yang tercetak di kuitansi.",
+          selector: FIELD_SELECTOR.paymentDate,
+          side: "right",
+        },
+        {
+          title: "Simpan",
+          content:
+            "Centang dulu tagihan yang dibayar: tombol Simpan tetap terkunci selama belum ada item terpilih. Setelah tersimpan, kuitansinya bisa diunduh dari baris pembayaran siswa.",
+          selector: SELECTORS.submit,
+          side: "top",
+        },
+      ],
+    },
   },
   {
     route: TOUR_ROUTES.treasurer.studentInformation,
@@ -410,7 +515,43 @@ const TEACHER_PAGES: PageStep[] = [
   {
     route: TOUR_ROUTES.teacher.violations,
     title: "Pelanggaran siswa",
-    content: "Catat pelanggaran; poinnya terakumulasi per siswa.",
+    content:
+      "Catat pelanggaran; poinnya terakumulasi per siswa. Tekan Tambah Pelanggaran untuk mencatat kejadian pertama.",
+    selector: SELECTORS.createButton,
+    side: "left",
+    dialog: {
+      name: "violation",
+      fields: [
+        {
+          title: "Pilih siswa",
+          content:
+            "Cari nama siswa yang melanggar, lalu pastikan kelasnya sudah benar di sebelahnya.",
+          selector: FIELD_SELECTOR.violationStudent,
+          side: "right",
+        },
+        {
+          title: "Jenis pelanggaran",
+          content:
+            "Jenis menentukan poin yang masuk ke rekap siswa — besar poinnya tertulis di sebelah nama jenisnya.",
+          selector: FIELD_SELECTOR.violationType,
+          side: "right",
+        },
+        {
+          title: "Deskripsi tambahan",
+          content:
+            "Tulis kronologi singkat kejadiannya. Kolom inilah yang dibaca wali kelas dan orang tua.",
+          selector: FIELD_SELECTOR.violationNotes,
+          side: "right",
+        },
+        {
+          title: "Simpan",
+          content:
+            "Tekan Simpan. Poinnya langsung bertambah di rekap pelanggaran siswa.",
+          selector: SELECTORS.submit,
+          side: "top",
+        },
+      ],
+    },
   },
 ];
 

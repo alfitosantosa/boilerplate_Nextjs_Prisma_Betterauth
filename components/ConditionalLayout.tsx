@@ -20,6 +20,7 @@ const AUTH_ROUTES = [
   "/auth/sign-up",
   "/auth/register",
   "/landing",
+  "/produk",
 ];
 
 export default function ConditionalLayout({
@@ -49,10 +50,12 @@ export default function ConditionalLayout({
           >
             <SidebarTrigger className="" />
             <div className="flex-1" />
-            <TourReplayButton />
+            {/* <TourReplayButton /> */}
           </header>
           <main className="flex-1 overflow-auto">
-            <div className="mx-auto space-y-6 p-4 md:p-6 lg:p-8">{children}</div>
+            <div className="mx-auto space-y-6 p-4 md:p-6 lg:p-8">
+              {children}
+            </div>
           </main>
           <Footer />
           <InstallButton />

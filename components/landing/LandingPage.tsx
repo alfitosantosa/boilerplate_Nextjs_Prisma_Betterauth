@@ -1,57 +1,49 @@
 import { Navbar } from "./Navbar";
 import { Hero } from "./Hero";
-import { Proof } from "./Proof";
-import { Jenjang } from "./Jenjang";
-import { Modules } from "./Modules";
-import { Features } from "./Features";
+import { Pain } from "./Pain";
+import { Catalog } from "./Catalog";
+import { DemoCharts } from "./DemoCharts";
+import { Benefits } from "./Benefits";
+import { Capabilities } from "./Capabilities";
+import { Pricing } from "./Pricing";
+import { Roadmap } from "./Roadmap";
 import { HowItWorks } from "./HowItWorks";
-import { FinanceSection } from "./FinanceSection";
-import { Reports } from "./Reports";
-import { VaultBand } from "./VaultBand";
 import { Faq } from "./Faq";
 import { CtaSection } from "./CtaSection";
 import { Footer } from "./Footer";
+import { SmoothScroll } from "./SmoothScroll";
+import { PageGradient } from "./PageGradient";
 
 /**
- * One page, read top to bottom, alternating white canvas and tinted band so the
- * eye can tell sections apart without a card around each one.
- *
- *   masthead + the working register      white
- *   who uses it                          white strip
- *   every jenjang, separate data         band
- *   the seven modules                    white
- *   what each role does                  band
- *   catat, validasi, kirim               white
- *   the money behind it                  band
- *   what the yayasan can see             white
- *   where the data lives                 navy
- *   the questions                        white
- *   closing                              navy
- *
- * Server component on purpose — the interactive parts (navbar sheet, register,
- * jenjang tabs, FAQ accordion) declare their own `"use client"`.
+ * Satu halaman jualan, dibaca dari atas ke bawah: masalah spreadsheet, katalog
+ * produk, demo data, kemampuan sistem, harga, strategi mulai, cara kerja, lalu
+ * tanya jawab. Scroll dimuluskan Lenis; bagian interaktif (navbar, register,
+ * demo chart, FAQ) menyatakan `"use client"` sendiri.
  */
 export function LandingPage() {
   return (
-    <div className="bg-background text-foreground min-h-[100dvh] antialiased">
-      <Navbar />
+    <SmoothScroll>
+      <div className="bg-background text-foreground relative isolate min-h-[100dvh] antialiased">
+        <PageGradient />
+        <Navbar />
 
-      <main>
-        <Hero />
-        <Proof />
-        <Jenjang />
-        <Modules />
-        <Features />
-        <HowItWorks />
-        <FinanceSection />
-        <Reports />
-        <VaultBand />
-        <Faq />
-        <CtaSection />
-      </main>
+        <main>
+          <Hero />
+          <Pain />
+          <Catalog />
+          <DemoCharts />
+          <Benefits />
+          <Capabilities />
+          <Pricing />
+          <Roadmap />
+          <HowItWorks />
+          <Faq />
+          <CtaSection />
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </SmoothScroll>
   );
 }
 

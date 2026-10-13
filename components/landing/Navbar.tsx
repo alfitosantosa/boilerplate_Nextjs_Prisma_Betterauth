@@ -16,20 +16,30 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 import { signOut, useSession } from "@/lib/betterauth/authClients";
+import { products } from "@/lib/marketing/products";
+import { cn } from "@/lib/shadCN/utils";
 
 export const NAV_LINKS = [
-  { label: "Modul", href: "#fitur" },
-  { label: "Jenjang", href: "#jenjang" },
-  { label: "Cara kerja", href: "#cara-kerja" },
-  { label: "Keuangan", href: "#keuangan" },
+  { label: "Paket", href: "#paket" },
+  { label: "Demo data", href: "#demo" },
+  { label: "Fitur", href: "#fitur" },
   { label: "Pertanyaan", href: "#faq" },
 ];
 
 /**
- * The register's top rule: a constant hairline rather than chrome that appears
- * on scroll. One navigation, one sign-in, and the one action the whole page is
- * asking for — mendaftarkan yayasan.
+ * Navigasi utama: logo kiri, menu tengah, aksi kanan — `justify-between`
+ * meratakan ketiganya. "Produk" membuka panel berisi sepuluh modul menuju
+ * /produk/[slug]; tautan lain meluncur ke anchor (Lenis menanganinya).
  */
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -38,8 +48,8 @@ export function Navbar() {
 
   const handleSignOut = async () => {
     await signOut();
-    setMobileOpen(false);
     router.push("/");
+    router.refresh();
   };
 
   const user = session?.user;
@@ -53,7 +63,7 @@ export function Navbar() {
 
   return (
     <nav className="bg-background/85 border-border sticky top-0 z-50 border-b backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-6">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-6">
         <Link
           href="/"
           className="focus-visible:ring-ring/80 shrink-0 rounded-xl focus-visible:ring-[3px] focus-visible:outline-none"
@@ -62,20 +72,61 @@ export function Navbar() {
           <SeraLogo markClassName="h-8 w-auto" />
         </Link>
 
-        <ul className="hidden flex-1 items-center gap-1 lg:flex">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-muted-foreground hover:text-foreground focus-visible:ring-ring/80 rounded-xl px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-[3px] focus-visible:outline-none"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <NavigationMenu viewport={false} className="hidden lg:block">
+          <NavigationMenuList className="gap-1">
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent hover:bg-accent/60 focus:bg-accent/60 data-[state=open]:bg-accent/60 h-9 rounded-xl px-3 py-2 text-sm font-medium">
+                Produk
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className="border-border bg-card rounded-3xl border shadow-xl">
+                <div className="grid w-[34rem] grid-cols-1 gap-1 p-3 sm:grid-cols-2 lg:w-[40rem]">
+                  {products.map((product) => {
+                    const Icon = product.icon;
+                    return (
+                      <NavigationMenuLink asChild key={product.slug}>
+                        <Link
+                          href={`/produk/${product.slug}`}
+                          className="focus-visible:ring-ring/80 hover:bg-accent/60 rounded-2xl p-3 transition-colors focus-visible:ring-[3px] focus-visible:outline-none"
+                        >
+                          <span className="flex items-center gap-2.5">
+                            <Icon
+                              className="text-primary size-4 shrink-0"
+                              aria-hidden
+                            />
+                            <span className="text-foreground text-sm font-semibold">
+                              {product.name}
+                            </span>
+                          </span>
+                          <span className="text-muted-foreground mt-1 block text-xs leading-relaxed">
+                            {product.tagline}
+                          </span>
+                        </Link>
+                      </NavigationMenuLink>
+                    );
+                  })}
+                </div>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
 
-        <div className="ml-auto flex items-center gap-2">
+            {NAV_LINKS.map((link) => (
+              <NavigationMenuItem key={link.href}>
+                <NavigationMenuLink asChild>
+                  <a
+                    href={link.href}
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "bg-transparent hover:bg-accent/60 focus:bg-accent/60",
+                    )}
+                  >
+                    {link.label}
+                  </a>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        <div className="flex shrink-0 items-center gap-2">
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -109,7 +160,12 @@ export function Navbar() {
             </DropdownMenu>
           ) : (
             <>
-              <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Button
+                asChild
+                variant="ghost"
+                size="sm"
+                className="hidden sm:inline-flex"
+              >
                 <Link href="/auth/sign-in">Masuk</Link>
               </Button>
               <Button asChild size="sm">
@@ -133,7 +189,24 @@ export function Navbar() {
               <div className="border-border border-b px-5 py-4">
                 <SeraLogo markClassName="h-8 w-auto" />
               </div>
-              <ul className="p-3">
+              <ul className="max-h-[60vh] overflow-y-auto p-3">
+                <li className="text-muted-foreground px-3 pt-2 pb-1 text-xs font-semibold uppercase">
+                  Produk
+                </li>
+                {products.map((product) => (
+                  <li key={product.slug}>
+                    <Link
+                      href={`/produk/${product.slug}`}
+                      onClick={() => setMobileOpen(false)}
+                      className="text-foreground hover:bg-accent block rounded-xl px-3 py-2.5 text-sm font-medium transition-colors"
+                    >
+                      {product.name}
+                    </Link>
+                  </li>
+                ))}
+                <li className="text-muted-foreground px-3 pt-4 pb-1 text-xs font-semibold uppercase">
+                  Halaman
+                </li>
                 {NAV_LINKS.map((link) => (
                   <li key={link.href}>
                     <a
@@ -148,8 +221,15 @@ export function Navbar() {
               </ul>
               {!user ? (
                 <div className="border-border border-t p-3">
-                  <Button asChild variant="outline" className="w-full">
-                    <Link href="/auth/sign-in" onClick={() => setMobileOpen(false)}>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <Link
+                      href="/auth/sign-in"
+                      onClick={() => setMobileOpen(false)}
+                    >
                       Masuk
                     </Link>
                   </Button>

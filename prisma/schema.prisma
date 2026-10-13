@@ -10,26 +10,26 @@ datasource db {
 }
 
 model Foundation {
-  id                String             @id @unique @default(cuid())
-  name              String
-  imageUrl          String
-  foundationCode    String             @unique
-  address           String
-  phone             String
-  academicYear      AcademicYear[]
-  announcements     Announcement[]
-  branch            Branch[]
-  calendarEvent     CalendarEvent[]
-  dashboardContent  DashboardContent[]
-  role              Role[]
-  user              User[]
-  userData          UserData[]
-  assessmentPeriods AssessmentPeriod[]
-  assessmentScales  AssessmentScale[]
-  developmentAreas  DevelopmentArea[]
-  dailyLogs         DailyLog[]
+  id                 String              @id @unique @default(cuid())
+  name               String
+  imageUrl           String
+  foundationCode     String              @unique
+  address            String
+  phone              String
+  academicYear       AcademicYear[]
+  announcements      Announcement[]
+  assessmentPeriods  AssessmentPeriod[]
+  assessmentScales   AssessmentScale[]
+  branch             Branch[]
+  calendarEvent      CalendarEvent[]
+  dailyLogs          DailyLog[]
+  dashboardContent   DashboardContent[]
+  developmentAreas   DevelopmentArea[]
+  role               Role[]
   studentAssessments StudentAssessment[]
-  studentReports    StudentReport[]
+  studentReports     StudentReport[]
+  user               User[]
+  userData           UserData[]
 
   @@map("foundation")
 }
@@ -140,22 +140,27 @@ model UserData {
   studentSubmissions      AssignmentSubmission[] @relation("StudentSubmission")
   teacherAssignments      Assignment[]           @relation("TeacherAssignment")
   attendances             Attendance[]           @relation("StudentAttendance")
+  dailyLogsAsStudent      DailyLog[]             @relation("StudentDailyLogs")
+  dailyLogsAsTeacher      DailyLog[]             @relation("TeacherDailyLogs")
   DashboardContents       DashboardContent[]
+  evidencesUploaded       Evidence[]             @relation("EvidenceUploader")
+  createdExams            Exam[]                 @relation("ExamCreator")
+  examAttempts            ExamAttempt[]          @relation("StudentExamAttempt")
   grades                  Grade[]                @relation("StudentGrade")
   notifications           Notification[]
   paymentItems            PaymentItems[]
   PaymentCreated          Payment[]              @relation("CreatedPayment")
   payments                Payment[]              @relation("StudentPayment")
   reportCards             ReportCard[]           @relation("StudentReportCard")
-  studentReports          StudentReport[]        @relation("StudentReportCard")
-  approvedReports         StudentReport[]        @relation("ReportApprover")
   schedules               Schedule[]             @relation("TeacherSchedule")
+  assessmentsAsStudent    StudentAssessment[]    @relation("StudentAssessments")
+  assessmentsAsTeacher    StudentAssessment[]    @relation("TeacherAssessments")
+  approvedReports         StudentReport[]        @relation("ReportApprover")
+  studentReports          StudentReport[]        @relation("StudentReportCard")
   tahfidzRecords          TahfidzRecord[]        @relation("TahfidzStudent")
   tahfidzRecordsAsTeacher TahfidzRecord[]        @relation("TahfidzTeacher")
   createdAttendances      TeacherAttendance[]    @relation("CreatedAttendance")
   teacherAttendances      TeacherAttendance[]    @relation("TeacherAttendance")
-  createdExams            Exam[]                 @relation("ExamCreator")
-  examAttempts            ExamAttempt[]          @relation("StudentExamAttempt")
   academicYear            AcademicYear?          @relation("UserAcademicYear", fields: [academicYearId], references: [id])
   branch                  Branch?                @relation("UserBranch", fields: [branchId], references: [id])
   class                   Class?                 @relation("UserClass", fields: [classId], references: [id])
@@ -164,11 +169,6 @@ model UserData {
   tahfidzGroup            TahfidzGroup?          @relation("UserTahfidzGroup", fields: [tahfidzGroupId], references: [id])
   user                    User?                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   violations              Violation[]            @relation("StudentViolation")
-  dailyLogsAsStudent      DailyLog[]             @relation("StudentDailyLogs")
-  dailyLogsAsTeacher      DailyLog[]             @relation("TeacherDailyLogs")
-  evidencesUploaded       Evidence[]             @relation("EvidenceUploader")
-  assessmentsAsStudent    StudentAssessment[]    @relation("StudentAssessments")
-  assessmentsAsTeacher    StudentAssessment[]    @relation("TeacherAssessments")
 
   @@index([foundationId])
   @@index([academicYearId])
@@ -206,6 +206,7 @@ model AcademicYear {
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
   foundation          Foundation?          @relation(fields: [foundationId], references: [id])
+  assessmentPeriods   AssessmentPeriod[]
   calendarEvents      CalendarEvent[]
   classes             Class[]
   gradeConfigurations GradeConfiguration[]
@@ -214,7 +215,6 @@ model AcademicYear {
   schedules           Schedule[]
   students            UserData[]           @relation("UserAcademicYear")
   violationTypes      ViolationType[]
-  assessmentPeriods   AssessmentPeriod[]
 
   @@unique([foundationId, year])
   @@index([foundationId])
@@ -222,28 +222,28 @@ model AcademicYear {
 }
 
 model Branch {
-  id           String        @id @default(cuid())
-  code         String
-  name         String
-  description  String?
-  isActive     Boolean       @default(true)
-  address      String?
-  phone        String?
-  adminName    String?
-  signatureUrl String?
-  foundationId String?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  accountBank  AccountBank[]
-  foundation   Foundation?   @relation(fields: [foundationId], references: [id])
-  classes      Class[]
-  paymenttype  PaymentType[]
-  payments     Payment[]
-  subjects     Subject[]
-  students     UserData[]    @relation("UserBranch")
-  dailyLogs    DailyLog[]
+  id                 String              @id @default(cuid())
+  code               String
+  name               String
+  description        String?
+  isActive           Boolean             @default(true)
+  address            String?
+  phone              String?
+  adminName          String?
+  signatureUrl       String?
+  foundationId       String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  accountBank        AccountBank[]
+  foundation         Foundation?         @relation(fields: [foundationId], references: [id])
+  classes            Class[]
+  dailyLogs          DailyLog[]
+  paymenttype        PaymentType[]
+  payments           Payment[]
   studentAssessments StudentAssessment[]
-  studentReports StudentReport[]
+  studentReports     StudentReport[]
+  subjects           Subject[]
+  students           UserData[]          @relation("UserBranch")
 
   @@unique([foundationId, code])
   @@index([foundationId])
@@ -261,14 +261,14 @@ model Class {
   assignments         Assignment[]
   academicYear        AcademicYear         @relation(fields: [academicYearId], references: [id])
   branch              Branch               @relation(fields: [branchId], references: [id])
+  dailyLogs           DailyLog[]
   gradeConfigurations GradeConfiguration[]
   reportCards         ReportCard[]
   schedules           Schedule[]
-  students            UserData[]           @relation("UserClass")
-  violations          Violation[]
-  dailyLogs           DailyLog[]
   studentAssessments  StudentAssessment[]
   studentReports      StudentReport[]
+  students            UserData[]           @relation("UserClass")
+  violations          Violation[]
 
   @@unique([name, academicYearId])
   @@map("classes")
@@ -283,12 +283,12 @@ model Subject {
   credits             Int                  @default(2)
   isActive            Boolean              @default(true)
   assignments         Assignment[]
+  dailyLogs           DailyLog[]
   gradeConfigurations GradeConfiguration[]
   grades              Grade[]
   reportCards         ReportCard[]
   schedules           Schedule[]
   branch              Branch?              @relation(fields: [branchId], references: [id])
-  dailyLogs           DailyLog[]
 
   @@unique([branchId, code])
   @@map("subjects")
@@ -642,13 +642,13 @@ model Assignment {
   allowLateSubmission Boolean                @default(false)
   maxScore            Decimal                @default(100)
   gradeTypeId         String?
-  developmentAreaId   String?
-  indicatorId         String?
   isPublished         Boolean                @default(false)
   isActive            Boolean                @default(true)
   createdAt           DateTime               @default(now())
   updatedAt           DateTime               @updatedAt
   createdBy           String
+  developmentAreaId   String?
+  indicatorId         String?
   submissions         AssignmentSubmission[]
   class               Class                  @relation(fields: [classId], references: [id])
   developmentArea     DevelopmentArea?       @relation(fields: [developmentAreaId], references: [id])
@@ -683,8 +683,8 @@ model AssignmentSubmission {
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
-  evidences    Evidence[]
   student      UserData   @relation("StudentSubmission", fields: [studentId], references: [id], onDelete: Cascade)
+  evidences    Evidence[]
 
   @@unique([assignmentId, studentId])
   @@index([assignmentId])
@@ -819,52 +819,25 @@ model TahfidzGroup {
   @@map("tahfidz_groups")
 }
 
-//examModels
-
-enum ExamStatus {
-  DRAFT
-  PUBLISHED
-  CLOSED
-}
-
-enum QuestionType {
-  MULTIPLE_CHOICE
-  TRUE_FALSE
-  ESSAY
-}
-
-enum AttemptStatus {
-  IN_PROGRESS
-  SUBMITTED
-  GRADED
-}
-
 model Exam {
-  id String @id @default(cuid())
-
+  id           String         @id @default(cuid())
   foundationId String
   majorId      String?
   classId      String?
   subjectId    String?
-  createdBy    String // userId yang membuat exam (Teacher/Admin)
-
-  title       String
-  description String?
-
-  duration     Int? // dalam menit
+  createdBy    String
+  title        String
+  description  String?
+  duration     Int?
   passingScore Int?
-
-  status ExamStatus @default(DRAFT)
-
-  startAt DateTime?
-  endAt   DateTime?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  creator   UserData       @relation("ExamCreator", fields: [createdBy], references: [id])
-  questions ExamQuestion[]
-  attempts  ExamAttempt[]
+  status       ExamStatus     @default(DRAFT)
+  startAt      DateTime?
+  endAt        DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  creator      UserData       @relation("ExamCreator", fields: [createdBy], references: [id])
+  attempts     ExamAttempt[]
+  questions    ExamQuestion[]
 
   @@index([foundationId])
   @@index([majorId])
@@ -891,13 +864,13 @@ model Question {
   id            String           @id @default(cuid())
   type          QuestionType
   question      String
-  imageUrl      String?
   points        Int              @default(1)
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
-  options       QuestionOption[]
-  examQuestions ExamQuestion[]
+  imageUrl      String?
   answers       ExamAnswer[]
+  examQuestions ExamQuestion[]
+  options       QuestionOption[]
 
   @@map("question")
 }
@@ -905,32 +878,27 @@ model Question {
 model QuestionOption {
   id         String       @id @default(cuid())
   questionId String
-  option     String // A, B, C, D
+  option     String
   text       String
   isCorrect  Boolean      @default(false)
-  question   Question     @relation(fields: [questionId], references: [id], onDelete: Cascade)
   answers    ExamAnswer[]
+  question   Question     @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@map("question_option")
 }
 
 model ExamAttempt {
-  id String @id @default(cuid())
-
+  id            String        @id @default(cuid())
   examId        String
   studentId     String
-  attemptNumber Int    @default(1)
-
-  status AttemptStatus @default(IN_PROGRESS)
-
-  startedAt   DateTime  @default(now())
-  submittedAt DateTime?
-
-  score Int?
-
-  exam    Exam         @relation(fields: [examId], references: [id], onDelete: Cascade)
-  student UserData     @relation("StudentExamAttempt", fields: [studentId], references: [id], onDelete: Cascade)
-  answers ExamAnswer[]
+  status        AttemptStatus @default(IN_PROGRESS)
+  startedAt     DateTime      @default(now())
+  submittedAt   DateTime?
+  score         Int?
+  attemptNumber Int           @default(1)
+  answers       ExamAnswer[]
+  exam          Exam          @relation(fields: [examId], references: [id], onDelete: Cascade)
+  student       UserData      @relation("StudentExamAttempt", fields: [studentId], references: [id], onDelete: Cascade)
 
   @@unique([examId, studentId, attemptNumber])
   @@index([examId])
@@ -939,25 +907,277 @@ model ExamAttempt {
 }
 
 model ExamAnswer {
-  id               String   @id @default(cuid())
+  id               String          @id @default(cuid())
   attemptId        String
   questionId       String
   selectedOptionId String?
   answerText       String?
   isCorrect        Boolean?
   points           Int?
-
-  attempt        ExamAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
-  question       Question        @relation(fields: [questionId], references: [id])
-  selectedOption QuestionOption? @relation(fields: [selectedOptionId], references: [id])
+  attempt          ExamAttempt     @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question         Question        @relation(fields: [questionId], references: [id])
+  selectedOption   QuestionOption? @relation(fields: [selectedOptionId], references: [id])
 
   @@unique([attemptId, questionId])
   @@map("exam_answer")
 }
 
-// =====================================================
-// STUDENT DEVELOPMENT MODULE — Phase 1 foundation
-// =====================================================
+model AssessmentPeriod {
+  id             String                 @id @default(cuid())
+  foundationId   String
+  academicYearId String?
+  name           String
+  semester       Int
+  startDate      DateTime
+  endDate        DateTime
+  status         AssessmentPeriodStatus @default(DRAFT)
+  createdAt      DateTime               @default(now())
+  updatedAt      DateTime               @updatedAt
+  academicYear   AcademicYear?          @relation(fields: [academicYearId], references: [id])
+  foundation     Foundation             @relation(fields: [foundationId], references: [id])
+  assessments    StudentAssessment[]
+  studentReports StudentReport[]
+
+  @@unique([foundationId, academicYearId, semester, name])
+  @@index([foundationId])
+  @@index([status])
+  @@map("assessment_periods")
+}
+
+model AssessmentScale {
+  id           String              @id @default(cuid())
+  foundationId String
+  code         String
+  label        String
+  description  String?
+  value        Int
+  color        String?
+  order        Int                 @default(0)
+  isActive     Boolean             @default(true)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  foundation   Foundation          @relation(fields: [foundationId], references: [id])
+  observations DailyObservation[]
+  assessments  StudentAssessment[]
+
+  @@unique([foundationId, code])
+  @@index([foundationId])
+  @@map("assessment_scales")
+}
+
+model DevelopmentArea {
+  id           String                 @id @default(cuid())
+  foundationId String
+  name         String
+  description  String?
+  order        Int                    @default(0)
+  isActive     Boolean                @default(true)
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+  assignments  Assignment[]
+  foundation   Foundation             @relation(fields: [foundationId], references: [id])
+  indicators   DevelopmentIndicator[]
+
+  @@unique([foundationId, name])
+  @@index([foundationId])
+  @@map("development_areas")
+}
+
+model DevelopmentIndicator {
+  id                String              @id @default(cuid())
+  developmentAreaId String
+  code              String?
+  name              String
+  description       String?
+  order             Int                 @default(0)
+  isActive          Boolean             @default(true)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  assignments       Assignment[]
+  observations      DailyObservation[]
+  developmentArea   DevelopmentArea     @relation(fields: [developmentAreaId], references: [id], onDelete: Cascade)
+  assessments       StudentAssessment[]
+
+  @@unique([developmentAreaId, name])
+  @@index([developmentAreaId])
+  @@map("development_indicators")
+}
+
+model DailyLog {
+  id            String             @id @default(cuid())
+  foundationId  String
+  branchId      String
+  classId       String
+  studentId     String
+  teacherId     String
+  subjectId     String?
+  date          DateTime
+  activity      String
+  achievement   String?
+  challenge     String?
+  teacherNote   String?
+  status        DailyLogStatus     @default(DRAFT)
+  parentVisible Boolean            @default(false)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  branch        Branch             @relation(fields: [branchId], references: [id])
+  class         Class              @relation(fields: [classId], references: [id])
+  foundation    Foundation         @relation(fields: [foundationId], references: [id])
+  student       UserData           @relation("StudentDailyLogs", fields: [studentId], references: [id])
+  subject       Subject?           @relation(fields: [subjectId], references: [id])
+  teacher       UserData           @relation("TeacherDailyLogs", fields: [teacherId], references: [id])
+  observations  DailyObservation[]
+  evidences     Evidence[]
+
+  @@index([foundationId, branchId, classId])
+  @@index([studentId, date])
+  @@index([classId, date])
+  @@index([teacherId, date])
+  @@map("daily_logs")
+}
+
+model DailyObservation {
+  id          String               @id @default(cuid())
+  dailyLogId  String
+  indicatorId String
+  scaleId     String?
+  observation String
+  note        String?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  dailyLog    DailyLog             @relation(fields: [dailyLogId], references: [id], onDelete: Cascade)
+  indicator   DevelopmentIndicator @relation(fields: [indicatorId], references: [id])
+  scale       AssessmentScale?     @relation(fields: [scaleId], references: [id])
+
+  @@index([dailyLogId])
+  @@index([indicatorId])
+  @@map("daily_observations")
+}
+
+model Evidence {
+  id           String                @id @default(cuid())
+  dailyLogId   String?
+  assessmentId String?
+  submissionId String?
+  type         EvidenceType
+  url          String
+  fileName     String?
+  mimeType     String?
+  fileSize     Int?
+  title        String?
+  description  String?
+  uploadedById String?
+  createdAt    DateTime              @default(now())
+  assessment   StudentAssessment?    @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  dailyLog     DailyLog?             @relation(fields: [dailyLogId], references: [id], onDelete: Cascade)
+  submission   AssignmentSubmission? @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  uploadedBy   UserData?             @relation("EvidenceUploader", fields: [uploadedById], references: [id])
+
+  @@index([dailyLogId])
+  @@index([assessmentId])
+  @@index([submissionId])
+  @@map("evidences")
+}
+
+model StudentAssessment {
+  id           String               @id @default(cuid())
+  foundationId String
+  branchId     String
+  classId      String
+  studentId    String
+  teacherId    String
+  periodId     String
+  indicatorId  String
+  scaleId      String
+  score        Decimal?
+  note         String?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  evidences    Evidence[]
+  branch       Branch               @relation(fields: [branchId], references: [id])
+  class        Class                @relation(fields: [classId], references: [id])
+  foundation   Foundation           @relation(fields: [foundationId], references: [id])
+  indicator    DevelopmentIndicator @relation(fields: [indicatorId], references: [id])
+  period       AssessmentPeriod     @relation(fields: [periodId], references: [id])
+  scale        AssessmentScale      @relation(fields: [scaleId], references: [id])
+  student      UserData             @relation("StudentAssessments", fields: [studentId], references: [id])
+  teacher      UserData             @relation("TeacherAssessments", fields: [teacherId], references: [id])
+
+  @@unique([studentId, periodId, indicatorId])
+  @@index([foundationId, branchId, classId])
+  @@index([studentId, periodId])
+  @@index([classId, periodId])
+  @@map("student_assessments")
+}
+
+model StudentReport {
+  id               String           @id @default(cuid())
+  foundationId     String
+  branchId         String
+  classId          String
+  studentId        String
+  periodId         String
+  status           ReportStatus     @default(DRAFT)
+  teacherNarrative String?
+  homeroomNote     String?
+  principalNote    String?
+  snapshot         Json?
+  completion       Json?
+  generatedAt      DateTime?
+  approvedAt       DateTime?
+  publishedAt      DateTime?
+  approvedById     String?
+  createdById      String
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  approvedBy       UserData?        @relation("ReportApprover", fields: [approvedById], references: [id])
+  branch           Branch           @relation(fields: [branchId], references: [id])
+  class            Class            @relation(fields: [classId], references: [id])
+  foundation       Foundation       @relation(fields: [foundationId], references: [id])
+  period           AssessmentPeriod @relation(fields: [periodId], references: [id])
+  student          UserData         @relation("StudentReportCard", fields: [studentId], references: [id])
+
+  @@unique([studentId, periodId])
+  @@index([foundationId, branchId, classId])
+  @@index([classId, periodId])
+  @@index([status])
+  @@map("student_reports")
+}
+
+model AuditLog {
+  id           String   @id @default(cuid())
+  foundationId String?
+  actorId      String
+  action       String
+  entity       String
+  entityId     String
+  before       Json?
+  after        Json?
+  createdAt    DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([actorId, createdAt])
+  @@index([foundationId, createdAt])
+  @@map("audit_logs")
+}
+
+enum ExamStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  ESSAY
+}
+
+enum AttemptStatus {
+  IN_PROGRESS
+  SUBMITTED
+  GRADED
+}
 
 enum AssessmentPeriodStatus {
   DRAFT
@@ -985,252 +1205,4 @@ enum ReportStatus {
   REVIEW
   APPROVED
   PUBLISHED
-}
-
-model AssessmentPeriod {
-  id             String                 @id @default(cuid())
-  foundationId   String
-  academicYearId String?
-  name           String
-  semester       Int
-  startDate      DateTime
-  endDate        DateTime
-  status         AssessmentPeriodStatus @default(DRAFT)
-  createdAt      DateTime               @default(now())
-  updatedAt      DateTime               @updatedAt
-
-  foundation   Foundation    @relation(fields: [foundationId], references: [id])
-  academicYear AcademicYear? @relation(fields: [academicYearId], references: [id])
-  assessments  StudentAssessment[]
-  studentReports StudentReport[]
-
-  @@unique([foundationId, academicYearId, semester, name])
-  @@index([foundationId])
-  @@index([status])
-  @@map("assessment_periods")
-}
-
-model AssessmentScale {
-  id           String   @id @default(cuid())
-  foundationId String
-  code         String
-  label        String
-  description  String?
-  value        Int
-  color        String?
-  order        Int      @default(0)
-  isActive     Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  foundation   Foundation         @relation(fields: [foundationId], references: [id])
-  observations DailyObservation[]
-  assessments  StudentAssessment[]
-
-  @@unique([foundationId, code])
-  @@index([foundationId])
-  @@map("assessment_scales")
-}
-
-model DevelopmentArea {
-  id           String   @id @default(cuid())
-  foundationId String
-  name         String
-  description  String?
-  order        Int      @default(0)
-  isActive     Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  foundation Foundation             @relation(fields: [foundationId], references: [id])
-  indicators DevelopmentIndicator[]
-  assignments Assignment[]
-
-  @@unique([foundationId, name])
-  @@index([foundationId])
-  @@map("development_areas")
-}
-
-model DevelopmentIndicator {
-  id                String   @id @default(cuid())
-  developmentAreaId String
-  code              String?
-  name              String
-  description       String?
-  order             Int      @default(0)
-  isActive          Boolean  @default(true)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-
-  developmentArea DevelopmentArea    @relation(fields: [developmentAreaId], references: [id], onDelete: Cascade)
-  observations    DailyObservation[]
-  assessments     StudentAssessment[]
-  assignments     Assignment[]
-
-  @@unique([developmentAreaId, name])
-  @@index([developmentAreaId])
-  @@map("development_indicators")
-}
-
-model DailyLog {
-  id            String         @id @default(cuid())
-  foundationId  String
-  branchId      String
-  classId       String
-  studentId     String
-  teacherId     String
-  subjectId     String?
-  date          DateTime
-  activity      String
-  achievement   String?
-  challenge     String?
-  teacherNote   String?
-  status        DailyLogStatus @default(DRAFT)
-  parentVisible Boolean        @default(false)
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-
-  foundation   Foundation         @relation(fields: [foundationId], references: [id])
-  branch       Branch             @relation(fields: [branchId], references: [id])
-  class        Class              @relation(fields: [classId], references: [id])
-  subject      Subject?           @relation(fields: [subjectId], references: [id])
-  student      UserData           @relation("StudentDailyLogs", fields: [studentId], references: [id])
-  teacher      UserData           @relation("TeacherDailyLogs", fields: [teacherId], references: [id])
-  observations DailyObservation[]
-  evidences    Evidence[]
-
-  @@index([foundationId, branchId, classId])
-  @@index([studentId, date])
-  @@index([classId, date])
-  @@index([teacherId, date])
-  @@map("daily_logs")
-}
-
-model DailyObservation {
-  id          String   @id @default(cuid())
-  dailyLogId  String
-  indicatorId String
-  scaleId     String?
-  observation String
-  note        String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  dailyLog  DailyLog             @relation(fields: [dailyLogId], references: [id], onDelete: Cascade)
-  indicator DevelopmentIndicator @relation(fields: [indicatorId], references: [id])
-  scale     AssessmentScale?     @relation(fields: [scaleId], references: [id])
-
-  @@index([dailyLogId])
-  @@index([indicatorId])
-  @@map("daily_observations")
-}
-
-model Evidence {
-  id           String       @id @default(cuid())
-  dailyLogId   String?
-  assessmentId String? // relasi ditambahkan di Phase 4
-  submissionId String? // relasi ditambahkan di Phase 5
-  type         EvidenceType
-  url          String
-  fileName     String?
-  mimeType     String?
-  fileSize     Int?
-  title        String?
-  description  String?
-  uploadedById String?
-  createdAt    DateTime     @default(now())
-
-  dailyLog   DailyLog?        @relation(fields: [dailyLogId], references: [id], onDelete: Cascade)
-  assessment StudentAssessment? @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
-  submission AssignmentSubmission? @relation(fields: [submissionId], references: [id], onDelete: Cascade)
-  uploadedBy UserData?        @relation("EvidenceUploader", fields: [uploadedById], references: [id])
-
-  @@index([dailyLogId])
-  @@index([assessmentId])
-  @@index([submissionId])
-  @@map("evidences")
-}
-
-model StudentAssessment {
-  id           String   @id @default(cuid())
-  foundationId String
-  branchId     String
-  classId      String
-  studentId    String
-  teacherId    String
-  periodId     String
-  indicatorId  String
-  scaleId      String
-  score        Decimal?
-  note         String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  foundation Foundation           @relation(fields: [foundationId], references: [id])
-  branch     Branch               @relation(fields: [branchId], references: [id])
-  class      Class                @relation(fields: [classId], references: [id])
-  student    UserData             @relation("StudentAssessments", fields: [studentId], references: [id])
-  teacher    UserData             @relation("TeacherAssessments", fields: [teacherId], references: [id])
-  period     AssessmentPeriod     @relation(fields: [periodId], references: [id])
-  indicator  DevelopmentIndicator @relation(fields: [indicatorId], references: [id])
-  scale      AssessmentScale      @relation(fields: [scaleId], references: [id])
-  evidences  Evidence[]
-
-  @@unique([studentId, periodId, indicatorId])
-  @@index([foundationId, branchId, classId])
-  @@index([studentId, periodId])
-  @@index([classId, periodId])
-  @@map("student_assessments")
-}
-
-model StudentReport {
-  id               String       @id @default(cuid())
-  foundationId     String
-  branchId         String
-  classId          String
-  studentId        String
-  periodId         String
-  status           ReportStatus @default(DRAFT)
-  teacherNarrative String?
-  homeroomNote     String?
-  principalNote    String?
-  snapshot         Json?
-  completion       Json?
-  generatedAt      DateTime?
-  approvedAt       DateTime?
-  publishedAt      DateTime?
-  approvedById     String?
-  createdById      String
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
-
-  foundation Foundation       @relation(fields: [foundationId], references: [id])
-  branch     Branch           @relation(fields: [branchId], references: [id])
-  class      Class            @relation(fields: [classId], references: [id])
-  student    UserData         @relation("StudentReportCard", fields: [studentId], references: [id])
-  period     AssessmentPeriod @relation(fields: [periodId], references: [id])
-  approvedBy UserData?        @relation("ReportApprover", fields: [approvedById], references: [id])
-
-  @@unique([studentId, periodId])
-  @@index([foundationId, branchId, classId])
-  @@index([classId, periodId])
-  @@index([status])
-  @@map("student_reports")
-}
-
-model AuditLog {
-  id           String   @id @default(cuid())
-  foundationId String?
-  actorId      String
-  action       String
-  entity       String
-  entityId     String
-  before       Json?
-  after        Json?
-  createdAt    DateTime @default(now())
-
-  @@index([entity, entityId])
-  @@index([actorId, createdAt])
-  @@index([foundationId, createdAt])
-  @@map("audit_logs")
 }

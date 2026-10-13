@@ -8,6 +8,12 @@ import {
   useUpdatePaymentType,
 } from "@/app/(hooks)/hooks/Payments/usePaymentType";
 import { useGetUserByIdBetterAuth } from "@/app/(hooks)/hooks/Users/useUsersByIdBetterAuth";
+import {
+  TOUR_CREATE,
+  TOUR_DIALOG_VALUE,
+  TOUR_FIELD_VALUE,
+  TOUR_SUBMIT,
+} from "@/lib/tours/selectors";
 import Loading from "@/components/loading";
 import {
   AlertDialog,
@@ -321,7 +327,10 @@ function PaymentTypeFormDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] max-w-md overflow-y-auto">
+      <DialogContent
+        className="max-h-[90vh] max-w-md overflow-y-auto"
+        data-tour={TOUR_DIALOG_VALUE.paymentType}
+      >
         <DialogHeader>
           <DialogTitle>
             {editData
@@ -341,7 +350,10 @@ function PaymentTypeFormDialog({
               value={watch("owner")}
               onValueChange={(value) => setValue("owner", value)}
             >
-              <SelectTrigger className="w-full">
+              <SelectTrigger
+                className="w-full"
+                data-tour={TOUR_FIELD_VALUE.paymentTypeOwner}
+              >
                 <SelectValue placeholder="Pilih jenis peruntukan" />
               </SelectTrigger>
               <SelectContent>
@@ -387,6 +399,7 @@ function PaymentTypeFormDialog({
             <Label htmlFor="name">Nama Jenis Pembayaran</Label>
             <Input
               id="name"
+              data-tour={TOUR_FIELD_VALUE.paymentTypeName}
               placeholder="Contoh: SPP Bulanan"
               {...register("name")}
             />
@@ -430,6 +443,7 @@ function PaymentTypeFormDialog({
             <Label htmlFor="amount">Jumlah Pembayaran (Rp)</Label>
             <Input
               id="amount"
+              data-tour={TOUR_FIELD_VALUE.paymentTypeAmount}
               type="number"
               placeholder="0"
               {...register("amount", { valueAsNumber: true })}
@@ -530,6 +544,7 @@ function PaymentTypeFormDialog({
             </Button>
             <Button
               type="submit"
+              data-tour={TOUR_SUBMIT}
               disabled={
                 createPaymentType.isPending || updatePaymentType.isPending
               }
@@ -900,7 +915,10 @@ function PaymentTypeDataTable({
           </DropdownMenu>
 
           {/* Add Button */}
-          <Button onClick={() => setCreateDialogOpen(true)}>
+          <Button
+            data-tour={TOUR_CREATE}
+            onClick={() => setCreateDialogOpen(true)}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Tambah Jenis Tagihan
           </Button>

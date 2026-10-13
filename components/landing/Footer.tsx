@@ -1,36 +1,30 @@
 import Link from "next/link";
 import { SeraLogo } from "@/components/SeraLogo";
 import { Separator } from "@/components/ui/separator";
+import { products } from "@/lib/marketing/products";
 
 const LINK_COLUMNS = [
   {
-    title: "Modul",
-    links: [
-      { label: "Akademik & jadwal", href: "#fitur" },
-      { label: "Presensi & disiplin", href: "#fitur" },
-      { label: "Tahfidz Al-Qur'an", href: "#fitur" },
-      { label: "Penilaian & rapor", href: "#fitur" },
-      { label: "Bot WhatsApp orang tua", href: "#fitur" },
-    ],
+    title: "Produk",
+    links: products.slice(0, 5).map((p) => ({
+      label: p.name,
+      href: `/produk/${p.slug}`,
+    })),
   },
   {
-    title: "Keuangan",
-    links: [
-      { label: "SPP online (Midtrans)", href: "#keuangan" },
-      { label: "Tagihan bulanan & lainnya", href: "#keuangan" },
-      { label: "Kas per cabang", href: "#keuangan" },
-      { label: "Kuitansi PDF", href: "#keuangan" },
-    ],
+    title: "Produk lainnya",
+    links: products.slice(5).map((p) => ({
+      label: p.name,
+      href: `/produk/${p.slug}`,
+    })),
   },
   {
-    title: "Sekolah & data",
+    title: "Mulai",
     links: [
-      { label: "Jenjang sekolah", href: "#jenjang" },
-      { label: "Cara kerja sistemnya", href: "#cara-kerja" },
-      { label: "Isolasi data tiap cabang", href: "#faq" },
-      { label: "Peran & hak akses", href: "#faq" },
-      { label: "Impor data lama dari Excel", href: "#faq" },
-      { label: "Halaman untuk orang tua", href: "/landing/welcome" },
+      { label: "Paket & harga", href: "#paket" },
+      { label: "Demo data", href: "#demo" },
+      { label: "Cara kerja", href: "#cara-kerja" },
+      { label: "Pertanyaan", href: "#faq" },
     ],
   },
 ];
@@ -39,31 +33,21 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-border bg-secondary border-t px-6 pt-16 pb-10">
+    <footer className="border-border bg-secondary/50 border-t px-6 pt-16 pb-10">
       <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-12 sm:grid-cols-5">
-          {/* The masthead, closed the way it opened. */}
-          <div className="col-span-2 space-y-4">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 pb-12 sm:grid-cols-4">
+          <div className="col-span-2 sm:col-span-1">
             <Link
               href="/"
               className="focus-visible:ring-ring/80 inline-block rounded-xl focus-visible:ring-[3px] focus-visible:outline-none"
+              aria-label="Sera App — beranda"
             >
-              <SeraLogo
-                markClassName="h-9 w-auto"
-                subtitle="Sistem informasi sekolah"
-              />
+              <SeraLogo markClassName="h-8 w-auto" />
             </Link>
-
-            <p className="text-muted-foreground max-w-xs text-xs leading-relaxed">
-              Presensi, rapor, tahfidz, dan pembayaran SPP dalam satu catatan.
-              Dikembangkan oleh PT Santosa Tech Indonesia.
+            <p className="text-muted-foreground mt-4 max-w-[30ch] text-sm leading-relaxed">
+              Satu sistem, nol spreadsheet. Platform sekolah digital oleh
+              SantosaTechID.
             </p>
-
-            <ul className="text-muted-foreground space-y-1.5 text-xs">
-              <li>51 tabel data terintegrasi</li>
-              <li>Isolasi data per yayasan dan cabang</li>
-              <li>SMP, SMA, dan SMK IT dalam satu yayasan</li>
-            </ul>
           </div>
 
           {LINK_COLUMNS.map((column) => (
@@ -71,15 +55,15 @@ export function Footer() {
               <h3 className="text-foreground text-sm font-semibold">
                 {column.title}
               </h3>
-              <ul className="text-muted-foreground mt-4 space-y-2.5 text-xs">
+              <ul className="mt-4 space-y-3">
                 {column.links.map((link) => (
-                  <li key={link.label}>
-                    <a
+                  <li key={link.href}>
+                    <Link
                       href={link.href}
-                      className="hover:text-interactive inline-block py-1 transition-colors hover:underline hover:underline-offset-4"
+                      className="text-muted-foreground hover:text-foreground focus-visible:ring-ring/80 rounded-lg text-sm transition-colors focus-visible:ring-[3px] focus-visible:outline-none"
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -90,11 +74,11 @@ export function Footer() {
         <Separator className="bg-border" />
 
         <div className="text-muted-foreground flex flex-col items-center justify-between gap-3 pt-6 text-xs sm:flex-row">
-          <span>
-            &copy; {currentYear} PT Santosa Tech Indonesia. Seluruh hak cipta
-            dilindungi.
-          </span>
-          <span>Dibuat khusus untuk yayasan &amp; sekolah modern.</span>
+          <p>
+            © {currentYear} Sera · SantosaTechID. Seluruh data sekolah di
+            Indonesia.
+          </p>
+          <p className="tabular-nums">Dibuat untuk sekolah, bukan untuk vendor.</p>
         </div>
       </div>
     </footer>

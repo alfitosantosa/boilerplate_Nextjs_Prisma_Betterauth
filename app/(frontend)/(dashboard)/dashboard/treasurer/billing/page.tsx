@@ -14,6 +14,12 @@ import { useGetStudentByIdBranch } from "@/app/(hooks)/hooks/Users/useGetStudent
 import { useGetUserByIdBetterAuth } from "@/app/(hooks)/hooks/Users/useUsersByIdBetterAuth";
 import { type UserDataTypes } from "@/app/(types)";
 import { DatePickerWithRange } from "@/components/date/datePicker";
+import {
+  TOUR_CREATE,
+  TOUR_DIALOG_VALUE,
+  TOUR_FIELD_VALUE,
+  TOUR_SUBMIT,
+} from "@/lib/tours/selectors";
 import Loading from "@/components/loading";
 import {
   AlertDialog,
@@ -436,6 +442,7 @@ function SingleItemDialog({
       <DialogContent
         aria-describedby="Test"
         className="max-h-[90vh] max-w-xl overflow-y-auto"
+        data-tour={TOUR_DIALOG_VALUE.billing}
       >
         <DialogHeader>
           <DialogTitle>
@@ -449,7 +456,7 @@ function SingleItemDialog({
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Student */}
-          <div className="space-y-2">
+          <div className="space-y-2" data-tour={TOUR_FIELD_VALUE.billingStudent}>
             <Label>Siswa</Label>
             <Controller
               name="studentId"
@@ -506,7 +513,7 @@ function SingleItemDialog({
                   value={field.value}
                   onValueChange={handlePaymentTypeChange}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger data-tour={TOUR_FIELD_VALUE.billingType}>
                     <SelectValue placeholder="Pilih Jenis Tagihan" />
                   </SelectTrigger>
                   <SelectContent className="max-h-60">
@@ -544,6 +551,7 @@ function SingleItemDialog({
             <Label htmlFor="name">Nama Item</Label>
             <Input
               id="name"
+              data-tour={TOUR_FIELD_VALUE.billingName}
               placeholder="Nama item tagihan"
               {...register("name")}
             />
@@ -709,7 +717,7 @@ function SingleItemDialog({
             >
               Batal
             </Button>
-            <Button type="submit">
+            <Button type="submit" data-tour={TOUR_SUBMIT}>
               {isPending ? "Menyimpan..." : editData ? "Perbarui" : "Simpan"}
             </Button>
           </div>
@@ -1467,7 +1475,10 @@ function BillingDataTable({
             <FileText className="mr-2 h-4 w-4" />
             {isExporting ? "Mengexport..." : "Export Excel"}
           </Button>
-          <Button onClick={() => setSingleDialogOpen(true)}>
+          <Button
+            data-tour={TOUR_CREATE}
+            onClick={() => setSingleDialogOpen(true)}
+          >
             <Plus className="mr-2 h-4 w-4" />
             Tambah Item
           </Button>

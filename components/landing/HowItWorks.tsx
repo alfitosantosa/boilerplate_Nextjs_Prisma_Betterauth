@@ -1,109 +1,61 @@
+import { Reveal } from "./Reveal";
+
+/* Tiga langkah implementasi — dari konsultasi sampai sekolah berjalan. Impor
+   Excel di langkah kedua adalah fitur nyata, bukan janji. */
+const STEPS = [
+  {
+    no: "01",
+    title: "Konsultasi & pilih paket",
+    detail:
+      "Kami dengar cara sekolah bekerja hari ini, lalu paket dan modul disesuaikan dengan kebutuhan dan anggaran — tidak dipaksa membeli semuanya.",
+  },
+  {
+    no: "02",
+    title: "Data lama dipindahkan",
+    detail:
+      "Siswa, guru, dan kelas diimpor sekaligus dari berkas Excel. Tidak ada pengetikan ulang, dan data langsung mengikuti struktur sekolah.",
+  },
+  {
+    no: "03",
+    title: "Pelatihan & sekolah berjalan",
+    detail:
+      "Guru, TU, dan bendahara dilatih per perannya. Sekolah mulai memakai sistem, dan dukungan berjalan berkala bersama hosting.",
+  },
+];
+
 export function HowItWorks() {
-  const steps = [
-    {
-      title: "Catat",
-      actor: "Guru",
-      body: "Guru membuka jadwal pelajaran hari itu, lalu mencatat kehadiran setiap siswa — hadir, sakit, izin, atau alfa. Satu catatan per siswa per jadwal, tersimpan saat itu juga. Check-in dan check-out guru tercatat terpisah di hari yang sama.",
-      tables: ["Attendance", "TeacherAttendance"],
-      head: "bg-info-surface border-info-border",
-      badge: "bg-info-strong text-background",
-      chip: "border-info-border bg-background text-info-strong",
-      chipTable: "bg-info-surface text-info-strong",
-    },
-    {
-      title: "Validasi",
-      actor: "Bendahara",
-      body: "Bendahara mencocokkan setoran orang tua dengan tagihan bulanan: nominal, bulan tagihan, dan rekening kas unit. Verifikasi transfer menautkan referensi bank dan tanggal transfer, lalu nomor kuitansi terbit sebagai bukti pembayaran.",
-      tables: ["Payment", "PaymentTransaction", "AccountBank"],
-      head: "bg-warning-surface border-warning-border",
-      badge: "bg-warning-strong text-background",
-      chip: "border-warning-border bg-background text-warning-strong",
-      chipTable: "bg-warning-surface text-warning-strong",
-    },
-    {
-      title: "Kirim",
-      actor: "Sistem",
-      body: "Ringkasan kehadiran, poin kedisiplinan, dan kuitansi pembayaran dikirim ke nomor WhatsApp orang tua melalui Evolution API — tanpa guru menulis satu pesan pun secara manual.",
-      tables: ["Notification", "Violation"],
-      head: "bg-success-surface border-success-border",
-      badge: "bg-success-strong text-background",
-      chip: "border-success-border bg-background text-success-strong",
-      chipTable: "bg-success-surface text-success-strong",
-    },
-  ];
-
   return (
-    <section id="cara-kerja" className="bg-background py-24 lg:py-28">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="max-w-[68ch]">
-          <h2 className="text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance">
-            Satu catatan masuk, tiga langkah sampai ke orang tua.
-          </h2>
-          <p className="text-muted-foreground mt-3 text-base leading-relaxed">
-            Alurnya sama di setiap unit: guru mencatat, bendahara memvalidasi,
-            sistem mengirim. Tidak ada entri ulang di aplikasi lain.
-          </p>
-        </div>
+    <section id="cara-kerja" className="border-border border-b">
+      <div className="mx-auto max-w-6xl px-6 py-20 lg:py-24">
+        <Reveal>
+          <div className="max-w-[62ch]">
+            <h2 className="text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance">
+              Dari Excel ke sistem dalam tiga langkah.
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-[62ch] text-base leading-relaxed">
+              Implementasi tidak harus proyek berbulan-bulan. Tiga langkah, dan
+              sekolah berjalan dengan catatan yang sama.
+            </p>
+          </div>
+        </Reveal>
 
-        <ol className="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-8">
-          {steps.map((step, index) => (
-            <li
-              key={step.title}
-              className="border-border bg-card relative flex flex-col rounded-3xl border"
-            >
-              <div
-                className={`flex items-center justify-between gap-3 rounded-t-3xl border-b px-6 py-5 ${step.head}`}
-              >
-                <div className="flex items-center gap-3">
-                  <span
-                    aria-hidden="true"
-                    className={`flex size-10 items-center justify-center rounded-full text-lg font-semibold tabular-nums ${step.badge}`}
-                  >
-                    {index + 1}
-                  </span>
-                  <h3 className="text-foreground text-xl font-semibold tracking-tight">
-                    {step.title}
-                  </h3>
-                </div>
-                <span
-                  className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold ${step.chip}`}
-                >
-                  {step.actor}
+        <div className="border-border mt-12 grid border-t md:grid-cols-3 md:gap-x-10">
+          {STEPS.map((step, i) => (
+            <Reveal key={step.no} delay={i * 100}>
+              <div className="border-border py-7 md:border-t-0 md:border-l md:py-0 md:first:border-l-0 md:first:pl-0 md:pl-6">
+                <span className="text-primary font-mono text-sm font-semibold tabular-nums">
+                  {step.no}
                 </span>
-              </div>
-
-              <div className="flex flex-1 flex-col p-6">
-                <p className="text-secondary-foreground max-w-[68ch] text-sm leading-relaxed">
-                  {step.body}
+                <h3 className="text-foreground mt-3 text-base font-semibold tracking-tight">
+                  {step.title}
+                </h3>
+                <p className="text-muted-foreground mt-2 max-w-[42ch] text-sm leading-relaxed">
+                  {step.detail}
                 </p>
-
-                <div className="mt-auto pt-5">
-                  <p className="text-muted-foreground text-xs">Tercatat di</p>
-                  <ul className="mt-2 flex flex-wrap gap-2">
-                    {step.tables.map((table) => (
-                      <li
-                        key={table}
-                        className={`rounded-md px-2 py-0.5 font-mono text-xs ${step.chipTable}`}
-                      >
-                        {table}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
               </div>
-
-              {index < steps.length - 1 && (
-                <span
-                  aria-hidden="true"
-                  className="border-border bg-card text-muted-foreground absolute -bottom-8 left-1/2 flex size-6 -translate-x-1/2 items-center justify-center rounded-full border text-xs lg:top-1/2 lg:-right-5 lg:bottom-auto lg:left-auto lg:-translate-x-0 lg:-translate-y-1/2"
-                >
-                  <span className="lg:hidden">↓</span>
-                  <span className="hidden lg:inline">→</span>
-                </span>
-              )}
-            </li>
+            </Reveal>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   );

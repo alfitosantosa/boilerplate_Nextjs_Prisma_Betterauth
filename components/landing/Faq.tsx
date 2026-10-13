@@ -10,51 +10,50 @@ import {
 export function Faq() {
   const faqs = [
     {
-      q: "Bagaimana data antar sekolah di dalam satu yayasan dipisah?",
-      a: "Data melekat pada cabang, bukan pada satu kolam bersama. Yayasan terdaftar sebagai satu Foundation, dan setiap unit sekolah — SMP, SMA, SMK IT — adalah Branch dengan branchId sendiri. Setiap pengguna terdaftar pada satu cabang, sehingga guru, bendahara, dan orang tua hanya bekerja di data cabangnya. Rekening kas pun dicatat per cabang, jadi dana tiap unit tidak bercampur.",
+      q: "Berapa harga pastinya?",
+      a: "Nominal pada paket adalah rentang ilustrasi untuk penawaran awal, bukan harga final. Harga akhir ditentukan oleh jumlah siswa, kompleksitas fitur, biaya server, migrasi data, pelatihan, dukungan, dan margin. Setiap sekolah mendapat penawaran tertulis sebelum proyek dimulai.",
     },
     {
-      q: "Apakah kami bisa menambah cabang baru?",
-      a: "Bisa. Cabang baru didaftarkan di bawah yayasan yang sama dan langsung memakai modul yang sama, dengan data yang berdiri sendiri sejak baris pertama. Kode yayasan yang dipakai saat pendaftaran memastikan pengguna baru masuk ke yayasan yang benar, bukan ke yayasan lain.",
+      q: "Sekolah kami belum siap SIAKAD lengkap. Bisa mulai dari mana?",
+      a: "Bisa mulai dari website sekolah dan PPDB online — manfaatnya paling mudah dijelaskan — atau presensi digital dengan notifikasi WhatsApp yang hasilnya langsung terasa. Nanti bisa dinaikkan ke SIAKAD dan rapor tanpa migrasi ke aplikasi lain, karena datanya sudah di satu platform.",
     },
     {
-      q: "Bagaimana SPP online dan verifikasi transfer manual?",
-      a: "Setiap jenis pembayaran — bulanan maupun sekali bayar — punya nominalnya sendiri per cabang, dan tagihan tercatat per siswa per bulan. Orang tua dapat membayar daring lewat Midtrans (Snap maupun Core API), dan pembayaran yang berhasil langsung memperbarui status tagihan. Untuk transfer manual, bendahara mencatat referensi bank, tanggal transfer, dan status pembayaran, lalu kuitansi PDF bernomor diterbitkan dari sistem.",
+      q: "Bagaimana data lama dari Excel dipindahkan?",
+      a: "Tersedia impor massal dari berkas Excel untuk data master seperti siswa, guru, dan kelas. Berkas diunggah dan dibaca langsung oleh sistem, jadi data lama tidak diketik ulang satu per satu.",
     },
     {
-      q: "Bagaimana tahfidz dicatat?",
-      a: "Setoran hafalan disimpan per surah dengan ayat awal dan ayat akhir serta nilai A–E, sehingga capaian tiap siswa dapat dilihat urut. Siswa dibagi ke kelompok tahfidz, dan daftar surah sudah tersedia lengkap — nama Arab, nama latin, jumlah ayat, dan tempat turun — jadi guru tidak perlu menyusun acuan sendiri.",
+      q: "Apakah ada biaya bulanan?",
+      a: "Ya — modelnya berlangganan: Rp799 ribu per sekolah per bulan, sudah termasuk hosting dan dukungan berkala. Paket menentukan cakupan fitur, bukan harga; modul tambahan yang dikerjakan kustom dikenakan biaya sesuai ruang lingkup.",
     },
     {
-      q: "Siapa saja yang bisa mengakses sistem?",
-      a: "Ada lima peran: admin, bendahara, guru, siswa, dan orang tua. Setiap akun melekat pada satu cabang dan satu peran, jadi yang tampil di layar mengikuti keduanya. Admin mengelola data cabang, bendahara mengurus tagihan dan pembayaran, guru mengisi presensi, nilai, dan setoran hafalan, sementara siswa dan orang tua melihat data yang bersangkutan dengan dirinya.",
-    },
-    {
-      q: "Bagaimana impor data lama dari Excel?",
-      a: "Tersedia impor massal dari berkas Excel untuk data master seperti siswa, guru, dan kelas. Berkas diunggah lalu dibaca langsung oleh sistem, sehingga data lama tidak perlu diketik ulang satu per satu, dan setelah masuk data tersebut mengikuti struktur yayasan serta cabang yang sudah didaftarkan.",
+      q: "Bagaimana pembayaran SPP online bekerja?",
+      a: "Setiap jenis pembayaran punya nominalnya sendiri per cabang, dan tagihan tercatat per siswa per bulan. Orang tua bisa membayar daring lewat Midtrans, dan pembayaran yang berhasil langsung memperbarui status tagihan. Transfer manual juga dicatat lengkap dengan referensi banknya, dan kuitansi PDF bernomor diterbitkan dari sistem.",
     },
     {
       q: "Apakah orang tua perlu memasang aplikasi?",
-      a: "Tidak. Orang tua membuka portalnya lewat peramban biasa, dan ringkasan kehadiran, poin kedisiplinan, serta kuitansi pembayaran dikirim ke nomor WhatsApp mereka. Tidak ada berkas yang perlu dipasang di ponsel orang tua.",
+      a: "Tidak. Orang tua memantau absensi, nilai, dan tagihan lewat browser biasa, dan kabar penting dikirim ke nomor WhatsApp mereka. Tidak ada aplikasi yang perlu dipasang.",
     },
     {
-      q: "Di mana datanya disimpan, dan siapa yang bisa membukanya?",
-      a: "Seluruh data berada di satu basis data PostgreSQL terpusat. Tiap cabang memakai branchId-nya sendiri, dan setiap akun terikat pada satu cabang serta satu peran. Jadi yang dapat dibuka seseorang adalah data cabangnya, sesuai perannya masing-masing — bukan seluruh yayasan.",
+      q: "Bagaimana yayasan memantau banyak sekolah?",
+      a: "Yayasan terdaftar sebagai satu Foundation, setiap sekolah menjadi cabang dengan datanya sendiri. Pengurus yayasan melihat dashboard konsolidasi dan laporan akademik serta keuangan antarunit, sementara guru dan bendahara tetap bekerja di data cabangnya masing-masing.",
+    },
+    {
+      q: "Bisa menambah modul di tengah jalan?",
+      a: "Bisa. Add-on seperti BK dan pelanggaran atau notifikasi WhatsApp ditambahkan setelah modul utama berjalan, tanpa mengubah data yang sudah tercatat.",
     },
   ];
 
   return (
-    <section id="faq" className="bg-background py-24 lg:py-28">
+    <section id="faq" className="py-24 lg:py-28">
       <div className="mx-auto max-w-3xl px-6">
         <div className="max-w-[68ch]">
           <h2 className="text-[clamp(1.75rem,2.6vw,2.5rem)] leading-[1.1] font-semibold tracking-[-0.025em] text-balance">
-            Pertanyaan yang muncul sebelum data dipindahkan.
+            Pertanyaan yang muncul sebelum sekolah memutuskan.
           </h2>
           <p className="text-muted-foreground mt-4 max-w-[68ch] text-base leading-relaxed">
-            Delapan hal yang paling sering ditanyakan yayasan sebelum
-            memindahkan datanya: pemisahan data antar unit, penambahan cabang,
-            pembayaran SPP, pencatatan tahfidz, hak akses, impor data lama,
-            akses untuk orang tua, dan penyimpanan data.
+            Delapan hal yang paling sering ditanyakan kepala sekolah dan
+            bendahara: harga, titik mulai, migrasi data, biaya berkala,
+            pembayaran SPP, akses orang tua, pemantauan yayasan, dan add-on.
           </p>
         </div>
 

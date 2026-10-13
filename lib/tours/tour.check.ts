@@ -140,7 +140,11 @@ assert.deepEqual(
     "Susun kelas",
   ],
 );
-for (const step of createSteps) {
+// Sisi `left` berlaku untuk setiap langkah tombol buat, bukan hanya empat di tur admin:
+// kartu di sisi lain pernah terpotong tepi layar pada tombol yang ada di kanan.
+for (const step of buildTours({ desktop: true, menuKey: "student" })
+  .flatMap((tour) => tour.steps)
+  .filter((step) => step.selector === SELECTORS.createButton)) {
   assert.equal(step.side, "left", `sisi salah pada langkah: ${step.title}`);
 }
 // Di mobile tombol buat sering di luar layar, jadi langkah-langkah itu tanpa selector.
@@ -153,6 +157,10 @@ const CREATE_ROUTES = [
   TOUR_ROUTES.admin.branchs,
   TOUR_ROUTES.admin.users,
   TOUR_ROUTES.admin.classes,
+  TOUR_ROUTES.treasurer.paymentType,
+  TOUR_ROUTES.treasurer.billing,
+  TOUR_ROUTES.treasurer.payment,
+  TOUR_ROUTES.teacher.violations,
 ];
 for (const route of CREATE_ROUTES) {
   const file = join(pagesDir, `${route}/page.tsx`);
@@ -219,9 +227,32 @@ const DIALOG_TARGETS: {
     dialog: "kelas",
     fields: ["kelasName", "kelasGrade", "kelasBranch"],
   },
+  {
+    file: "app/(frontend)/(dashboard)/dashboard/treasurer/paymenttype/page.tsx",
+    dialog: "paymentType",
+    fields: ["paymentTypeOwner", "paymentTypeName", "paymentTypeAmount"],
+  },
+  {
+    file: "app/(frontend)/(dashboard)/dashboard/treasurer/billing/page.tsx",
+    dialog: "billing",
+    fields: ["billingStudent", "billingType", "billingName"],
+  },
+  {
+    file: "app/(frontend)/(dashboard)/dashboard/treasurer/payment/page.tsx",
+    dialog: "payment",
+    fields: ["paymentStudent", "paymentBank", "paymentDate"],
+  },
+  {
+    file: "app/(frontend)/(dashboard)/dashboard/teacher/violations/page.tsx",
+    dialog: "violation",
+    fields: ["violationStudent", "violationType", "violationNotes"],
+  },
 ];
 
-const dialogIndex = adminTour.steps
+// Setiap blok dialog di tur mana pun, bukan hanya tur admin: nama dialog unik se-aplikasi,
+// jadi satu daftar datar cukup untuk memeriksa urutan blok di semua tur.
+const allSteps = semuaTur.flatMap((tour) => tour.steps);
+const dialogIndex = allSteps
   .map((step, index) => ({ dialog: (step as DialogStep).dialog, index }))
   .filter((entry) => entry.dialog !== undefined);
 
@@ -262,14 +293,14 @@ for (const target of DIALOG_TARGETS) {
 
   // Blok selalu diawali langkah tombol buat: tanpa itu tidak ada yang membuka dialognya.
   assert.equal(
-    adminTour.steps[indices[0] - 1]?.selector,
+    allSteps[indices[0] - 1]?.selector,
     SELECTORS.createButton,
     `blok ${target.dialog} tidak didahului langkah tombol buat`,
   );
 
   // Setiap kolom punya langkahnya, dan blok diakhiri tombol simpan.
   const blockSelectors: (string | undefined)[] = indices.map(
-    (index) => adminTour.steps[index]?.selector,
+    (index) => allSteps[index]?.selector,
   );
   for (const field of target.fields) {
     assert.ok(
@@ -286,9 +317,15 @@ for (const target of DIALOG_TARGETS) {
 
 // Di mobile blok dialog dilewati seluruhnya: formulirnya sering lebih tinggi dari layar,
 // dan tombol simpannya di luar pandangan.
-const mobileDialogSteps = buildTours({ desktop: false, menuKey: "admin" })
-  .find((tour) => tour.tour === "admin")!
-  .steps.filter((step) => (step as DialogStep).dialog !== undefined);
-assert.equal(mobileDialogSteps.length, 0, "blok dialog harus kosong di mobile");
+for (const tour of buildTours({ desktop: false, menuKey: "student" })) {
+  const mobileDialogSteps = tour.steps.filter(
+    (step) => (step as DialogStep).dialog !== undefined,
+  );
+  assert.equal(
+    mobileDialogSteps.length,
+    0,
+    `blok dialog harus kosong di mobile: ${tour.tour}`,
+  );
+}
 
 console.log("tour.check.ts: semua assert lolos");

@@ -36,6 +36,10 @@ export const TOUR_DIALOG_VALUE = {
   sekolah: `${TOUR_DIALOG}:sekolah`,
   kelas: `${TOUR_DIALOG}:kelas`,
   pengguna: `${TOUR_DIALOG}:pengguna`,
+  paymentType: `${TOUR_DIALOG}:tagihan`,
+  billing: `${TOUR_DIALOG}:item-tagihan`,
+  payment: `${TOUR_DIALOG}:pembayaran`,
+  violation: `${TOUR_DIALOG}:pelanggaran`,
 } as const;
 
 export type TourDialogKey = keyof typeof TOUR_DIALOG_VALUE;
@@ -69,6 +73,18 @@ export const TOUR_FIELD_VALUE = {
   penggunaName: `${TOUR_FIELD}:pengguna-nama`,
   penggunaEmail: `${TOUR_FIELD}:pengguna-email`,
   penggunaRole: `${TOUR_FIELD}:pengguna-peran`,
+  paymentTypeOwner: `${TOUR_FIELD}:tagihan-peruntukan`,
+  paymentTypeName: `${TOUR_FIELD}:tagihan-nama`,
+  paymentTypeAmount: `${TOUR_FIELD}:tagihan-jumlah`,
+  billingStudent: `${TOUR_FIELD}:item-siswa`,
+  billingType: `${TOUR_FIELD}:item-jenis`,
+  billingName: `${TOUR_FIELD}:item-nama`,
+  paymentStudent: `${TOUR_FIELD}:bayar-siswa`,
+  paymentBank: `${TOUR_FIELD}:bayar-rekening`,
+  paymentDate: `${TOUR_FIELD}:bayar-tanggal`,
+  violationStudent: `${TOUR_FIELD}:pelanggaran-siswa`,
+  violationType: `${TOUR_FIELD}:pelanggaran-jenis`,
+  violationNotes: `${TOUR_FIELD}:pelanggaran-catatan`,
 } as const;
 
 export type TourFieldKey = keyof typeof TOUR_FIELD_VALUE;
