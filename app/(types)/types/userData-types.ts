@@ -1,9 +1,5 @@
-import { type attendanceTypes } from "./attendance-types";
-import { type foundationTypes } from "./foundation-types";
-import { type branchTypes } from "./branchs-types";
-import { type PaymentTypes } from "./payment-types";
 import { type RoleDataTypes } from "./roles-types";
-import { type ViolationTypes } from "./violation-types";
+
 
 // User Data Types
 export type UserDataTypes = {
@@ -37,7 +33,6 @@ export type UserDataTypes = {
   updatedAt?: Date | string;
   tahfidzGroupId?: string | null;
   foundationId?: string | null;
-  foundation?: foundationTypes | null;
   user?: UserTypes | null;
   academicYear?: AcademicYearTypes | null;
   class?: ClassTypes | null;
@@ -88,31 +83,6 @@ interface TahfidzGroupTypes {
   grade: number;
 }
 
-//   where: {
-//     branchId: id,
-//     status: "active",
-//     role: {
-//       name: "Student",
-//     },
-//   },
-//   include: {
-//     role: true,
-//     academicYear: true,
-//     class: true,
-//     branch: true,
-//     attendances: true,
-//     payments: true,
-//     violations: true,
-//     _count: {
-//       select: {
-//         attendances: true,
-//         payments: true,
-//         violations: true,
-//       },
-//     },
-//   },
-// });
-
 export type userDataBranchTypes = {
   id: string;
   userId?: string | null;
@@ -146,10 +116,6 @@ export type userDataBranchTypes = {
   role?: RoleDataTypes | null;
   academicYear?: AcademicYearTypes | null;
   class?: ClassTypes | null;
-  branch?: branchTypes | null;
-  attendances?: attendanceTypes[] | null;
-  payments?: PaymentTypes[] | null;
-  violations?: ViolationTypes[] | null;
   _count: {
     attendances: number;
     payments: number;

@@ -18,11 +18,6 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model Foundation
- * 
- */
-export type Foundation = Prisma.FoundationModel
-/**
  * Model User
  * 
  */
@@ -53,222 +48,17 @@ export type UserData = Prisma.UserDataModel
  */
 export type Role = Prisma.RoleModel
 /**
- * Model AcademicYear
- * 
- */
-export type AcademicYear = Prisma.AcademicYearModel
-/**
  * Model Branch
  * 
  */
 export type Branch = Prisma.BranchModel
-/**
- * Model Class
- * 
- */
-export type Class = Prisma.ClassModel
-/**
- * Model Subject
- * 
- */
-export type Subject = Prisma.SubjectModel
-/**
- * Model Schedule
- * 
- */
-export type Schedule = Prisma.ScheduleModel
-/**
- * Model Attendance
- * 
- */
-export type Attendance = Prisma.AttendanceModel
-/**
- * Model ViolationType
- * 
- */
-export type ViolationType = Prisma.ViolationTypeModel
-/**
- * Model Violation
- * 
- */
-export type Violation = Prisma.ViolationModel
-/**
- * Model PaymentType
- * 
- */
-export type PaymentType = Prisma.PaymentTypeModel
-/**
- * Model PaymentItems
- * 
- */
-export type PaymentItems = Prisma.PaymentItemsModel
-/**
- * Model Payment
- * 
- */
-export type Payment = Prisma.PaymentModel
-/**
- * Model PaymentTransaction
- * 
- */
-export type PaymentTransaction = Prisma.PaymentTransactionModel
-/**
- * Model AccountBank
- * 
- */
-export type AccountBank = Prisma.AccountBankModel
-/**
- * Model CalendarEvent
- * 
- */
-export type CalendarEvent = Prisma.CalendarEventModel
-/**
- * Model GradeType
- * 
- */
-export type GradeType = Prisma.GradeTypeModel
-/**
- * Model GradeConfiguration
- * 
- */
-export type GradeConfiguration = Prisma.GradeConfigurationModel
-/**
- * Model Grade
- * 
- */
-export type Grade = Prisma.GradeModel
-/**
- * Model ReportCard
- * 
- */
-export type ReportCard = Prisma.ReportCardModel
-/**
- * Model GradeScale
- * 
- */
-export type GradeScale = Prisma.GradeScaleModel
-/**
- * Model Assignment
- * 
- */
-export type Assignment = Prisma.AssignmentModel
-/**
- * Model AssignmentSubmission
- * 
- */
-export type AssignmentSubmission = Prisma.AssignmentSubmissionModel
 /**
  * Model Notification
  * 
  */
 export type Notification = Prisma.NotificationModel
 /**
- * Model DashboardContent
- * 
- */
-export type DashboardContent = Prisma.DashboardContentModel
-/**
  * Model Announcement
  * 
  */
 export type Announcement = Prisma.AnnouncementModel
-/**
- * Model TahfidzRecord
- * 
- */
-export type TahfidzRecord = Prisma.TahfidzRecordModel
-/**
- * Model SurahQuran
- * 
- */
-export type SurahQuran = Prisma.SurahQuranModel
-/**
- * Model TeacherAttendance
- * 
- */
-export type TeacherAttendance = Prisma.TeacherAttendanceModel
-/**
- * Model TahfidzGroup
- * 
- */
-export type TahfidzGroup = Prisma.TahfidzGroupModel
-/**
- * Model Exam
- * 
- */
-export type Exam = Prisma.ExamModel
-/**
- * Model ExamQuestion
- * 
- */
-export type ExamQuestion = Prisma.ExamQuestionModel
-/**
- * Model Question
- * 
- */
-export type Question = Prisma.QuestionModel
-/**
- * Model QuestionOption
- * 
- */
-export type QuestionOption = Prisma.QuestionOptionModel
-/**
- * Model ExamAttempt
- * 
- */
-export type ExamAttempt = Prisma.ExamAttemptModel
-/**
- * Model ExamAnswer
- * 
- */
-export type ExamAnswer = Prisma.ExamAnswerModel
-/**
- * Model AssessmentPeriod
- * 
- */
-export type AssessmentPeriod = Prisma.AssessmentPeriodModel
-/**
- * Model AssessmentScale
- * 
- */
-export type AssessmentScale = Prisma.AssessmentScaleModel
-/**
- * Model DevelopmentArea
- * 
- */
-export type DevelopmentArea = Prisma.DevelopmentAreaModel
-/**
- * Model DevelopmentIndicator
- * 
- */
-export type DevelopmentIndicator = Prisma.DevelopmentIndicatorModel
-/**
- * Model DailyLog
- * 
- */
-export type DailyLog = Prisma.DailyLogModel
-/**
- * Model DailyObservation
- * 
- */
-export type DailyObservation = Prisma.DailyObservationModel
-/**
- * Model Evidence
- * 
- */
-export type Evidence = Prisma.EvidenceModel
-/**
- * Model StudentAssessment
- * 
- */
-export type StudentAssessment = Prisma.StudentAssessmentModel
-/**
- * Model StudentReport
- * 
- */
-export type StudentReport = Prisma.StudentReportModel
-/**
- * Model AuditLog
- * 
- */
-export type AuditLog = Prisma.AuditLogModel

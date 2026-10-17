@@ -238,16 +238,7 @@ export type BranchWhereInput = {
   foundationId?: Prisma.StringNullableFilter<"Branch"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
-  accountBank?: Prisma.AccountBankListRelationFilter
-  foundation?: Prisma.XOR<Prisma.FoundationNullableScalarRelationFilter, Prisma.FoundationWhereInput> | null
-  classes?: Prisma.ClassListRelationFilter
-  paymenttype?: Prisma.PaymentTypeListRelationFilter
-  payments?: Prisma.PaymentListRelationFilter
-  subjects?: Prisma.SubjectListRelationFilter
-  students?: Prisma.UserDataListRelationFilter
-  dailyLogs?: Prisma.DailyLogListRelationFilter
-  studentAssessments?: Prisma.StudentAssessmentListRelationFilter
-  studentReports?: Prisma.StudentReportListRelationFilter
+  users?: Prisma.UserDataListRelationFilter
 }
 
 export type BranchOrderByWithRelationInput = {
@@ -263,16 +254,7 @@ export type BranchOrderByWithRelationInput = {
   foundationId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  accountBank?: Prisma.AccountBankOrderByRelationAggregateInput
-  foundation?: Prisma.FoundationOrderByWithRelationInput
-  classes?: Prisma.ClassOrderByRelationAggregateInput
-  paymenttype?: Prisma.PaymentTypeOrderByRelationAggregateInput
-  payments?: Prisma.PaymentOrderByRelationAggregateInput
-  subjects?: Prisma.SubjectOrderByRelationAggregateInput
-  students?: Prisma.UserDataOrderByRelationAggregateInput
-  dailyLogs?: Prisma.DailyLogOrderByRelationAggregateInput
-  studentAssessments?: Prisma.StudentAssessmentOrderByRelationAggregateInput
-  studentReports?: Prisma.StudentReportOrderByRelationAggregateInput
+  users?: Prisma.UserDataOrderByRelationAggregateInput
 }
 
 export type BranchWhereUniqueInput = Prisma.AtLeast<{
@@ -292,16 +274,7 @@ export type BranchWhereUniqueInput = Prisma.AtLeast<{
   foundationId?: Prisma.StringNullableFilter<"Branch"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
-  accountBank?: Prisma.AccountBankListRelationFilter
-  foundation?: Prisma.XOR<Prisma.FoundationNullableScalarRelationFilter, Prisma.FoundationWhereInput> | null
-  classes?: Prisma.ClassListRelationFilter
-  paymenttype?: Prisma.PaymentTypeListRelationFilter
-  payments?: Prisma.PaymentListRelationFilter
-  subjects?: Prisma.SubjectListRelationFilter
-  students?: Prisma.UserDataListRelationFilter
-  dailyLogs?: Prisma.DailyLogListRelationFilter
-  studentAssessments?: Prisma.StudentAssessmentListRelationFilter
-  studentReports?: Prisma.StudentReportListRelationFilter
+  users?: Prisma.UserDataListRelationFilter
 }, "id" | "foundationId_code">
 
 export type BranchOrderByWithAggregationInput = {
@@ -350,18 +323,10 @@ export type BranchCreateInput = {
   phone?: string | null
   adminName?: string | null
   signatureUrl?: string | null
+  foundationId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankCreateNestedManyWithoutBranchsInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutBranchInput
-  classes?: Prisma.ClassCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserDataCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUncheckedCreateInput = {
@@ -377,15 +342,7 @@ export type BranchUncheckedCreateInput = {
   foundationId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankUncheckedCreateNestedManyWithoutBranchsInput
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeUncheckedCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogUncheckedCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportUncheckedCreateNestedManyWithoutBranchInput
+  users?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
 }
 
 export type BranchUpdateInput = {
@@ -398,18 +355,10 @@ export type BranchUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUpdateManyWithoutBranchsNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutBranchNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchUncheckedUpdateInput = {
@@ -425,15 +374,7 @@ export type BranchUncheckedUpdateInput = {
   foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUncheckedUpdateManyWithoutBranchsNestedInput
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUncheckedUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUncheckedUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUncheckedUpdateManyWithoutBranchNestedInput
+  users?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
 }
 
 export type BranchCreateManyInput = {
@@ -461,6 +402,7 @@ export type BranchUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -478,16 +420,6 @@ export type BranchUncheckedUpdateManyInput = {
   foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type BranchListRelationFilter = {
-  every?: Prisma.BranchWhereInput
-  some?: Prisma.BranchWhereInput
-  none?: Prisma.BranchWhereInput
-}
-
-export type BranchOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
 }
 
 export type BranchNullableScalarRelationFilter = {
@@ -545,297 +477,23 @@ export type BranchMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type BranchScalarRelationFilter = {
-  is?: Prisma.BranchWhereInput
-  isNot?: Prisma.BranchWhereInput
-}
-
-export type BranchCreateNestedManyWithoutFoundationInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutFoundationInput, Prisma.BranchUncheckedCreateWithoutFoundationInput> | Prisma.BranchCreateWithoutFoundationInput[] | Prisma.BranchUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutFoundationInput | Prisma.BranchCreateOrConnectWithoutFoundationInput[]
-  createMany?: Prisma.BranchCreateManyFoundationInputEnvelope
-  connect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
-}
-
-export type BranchUncheckedCreateNestedManyWithoutFoundationInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutFoundationInput, Prisma.BranchUncheckedCreateWithoutFoundationInput> | Prisma.BranchCreateWithoutFoundationInput[] | Prisma.BranchUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutFoundationInput | Prisma.BranchCreateOrConnectWithoutFoundationInput[]
-  createMany?: Prisma.BranchCreateManyFoundationInputEnvelope
-  connect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
-}
-
-export type BranchUpdateManyWithoutFoundationNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutFoundationInput, Prisma.BranchUncheckedCreateWithoutFoundationInput> | Prisma.BranchCreateWithoutFoundationInput[] | Prisma.BranchUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutFoundationInput | Prisma.BranchCreateOrConnectWithoutFoundationInput[]
-  upsert?: Prisma.BranchUpsertWithWhereUniqueWithoutFoundationInput | Prisma.BranchUpsertWithWhereUniqueWithoutFoundationInput[]
-  createMany?: Prisma.BranchCreateManyFoundationInputEnvelope
-  set?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
-  disconnect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
-  delete?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
-  connect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
-  update?: Prisma.BranchUpdateWithWhereUniqueWithoutFoundationInput | Prisma.BranchUpdateWithWhereUniqueWithoutFoundationInput[]
-  updateMany?: Prisma.BranchUpdateManyWithWhereWithoutFoundationInput | Prisma.BranchUpdateManyWithWhereWithoutFoundationInput[]
-  deleteMany?: Prisma.BranchScalarWhereInput | Prisma.BranchScalarWhereInput[]
-}
-
-export type BranchUncheckedUpdateManyWithoutFoundationNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutFoundationInput, Prisma.BranchUncheckedCreateWithoutFoundationInput> | Prisma.BranchCreateWithoutFoundationInput[] | Prisma.BranchUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutFoundationInput | Prisma.BranchCreateOrConnectWithoutFoundationInput[]
-  upsert?: Prisma.BranchUpsertWithWhereUniqueWithoutFoundationInput | Prisma.BranchUpsertWithWhereUniqueWithoutFoundationInput[]
-  createMany?: Prisma.BranchCreateManyFoundationInputEnvelope
-  set?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
-  disconnect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
-  delete?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
-  connect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
-  update?: Prisma.BranchUpdateWithWhereUniqueWithoutFoundationInput | Prisma.BranchUpdateWithWhereUniqueWithoutFoundationInput[]
-  updateMany?: Prisma.BranchUpdateManyWithWhereWithoutFoundationInput | Prisma.BranchUpdateManyWithWhereWithoutFoundationInput[]
-  deleteMany?: Prisma.BranchScalarWhereInput | Prisma.BranchScalarWhereInput[]
-}
-
-export type BranchCreateNestedOneWithoutStudentsInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutStudentsInput, Prisma.BranchUncheckedCreateWithoutStudentsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutStudentsInput
+export type BranchCreateNestedOneWithoutUsersInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutUsersInput, Prisma.BranchUncheckedCreateWithoutUsersInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutUsersInput
   connect?: Prisma.BranchWhereUniqueInput
 }
 
-export type BranchUpdateOneWithoutStudentsNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutStudentsInput, Prisma.BranchUncheckedCreateWithoutStudentsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutStudentsInput
-  upsert?: Prisma.BranchUpsertWithoutStudentsInput
+export type BranchUpdateOneWithoutUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutUsersInput, Prisma.BranchUncheckedCreateWithoutUsersInput>
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutUsersInput
+  upsert?: Prisma.BranchUpsertWithoutUsersInput
   disconnect?: Prisma.BranchWhereInput | boolean
   delete?: Prisma.BranchWhereInput | boolean
   connect?: Prisma.BranchWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutStudentsInput, Prisma.BranchUpdateWithoutStudentsInput>, Prisma.BranchUncheckedUpdateWithoutStudentsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutUsersInput, Prisma.BranchUpdateWithoutUsersInput>, Prisma.BranchUncheckedUpdateWithoutUsersInput>
 }
 
-export type BranchCreateNestedOneWithoutClassesInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutClassesInput, Prisma.BranchUncheckedCreateWithoutClassesInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutClassesInput
-  connect?: Prisma.BranchWhereUniqueInput
-}
-
-export type BranchUpdateOneRequiredWithoutClassesNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutClassesInput, Prisma.BranchUncheckedCreateWithoutClassesInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutClassesInput
-  upsert?: Prisma.BranchUpsertWithoutClassesInput
-  connect?: Prisma.BranchWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutClassesInput, Prisma.BranchUpdateWithoutClassesInput>, Prisma.BranchUncheckedUpdateWithoutClassesInput>
-}
-
-export type BranchCreateNestedOneWithoutSubjectsInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutSubjectsInput, Prisma.BranchUncheckedCreateWithoutSubjectsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutSubjectsInput
-  connect?: Prisma.BranchWhereUniqueInput
-}
-
-export type BranchUpdateOneWithoutSubjectsNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutSubjectsInput, Prisma.BranchUncheckedCreateWithoutSubjectsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutSubjectsInput
-  upsert?: Prisma.BranchUpsertWithoutSubjectsInput
-  disconnect?: Prisma.BranchWhereInput | boolean
-  delete?: Prisma.BranchWhereInput | boolean
-  connect?: Prisma.BranchWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutSubjectsInput, Prisma.BranchUpdateWithoutSubjectsInput>, Prisma.BranchUncheckedUpdateWithoutSubjectsInput>
-}
-
-export type BranchCreateNestedOneWithoutPaymenttypeInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutPaymenttypeInput, Prisma.BranchUncheckedCreateWithoutPaymenttypeInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutPaymenttypeInput
-  connect?: Prisma.BranchWhereUniqueInput
-}
-
-export type BranchUpdateOneRequiredWithoutPaymenttypeNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutPaymenttypeInput, Prisma.BranchUncheckedCreateWithoutPaymenttypeInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutPaymenttypeInput
-  upsert?: Prisma.BranchUpsertWithoutPaymenttypeInput
-  connect?: Prisma.BranchWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutPaymenttypeInput, Prisma.BranchUpdateWithoutPaymenttypeInput>, Prisma.BranchUncheckedUpdateWithoutPaymenttypeInput>
-}
-
-export type BranchCreateNestedOneWithoutPaymentsInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutPaymentsInput, Prisma.BranchUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutPaymentsInput
-  connect?: Prisma.BranchWhereUniqueInput
-}
-
-export type BranchUpdateOneRequiredWithoutPaymentsNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutPaymentsInput, Prisma.BranchUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutPaymentsInput
-  upsert?: Prisma.BranchUpsertWithoutPaymentsInput
-  connect?: Prisma.BranchWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutPaymentsInput, Prisma.BranchUpdateWithoutPaymentsInput>, Prisma.BranchUncheckedUpdateWithoutPaymentsInput>
-}
-
-export type BranchCreateNestedOneWithoutAccountBankInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutAccountBankInput, Prisma.BranchUncheckedCreateWithoutAccountBankInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutAccountBankInput
-  connect?: Prisma.BranchWhereUniqueInput
-}
-
-export type BranchUpdateOneRequiredWithoutAccountBankNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutAccountBankInput, Prisma.BranchUncheckedCreateWithoutAccountBankInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutAccountBankInput
-  upsert?: Prisma.BranchUpsertWithoutAccountBankInput
-  connect?: Prisma.BranchWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutAccountBankInput, Prisma.BranchUpdateWithoutAccountBankInput>, Prisma.BranchUncheckedUpdateWithoutAccountBankInput>
-}
-
-export type BranchCreateNestedOneWithoutDailyLogsInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutDailyLogsInput, Prisma.BranchUncheckedCreateWithoutDailyLogsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutDailyLogsInput
-  connect?: Prisma.BranchWhereUniqueInput
-}
-
-export type BranchUpdateOneRequiredWithoutDailyLogsNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutDailyLogsInput, Prisma.BranchUncheckedCreateWithoutDailyLogsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutDailyLogsInput
-  upsert?: Prisma.BranchUpsertWithoutDailyLogsInput
-  connect?: Prisma.BranchWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutDailyLogsInput, Prisma.BranchUpdateWithoutDailyLogsInput>, Prisma.BranchUncheckedUpdateWithoutDailyLogsInput>
-}
-
-export type BranchCreateNestedOneWithoutStudentAssessmentsInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutStudentAssessmentsInput, Prisma.BranchUncheckedCreateWithoutStudentAssessmentsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutStudentAssessmentsInput
-  connect?: Prisma.BranchWhereUniqueInput
-}
-
-export type BranchUpdateOneRequiredWithoutStudentAssessmentsNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutStudentAssessmentsInput, Prisma.BranchUncheckedCreateWithoutStudentAssessmentsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutStudentAssessmentsInput
-  upsert?: Prisma.BranchUpsertWithoutStudentAssessmentsInput
-  connect?: Prisma.BranchWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutStudentAssessmentsInput, Prisma.BranchUpdateWithoutStudentAssessmentsInput>, Prisma.BranchUncheckedUpdateWithoutStudentAssessmentsInput>
-}
-
-export type BranchCreateNestedOneWithoutStudentReportsInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutStudentReportsInput, Prisma.BranchUncheckedCreateWithoutStudentReportsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutStudentReportsInput
-  connect?: Prisma.BranchWhereUniqueInput
-}
-
-export type BranchUpdateOneRequiredWithoutStudentReportsNestedInput = {
-  create?: Prisma.XOR<Prisma.BranchCreateWithoutStudentReportsInput, Prisma.BranchUncheckedCreateWithoutStudentReportsInput>
-  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutStudentReportsInput
-  upsert?: Prisma.BranchUpsertWithoutStudentReportsInput
-  connect?: Prisma.BranchWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutStudentReportsInput, Prisma.BranchUpdateWithoutStudentReportsInput>, Prisma.BranchUncheckedUpdateWithoutStudentReportsInput>
-}
-
-export type BranchCreateWithoutFoundationInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankCreateNestedManyWithoutBranchsInput
-  classes?: Prisma.ClassCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportCreateNestedManyWithoutBranchInput
-}
-
-export type BranchUncheckedCreateWithoutFoundationInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankUncheckedCreateNestedManyWithoutBranchsInput
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeUncheckedCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogUncheckedCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportUncheckedCreateNestedManyWithoutBranchInput
-}
-
-export type BranchCreateOrConnectWithoutFoundationInput = {
-  where: Prisma.BranchWhereUniqueInput
-  create: Prisma.XOR<Prisma.BranchCreateWithoutFoundationInput, Prisma.BranchUncheckedCreateWithoutFoundationInput>
-}
-
-export type BranchCreateManyFoundationInputEnvelope = {
-  data: Prisma.BranchCreateManyFoundationInput | Prisma.BranchCreateManyFoundationInput[]
-  skipDuplicates?: boolean
-}
-
-export type BranchUpsertWithWhereUniqueWithoutFoundationInput = {
-  where: Prisma.BranchWhereUniqueInput
-  update: Prisma.XOR<Prisma.BranchUpdateWithoutFoundationInput, Prisma.BranchUncheckedUpdateWithoutFoundationInput>
-  create: Prisma.XOR<Prisma.BranchCreateWithoutFoundationInput, Prisma.BranchUncheckedCreateWithoutFoundationInput>
-}
-
-export type BranchUpdateWithWhereUniqueWithoutFoundationInput = {
-  where: Prisma.BranchWhereUniqueInput
-  data: Prisma.XOR<Prisma.BranchUpdateWithoutFoundationInput, Prisma.BranchUncheckedUpdateWithoutFoundationInput>
-}
-
-export type BranchUpdateManyWithWhereWithoutFoundationInput = {
-  where: Prisma.BranchScalarWhereInput
-  data: Prisma.XOR<Prisma.BranchUpdateManyMutationInput, Prisma.BranchUncheckedUpdateManyWithoutFoundationInput>
-}
-
-export type BranchScalarWhereInput = {
-  AND?: Prisma.BranchScalarWhereInput | Prisma.BranchScalarWhereInput[]
-  OR?: Prisma.BranchScalarWhereInput[]
-  NOT?: Prisma.BranchScalarWhereInput | Prisma.BranchScalarWhereInput[]
-  id?: Prisma.StringFilter<"Branch"> | string
-  code?: Prisma.StringFilter<"Branch"> | string
-  name?: Prisma.StringFilter<"Branch"> | string
-  description?: Prisma.StringNullableFilter<"Branch"> | string | null
-  isActive?: Prisma.BoolFilter<"Branch"> | boolean
-  address?: Prisma.StringNullableFilter<"Branch"> | string | null
-  phone?: Prisma.StringNullableFilter<"Branch"> | string | null
-  adminName?: Prisma.StringNullableFilter<"Branch"> | string | null
-  signatureUrl?: Prisma.StringNullableFilter<"Branch"> | string | null
-  foundationId?: Prisma.StringNullableFilter<"Branch"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
-}
-
-export type BranchCreateWithoutStudentsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankCreateNestedManyWithoutBranchsInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutBranchInput
-  classes?: Prisma.ClassCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportCreateNestedManyWithoutBranchInput
-}
-
-export type BranchUncheckedCreateWithoutStudentsInput = {
+export type BranchCreateWithoutUsersInput = {
   id?: string
   code: string
   name: string
@@ -848,102 +506,9 @@ export type BranchUncheckedCreateWithoutStudentsInput = {
   foundationId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankUncheckedCreateNestedManyWithoutBranchsInput
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeUncheckedCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogUncheckedCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportUncheckedCreateNestedManyWithoutBranchInput
 }
 
-export type BranchCreateOrConnectWithoutStudentsInput = {
-  where: Prisma.BranchWhereUniqueInput
-  create: Prisma.XOR<Prisma.BranchCreateWithoutStudentsInput, Prisma.BranchUncheckedCreateWithoutStudentsInput>
-}
-
-export type BranchUpsertWithoutStudentsInput = {
-  update: Prisma.XOR<Prisma.BranchUpdateWithoutStudentsInput, Prisma.BranchUncheckedUpdateWithoutStudentsInput>
-  create: Prisma.XOR<Prisma.BranchCreateWithoutStudentsInput, Prisma.BranchUncheckedCreateWithoutStudentsInput>
-  where?: Prisma.BranchWhereInput
-}
-
-export type BranchUpdateToOneWithWhereWithoutStudentsInput = {
-  where?: Prisma.BranchWhereInput
-  data: Prisma.XOR<Prisma.BranchUpdateWithoutStudentsInput, Prisma.BranchUncheckedUpdateWithoutStudentsInput>
-}
-
-export type BranchUpdateWithoutStudentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUpdateManyWithoutBranchsNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutBranchNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateWithoutStudentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUncheckedUpdateManyWithoutBranchsNestedInput
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUncheckedUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUncheckedUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUncheckedUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchCreateWithoutClassesInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankCreateNestedManyWithoutBranchsInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportCreateNestedManyWithoutBranchInput
-}
-
-export type BranchUncheckedCreateWithoutClassesInput = {
+export type BranchUncheckedCreateWithoutUsersInput = {
   id?: string
   code: string
   name: string
@@ -956,56 +521,25 @@ export type BranchUncheckedCreateWithoutClassesInput = {
   foundationId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankUncheckedCreateNestedManyWithoutBranchsInput
-  paymenttype?: Prisma.PaymentTypeUncheckedCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogUncheckedCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportUncheckedCreateNestedManyWithoutBranchInput
 }
 
-export type BranchCreateOrConnectWithoutClassesInput = {
+export type BranchCreateOrConnectWithoutUsersInput = {
   where: Prisma.BranchWhereUniqueInput
-  create: Prisma.XOR<Prisma.BranchCreateWithoutClassesInput, Prisma.BranchUncheckedCreateWithoutClassesInput>
+  create: Prisma.XOR<Prisma.BranchCreateWithoutUsersInput, Prisma.BranchUncheckedCreateWithoutUsersInput>
 }
 
-export type BranchUpsertWithoutClassesInput = {
-  update: Prisma.XOR<Prisma.BranchUpdateWithoutClassesInput, Prisma.BranchUncheckedUpdateWithoutClassesInput>
-  create: Prisma.XOR<Prisma.BranchCreateWithoutClassesInput, Prisma.BranchUncheckedCreateWithoutClassesInput>
+export type BranchUpsertWithoutUsersInput = {
+  update: Prisma.XOR<Prisma.BranchUpdateWithoutUsersInput, Prisma.BranchUncheckedUpdateWithoutUsersInput>
+  create: Prisma.XOR<Prisma.BranchCreateWithoutUsersInput, Prisma.BranchUncheckedCreateWithoutUsersInput>
   where?: Prisma.BranchWhereInput
 }
 
-export type BranchUpdateToOneWithWhereWithoutClassesInput = {
+export type BranchUpdateToOneWithWhereWithoutUsersInput = {
   where?: Prisma.BranchWhereInput
-  data: Prisma.XOR<Prisma.BranchUpdateWithoutClassesInput, Prisma.BranchUncheckedUpdateWithoutClassesInput>
+  data: Prisma.XOR<Prisma.BranchUpdateWithoutUsersInput, Prisma.BranchUncheckedUpdateWithoutUsersInput>
 }
 
-export type BranchUpdateWithoutClassesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUpdateManyWithoutBranchsNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateWithoutClassesInput = {
+export type BranchUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1018,102 +552,9 @@ export type BranchUncheckedUpdateWithoutClassesInput = {
   foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUncheckedUpdateManyWithoutBranchsNestedInput
-  paymenttype?: Prisma.PaymentTypeUncheckedUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUncheckedUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUncheckedUpdateManyWithoutBranchNestedInput
 }
 
-export type BranchCreateWithoutSubjectsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankCreateNestedManyWithoutBranchsInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutBranchInput
-  classes?: Prisma.ClassCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportCreateNestedManyWithoutBranchInput
-}
-
-export type BranchUncheckedCreateWithoutSubjectsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  foundationId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankUncheckedCreateNestedManyWithoutBranchsInput
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeUncheckedCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogUncheckedCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportUncheckedCreateNestedManyWithoutBranchInput
-}
-
-export type BranchCreateOrConnectWithoutSubjectsInput = {
-  where: Prisma.BranchWhereUniqueInput
-  create: Prisma.XOR<Prisma.BranchCreateWithoutSubjectsInput, Prisma.BranchUncheckedCreateWithoutSubjectsInput>
-}
-
-export type BranchUpsertWithoutSubjectsInput = {
-  update: Prisma.XOR<Prisma.BranchUpdateWithoutSubjectsInput, Prisma.BranchUncheckedUpdateWithoutSubjectsInput>
-  create: Prisma.XOR<Prisma.BranchCreateWithoutSubjectsInput, Prisma.BranchUncheckedCreateWithoutSubjectsInput>
-  where?: Prisma.BranchWhereInput
-}
-
-export type BranchUpdateToOneWithWhereWithoutSubjectsInput = {
-  where?: Prisma.BranchWhereInput
-  data: Prisma.XOR<Prisma.BranchUpdateWithoutSubjectsInput, Prisma.BranchUncheckedUpdateWithoutSubjectsInput>
-}
-
-export type BranchUpdateWithoutSubjectsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUpdateManyWithoutBranchsNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutBranchNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateWithoutSubjectsInput = {
+export type BranchUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1124,736 +565,6 @@ export type BranchUncheckedUpdateWithoutSubjectsInput = {
   adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUncheckedUpdateManyWithoutBranchsNestedInput
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUncheckedUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUncheckedUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUncheckedUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchCreateWithoutPaymenttypeInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankCreateNestedManyWithoutBranchsInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutBranchInput
-  classes?: Prisma.ClassCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportCreateNestedManyWithoutBranchInput
-}
-
-export type BranchUncheckedCreateWithoutPaymenttypeInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  foundationId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankUncheckedCreateNestedManyWithoutBranchsInput
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogUncheckedCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportUncheckedCreateNestedManyWithoutBranchInput
-}
-
-export type BranchCreateOrConnectWithoutPaymenttypeInput = {
-  where: Prisma.BranchWhereUniqueInput
-  create: Prisma.XOR<Prisma.BranchCreateWithoutPaymenttypeInput, Prisma.BranchUncheckedCreateWithoutPaymenttypeInput>
-}
-
-export type BranchUpsertWithoutPaymenttypeInput = {
-  update: Prisma.XOR<Prisma.BranchUpdateWithoutPaymenttypeInput, Prisma.BranchUncheckedUpdateWithoutPaymenttypeInput>
-  create: Prisma.XOR<Prisma.BranchCreateWithoutPaymenttypeInput, Prisma.BranchUncheckedCreateWithoutPaymenttypeInput>
-  where?: Prisma.BranchWhereInput
-}
-
-export type BranchUpdateToOneWithWhereWithoutPaymenttypeInput = {
-  where?: Prisma.BranchWhereInput
-  data: Prisma.XOR<Prisma.BranchUpdateWithoutPaymenttypeInput, Prisma.BranchUncheckedUpdateWithoutPaymenttypeInput>
-}
-
-export type BranchUpdateWithoutPaymenttypeInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUpdateManyWithoutBranchsNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutBranchNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateWithoutPaymenttypeInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUncheckedUpdateManyWithoutBranchsNestedInput
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUncheckedUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUncheckedUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchCreateWithoutPaymentsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankCreateNestedManyWithoutBranchsInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutBranchInput
-  classes?: Prisma.ClassCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportCreateNestedManyWithoutBranchInput
-}
-
-export type BranchUncheckedCreateWithoutPaymentsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  foundationId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankUncheckedCreateNestedManyWithoutBranchsInput
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeUncheckedCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogUncheckedCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportUncheckedCreateNestedManyWithoutBranchInput
-}
-
-export type BranchCreateOrConnectWithoutPaymentsInput = {
-  where: Prisma.BranchWhereUniqueInput
-  create: Prisma.XOR<Prisma.BranchCreateWithoutPaymentsInput, Prisma.BranchUncheckedCreateWithoutPaymentsInput>
-}
-
-export type BranchUpsertWithoutPaymentsInput = {
-  update: Prisma.XOR<Prisma.BranchUpdateWithoutPaymentsInput, Prisma.BranchUncheckedUpdateWithoutPaymentsInput>
-  create: Prisma.XOR<Prisma.BranchCreateWithoutPaymentsInput, Prisma.BranchUncheckedCreateWithoutPaymentsInput>
-  where?: Prisma.BranchWhereInput
-}
-
-export type BranchUpdateToOneWithWhereWithoutPaymentsInput = {
-  where?: Prisma.BranchWhereInput
-  data: Prisma.XOR<Prisma.BranchUpdateWithoutPaymentsInput, Prisma.BranchUncheckedUpdateWithoutPaymentsInput>
-}
-
-export type BranchUpdateWithoutPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUpdateManyWithoutBranchsNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutBranchNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateWithoutPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUncheckedUpdateManyWithoutBranchsNestedInput
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUncheckedUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUncheckedUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUncheckedUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchCreateWithoutAccountBankInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  foundation?: Prisma.FoundationCreateNestedOneWithoutBranchInput
-  classes?: Prisma.ClassCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportCreateNestedManyWithoutBranchInput
-}
-
-export type BranchUncheckedCreateWithoutAccountBankInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  foundationId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeUncheckedCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogUncheckedCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportUncheckedCreateNestedManyWithoutBranchInput
-}
-
-export type BranchCreateOrConnectWithoutAccountBankInput = {
-  where: Prisma.BranchWhereUniqueInput
-  create: Prisma.XOR<Prisma.BranchCreateWithoutAccountBankInput, Prisma.BranchUncheckedCreateWithoutAccountBankInput>
-}
-
-export type BranchUpsertWithoutAccountBankInput = {
-  update: Prisma.XOR<Prisma.BranchUpdateWithoutAccountBankInput, Prisma.BranchUncheckedUpdateWithoutAccountBankInput>
-  create: Prisma.XOR<Prisma.BranchCreateWithoutAccountBankInput, Prisma.BranchUncheckedCreateWithoutAccountBankInput>
-  where?: Prisma.BranchWhereInput
-}
-
-export type BranchUpdateToOneWithWhereWithoutAccountBankInput = {
-  where?: Prisma.BranchWhereInput
-  data: Prisma.XOR<Prisma.BranchUpdateWithoutAccountBankInput, Prisma.BranchUncheckedUpdateWithoutAccountBankInput>
-}
-
-export type BranchUpdateWithoutAccountBankInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  foundation?: Prisma.FoundationUpdateOneWithoutBranchNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateWithoutAccountBankInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUncheckedUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUncheckedUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUncheckedUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchCreateWithoutDailyLogsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankCreateNestedManyWithoutBranchsInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutBranchInput
-  classes?: Prisma.ClassCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportCreateNestedManyWithoutBranchInput
-}
-
-export type BranchUncheckedCreateWithoutDailyLogsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  foundationId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankUncheckedCreateNestedManyWithoutBranchsInput
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeUncheckedCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportUncheckedCreateNestedManyWithoutBranchInput
-}
-
-export type BranchCreateOrConnectWithoutDailyLogsInput = {
-  where: Prisma.BranchWhereUniqueInput
-  create: Prisma.XOR<Prisma.BranchCreateWithoutDailyLogsInput, Prisma.BranchUncheckedCreateWithoutDailyLogsInput>
-}
-
-export type BranchUpsertWithoutDailyLogsInput = {
-  update: Prisma.XOR<Prisma.BranchUpdateWithoutDailyLogsInput, Prisma.BranchUncheckedUpdateWithoutDailyLogsInput>
-  create: Prisma.XOR<Prisma.BranchCreateWithoutDailyLogsInput, Prisma.BranchUncheckedCreateWithoutDailyLogsInput>
-  where?: Prisma.BranchWhereInput
-}
-
-export type BranchUpdateToOneWithWhereWithoutDailyLogsInput = {
-  where?: Prisma.BranchWhereInput
-  data: Prisma.XOR<Prisma.BranchUpdateWithoutDailyLogsInput, Prisma.BranchUncheckedUpdateWithoutDailyLogsInput>
-}
-
-export type BranchUpdateWithoutDailyLogsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUpdateManyWithoutBranchsNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutBranchNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateWithoutDailyLogsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUncheckedUpdateManyWithoutBranchsNestedInput
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUncheckedUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUncheckedUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchCreateWithoutStudentAssessmentsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankCreateNestedManyWithoutBranchsInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutBranchInput
-  classes?: Prisma.ClassCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportCreateNestedManyWithoutBranchInput
-}
-
-export type BranchUncheckedCreateWithoutStudentAssessmentsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  foundationId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankUncheckedCreateNestedManyWithoutBranchsInput
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeUncheckedCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogUncheckedCreateNestedManyWithoutBranchInput
-  studentReports?: Prisma.StudentReportUncheckedCreateNestedManyWithoutBranchInput
-}
-
-export type BranchCreateOrConnectWithoutStudentAssessmentsInput = {
-  where: Prisma.BranchWhereUniqueInput
-  create: Prisma.XOR<Prisma.BranchCreateWithoutStudentAssessmentsInput, Prisma.BranchUncheckedCreateWithoutStudentAssessmentsInput>
-}
-
-export type BranchUpsertWithoutStudentAssessmentsInput = {
-  update: Prisma.XOR<Prisma.BranchUpdateWithoutStudentAssessmentsInput, Prisma.BranchUncheckedUpdateWithoutStudentAssessmentsInput>
-  create: Prisma.XOR<Prisma.BranchCreateWithoutStudentAssessmentsInput, Prisma.BranchUncheckedCreateWithoutStudentAssessmentsInput>
-  where?: Prisma.BranchWhereInput
-}
-
-export type BranchUpdateToOneWithWhereWithoutStudentAssessmentsInput = {
-  where?: Prisma.BranchWhereInput
-  data: Prisma.XOR<Prisma.BranchUpdateWithoutStudentAssessmentsInput, Prisma.BranchUncheckedUpdateWithoutStudentAssessmentsInput>
-}
-
-export type BranchUpdateWithoutStudentAssessmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUpdateManyWithoutBranchsNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutBranchNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateWithoutStudentAssessmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUncheckedUpdateManyWithoutBranchsNestedInput
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUncheckedUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUncheckedUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUncheckedUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchCreateWithoutStudentReportsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankCreateNestedManyWithoutBranchsInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutBranchInput
-  classes?: Prisma.ClassCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentCreateNestedManyWithoutBranchInput
-}
-
-export type BranchUncheckedCreateWithoutStudentReportsInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  foundationId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  accountBank?: Prisma.AccountBankUncheckedCreateNestedManyWithoutBranchsInput
-  classes?: Prisma.ClassUncheckedCreateNestedManyWithoutBranchInput
-  paymenttype?: Prisma.PaymentTypeUncheckedCreateNestedManyWithoutBranchInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutBranchInput
-  subjects?: Prisma.SubjectUncheckedCreateNestedManyWithoutBranchInput
-  students?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
-  dailyLogs?: Prisma.DailyLogUncheckedCreateNestedManyWithoutBranchInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedCreateNestedManyWithoutBranchInput
-}
-
-export type BranchCreateOrConnectWithoutStudentReportsInput = {
-  where: Prisma.BranchWhereUniqueInput
-  create: Prisma.XOR<Prisma.BranchCreateWithoutStudentReportsInput, Prisma.BranchUncheckedCreateWithoutStudentReportsInput>
-}
-
-export type BranchUpsertWithoutStudentReportsInput = {
-  update: Prisma.XOR<Prisma.BranchUpdateWithoutStudentReportsInput, Prisma.BranchUncheckedUpdateWithoutStudentReportsInput>
-  create: Prisma.XOR<Prisma.BranchCreateWithoutStudentReportsInput, Prisma.BranchUncheckedCreateWithoutStudentReportsInput>
-  where?: Prisma.BranchWhereInput
-}
-
-export type BranchUpdateToOneWithWhereWithoutStudentReportsInput = {
-  where?: Prisma.BranchWhereInput
-  data: Prisma.XOR<Prisma.BranchUpdateWithoutStudentReportsInput, Prisma.BranchUncheckedUpdateWithoutStudentReportsInput>
-}
-
-export type BranchUpdateWithoutStudentReportsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUpdateManyWithoutBranchsNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutBranchNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateWithoutStudentReportsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUncheckedUpdateManyWithoutBranchsNestedInput
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUncheckedUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUncheckedUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchCreateManyFoundationInput = {
-  id?: string
-  code: string
-  name: string
-  description?: string | null
-  isActive?: boolean
-  address?: string | null
-  phone?: string | null
-  adminName?: string | null
-  signatureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type BranchUpdateWithoutFoundationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUpdateManyWithoutBranchsNestedInput
-  classes?: Prisma.ClassUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateWithoutFoundationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  accountBank?: Prisma.AccountBankUncheckedUpdateManyWithoutBranchsNestedInput
-  classes?: Prisma.ClassUncheckedUpdateManyWithoutBranchNestedInput
-  paymenttype?: Prisma.PaymentTypeUncheckedUpdateManyWithoutBranchNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutBranchNestedInput
-  subjects?: Prisma.SubjectUncheckedUpdateManyWithoutBranchNestedInput
-  students?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
-  dailyLogs?: Prisma.DailyLogUncheckedUpdateManyWithoutBranchNestedInput
-  studentAssessments?: Prisma.StudentAssessmentUncheckedUpdateManyWithoutBranchNestedInput
-  studentReports?: Prisma.StudentReportUncheckedUpdateManyWithoutBranchNestedInput
-}
-
-export type BranchUncheckedUpdateManyWithoutFoundationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1864,27 +575,11 @@ export type BranchUncheckedUpdateManyWithoutFoundationInput = {
  */
 
 export type BranchCountOutputType = {
-  accountBank: number
-  classes: number
-  paymenttype: number
-  payments: number
-  subjects: number
-  students: number
-  dailyLogs: number
-  studentAssessments: number
-  studentReports: number
+  users: number
 }
 
 export type BranchCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  accountBank?: boolean | BranchCountOutputTypeCountAccountBankArgs
-  classes?: boolean | BranchCountOutputTypeCountClassesArgs
-  paymenttype?: boolean | BranchCountOutputTypeCountPaymenttypeArgs
-  payments?: boolean | BranchCountOutputTypeCountPaymentsArgs
-  subjects?: boolean | BranchCountOutputTypeCountSubjectsArgs
-  students?: boolean | BranchCountOutputTypeCountStudentsArgs
-  dailyLogs?: boolean | BranchCountOutputTypeCountDailyLogsArgs
-  studentAssessments?: boolean | BranchCountOutputTypeCountStudentAssessmentsArgs
-  studentReports?: boolean | BranchCountOutputTypeCountStudentReportsArgs
+  users?: boolean | BranchCountOutputTypeCountUsersArgs
 }
 
 /**
@@ -1900,64 +595,8 @@ export type BranchCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * BranchCountOutputType without action
  */
-export type BranchCountOutputTypeCountAccountBankArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AccountBankWhereInput
-}
-
-/**
- * BranchCountOutputType without action
- */
-export type BranchCountOutputTypeCountClassesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ClassWhereInput
-}
-
-/**
- * BranchCountOutputType without action
- */
-export type BranchCountOutputTypeCountPaymenttypeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PaymentTypeWhereInput
-}
-
-/**
- * BranchCountOutputType without action
- */
-export type BranchCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PaymentWhereInput
-}
-
-/**
- * BranchCountOutputType without action
- */
-export type BranchCountOutputTypeCountSubjectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SubjectWhereInput
-}
-
-/**
- * BranchCountOutputType without action
- */
-export type BranchCountOutputTypeCountStudentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type BranchCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserDataWhereInput
-}
-
-/**
- * BranchCountOutputType without action
- */
-export type BranchCountOutputTypeCountDailyLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DailyLogWhereInput
-}
-
-/**
- * BranchCountOutputType without action
- */
-export type BranchCountOutputTypeCountStudentAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.StudentAssessmentWhereInput
-}
-
-/**
- * BranchCountOutputType without action
- */
-export type BranchCountOutputTypeCountStudentReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.StudentReportWhereInput
 }
 
 
@@ -1974,16 +613,7 @@ export type BranchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   foundationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  accountBank?: boolean | Prisma.Branch$accountBankArgs<ExtArgs>
-  foundation?: boolean | Prisma.Branch$foundationArgs<ExtArgs>
-  classes?: boolean | Prisma.Branch$classesArgs<ExtArgs>
-  paymenttype?: boolean | Prisma.Branch$paymenttypeArgs<ExtArgs>
-  payments?: boolean | Prisma.Branch$paymentsArgs<ExtArgs>
-  subjects?: boolean | Prisma.Branch$subjectsArgs<ExtArgs>
-  students?: boolean | Prisma.Branch$studentsArgs<ExtArgs>
-  dailyLogs?: boolean | Prisma.Branch$dailyLogsArgs<ExtArgs>
-  studentAssessments?: boolean | Prisma.Branch$studentAssessmentsArgs<ExtArgs>
-  studentReports?: boolean | Prisma.Branch$studentReportsArgs<ExtArgs>
+  users?: boolean | Prisma.Branch$usersArgs<ExtArgs>
   _count?: boolean | Prisma.BranchCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["branch"]>
 
@@ -2000,7 +630,6 @@ export type BranchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   foundationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  foundation?: boolean | Prisma.Branch$foundationArgs<ExtArgs>
 }, ExtArgs["result"]["branch"]>
 
 export type BranchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2016,7 +645,6 @@ export type BranchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   foundationId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  foundation?: boolean | Prisma.Branch$foundationArgs<ExtArgs>
 }, ExtArgs["result"]["branch"]>
 
 export type BranchSelectScalar = {
@@ -2036,38 +664,16 @@ export type BranchSelectScalar = {
 
 export type BranchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "isActive" | "address" | "phone" | "adminName" | "signatureUrl" | "foundationId" | "createdAt" | "updatedAt", ExtArgs["result"]["branch"]>
 export type BranchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  accountBank?: boolean | Prisma.Branch$accountBankArgs<ExtArgs>
-  foundation?: boolean | Prisma.Branch$foundationArgs<ExtArgs>
-  classes?: boolean | Prisma.Branch$classesArgs<ExtArgs>
-  paymenttype?: boolean | Prisma.Branch$paymenttypeArgs<ExtArgs>
-  payments?: boolean | Prisma.Branch$paymentsArgs<ExtArgs>
-  subjects?: boolean | Prisma.Branch$subjectsArgs<ExtArgs>
-  students?: boolean | Prisma.Branch$studentsArgs<ExtArgs>
-  dailyLogs?: boolean | Prisma.Branch$dailyLogsArgs<ExtArgs>
-  studentAssessments?: boolean | Prisma.Branch$studentAssessmentsArgs<ExtArgs>
-  studentReports?: boolean | Prisma.Branch$studentReportsArgs<ExtArgs>
+  users?: boolean | Prisma.Branch$usersArgs<ExtArgs>
   _count?: boolean | Prisma.BranchCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type BranchIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foundation?: boolean | Prisma.Branch$foundationArgs<ExtArgs>
-}
-export type BranchIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foundation?: boolean | Prisma.Branch$foundationArgs<ExtArgs>
-}
+export type BranchIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type BranchIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $BranchPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Branch"
   objects: {
-    accountBank: Prisma.$AccountBankPayload<ExtArgs>[]
-    foundation: Prisma.$FoundationPayload<ExtArgs> | null
-    classes: Prisma.$ClassPayload<ExtArgs>[]
-    paymenttype: Prisma.$PaymentTypePayload<ExtArgs>[]
-    payments: Prisma.$PaymentPayload<ExtArgs>[]
-    subjects: Prisma.$SubjectPayload<ExtArgs>[]
-    students: Prisma.$UserDataPayload<ExtArgs>[]
-    dailyLogs: Prisma.$DailyLogPayload<ExtArgs>[]
-    studentAssessments: Prisma.$StudentAssessmentPayload<ExtArgs>[]
-    studentReports: Prisma.$StudentReportPayload<ExtArgs>[]
+    users: Prisma.$UserDataPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2476,16 +1082,7 @@ readonly fields: BranchFieldRefs;
  */
 export interface Prisma__BranchClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  accountBank<T extends Prisma.Branch$accountBankArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$accountBankArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountBankPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  foundation<T extends Prisma.Branch$foundationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$foundationArgs<ExtArgs>>): Prisma.Prisma__FoundationClient<runtime.Types.Result.GetResult<Prisma.$FoundationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  classes<T extends Prisma.Branch$classesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$classesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  paymenttype<T extends Prisma.Branch$paymenttypeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$paymenttypeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentTypePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  payments<T extends Prisma.Branch$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  subjects<T extends Prisma.Branch$subjectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$subjectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  students<T extends Prisma.Branch$studentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserDataPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  dailyLogs<T extends Prisma.Branch$dailyLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$dailyLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DailyLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  studentAssessments<T extends Prisma.Branch$studentAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$studentAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudentAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  studentReports<T extends Prisma.Branch$studentReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$studentReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StudentReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  users<T extends Prisma.Branch$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserDataPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2781,10 +1378,6 @@ export type BranchCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.BranchCreateManyInput | Prisma.BranchCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.BranchIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -2855,10 +1448,6 @@ export type BranchUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many Branches to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.BranchIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -2928,148 +1517,9 @@ export type BranchDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Branch.accountBank
+ * Branch.users
  */
-export type Branch$accountBankArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AccountBank
-   */
-  select?: Prisma.AccountBankSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the AccountBank
-   */
-  omit?: Prisma.AccountBankOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AccountBankInclude<ExtArgs> | null
-  where?: Prisma.AccountBankWhereInput
-  orderBy?: Prisma.AccountBankOrderByWithRelationInput | Prisma.AccountBankOrderByWithRelationInput[]
-  cursor?: Prisma.AccountBankWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AccountBankScalarFieldEnum | Prisma.AccountBankScalarFieldEnum[]
-}
-
-/**
- * Branch.foundation
- */
-export type Branch$foundationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Foundation
-   */
-  select?: Prisma.FoundationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Foundation
-   */
-  omit?: Prisma.FoundationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FoundationInclude<ExtArgs> | null
-  where?: Prisma.FoundationWhereInput
-}
-
-/**
- * Branch.classes
- */
-export type Branch$classesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Class
-   */
-  select?: Prisma.ClassSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Class
-   */
-  omit?: Prisma.ClassOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ClassInclude<ExtArgs> | null
-  where?: Prisma.ClassWhereInput
-  orderBy?: Prisma.ClassOrderByWithRelationInput | Prisma.ClassOrderByWithRelationInput[]
-  cursor?: Prisma.ClassWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ClassScalarFieldEnum | Prisma.ClassScalarFieldEnum[]
-}
-
-/**
- * Branch.paymenttype
- */
-export type Branch$paymenttypeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PaymentType
-   */
-  select?: Prisma.PaymentTypeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the PaymentType
-   */
-  omit?: Prisma.PaymentTypeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PaymentTypeInclude<ExtArgs> | null
-  where?: Prisma.PaymentTypeWhereInput
-  orderBy?: Prisma.PaymentTypeOrderByWithRelationInput | Prisma.PaymentTypeOrderByWithRelationInput[]
-  cursor?: Prisma.PaymentTypeWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PaymentTypeScalarFieldEnum | Prisma.PaymentTypeScalarFieldEnum[]
-}
-
-/**
- * Branch.payments
- */
-export type Branch$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Payment
-   */
-  select?: Prisma.PaymentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Payment
-   */
-  omit?: Prisma.PaymentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PaymentInclude<ExtArgs> | null
-  where?: Prisma.PaymentWhereInput
-  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
-  cursor?: Prisma.PaymentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
-}
-
-/**
- * Branch.subjects
- */
-export type Branch$subjectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Subject
-   */
-  select?: Prisma.SubjectSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Subject
-   */
-  omit?: Prisma.SubjectOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SubjectInclude<ExtArgs> | null
-  where?: Prisma.SubjectWhereInput
-  orderBy?: Prisma.SubjectOrderByWithRelationInput | Prisma.SubjectOrderByWithRelationInput[]
-  cursor?: Prisma.SubjectWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.SubjectScalarFieldEnum | Prisma.SubjectScalarFieldEnum[]
-}
-
-/**
- * Branch.students
- */
-export type Branch$studentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Branch$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the UserData
    */
@@ -3088,78 +1538,6 @@ export type Branch$studentsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.UserDataScalarFieldEnum | Prisma.UserDataScalarFieldEnum[]
-}
-
-/**
- * Branch.dailyLogs
- */
-export type Branch$dailyLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DailyLog
-   */
-  select?: Prisma.DailyLogSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DailyLog
-   */
-  omit?: Prisma.DailyLogOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DailyLogInclude<ExtArgs> | null
-  where?: Prisma.DailyLogWhereInput
-  orderBy?: Prisma.DailyLogOrderByWithRelationInput | Prisma.DailyLogOrderByWithRelationInput[]
-  cursor?: Prisma.DailyLogWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DailyLogScalarFieldEnum | Prisma.DailyLogScalarFieldEnum[]
-}
-
-/**
- * Branch.studentAssessments
- */
-export type Branch$studentAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the StudentAssessment
-   */
-  select?: Prisma.StudentAssessmentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the StudentAssessment
-   */
-  omit?: Prisma.StudentAssessmentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.StudentAssessmentInclude<ExtArgs> | null
-  where?: Prisma.StudentAssessmentWhereInput
-  orderBy?: Prisma.StudentAssessmentOrderByWithRelationInput | Prisma.StudentAssessmentOrderByWithRelationInput[]
-  cursor?: Prisma.StudentAssessmentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.StudentAssessmentScalarFieldEnum | Prisma.StudentAssessmentScalarFieldEnum[]
-}
-
-/**
- * Branch.studentReports
- */
-export type Branch$studentReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the StudentReport
-   */
-  select?: Prisma.StudentReportSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the StudentReport
-   */
-  omit?: Prisma.StudentReportOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.StudentReportInclude<ExtArgs> | null
-  where?: Prisma.StudentReportWhereInput
-  orderBy?: Prisma.StudentReportOrderByWithRelationInput | Prisma.StudentReportOrderByWithRelationInput[]
-  cursor?: Prisma.StudentReportWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.StudentReportScalarFieldEnum | Prisma.StudentReportScalarFieldEnum[]
 }
 
 /**

@@ -240,7 +240,6 @@ export type UserWhereInput = {
   foundationId?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
-  foundation?: Prisma.XOR<Prisma.FoundationNullableScalarRelationFilter, Prisma.FoundationWhereInput> | null
   userData?: Prisma.XOR<Prisma.UserDataNullableScalarRelationFilter, Prisma.UserDataWhereInput> | null
 }
 
@@ -259,7 +258,6 @@ export type UserOrderByWithRelationInput = {
   foundationId?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
-  foundation?: Prisma.FoundationOrderByWithRelationInput
   userData?: Prisma.UserDataOrderByWithRelationInput
 }
 
@@ -281,7 +279,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   foundationId?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
-  foundation?: Prisma.XOR<Prisma.FoundationNullableScalarRelationFilter, Prisma.FoundationWhereInput> | null
   userData?: Prisma.XOR<Prisma.UserDataNullableScalarRelationFilter, Prisma.UserDataWhereInput> | null
 }, "id" | "id" | "email">
 
@@ -333,9 +330,9 @@ export type UserCreateInput = {
   banReason?: string | null
   banned?: boolean | null
   role?: string | null
+  foundationId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutUserInput
   userData?: Prisma.UserDataCreateNestedOneWithoutUserInput
 }
 
@@ -369,9 +366,9 @@ export type UserUpdateInput = {
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutUserNestedInput
   userData?: Prisma.UserDataUpdateOneWithoutUserNestedInput
 }
 
@@ -420,6 +417,7 @@ export type UserUpdateManyMutationInput = {
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -435,16 +433,6 @@ export type UserUncheckedUpdateManyInput = {
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type UserListRelationFilter = {
-  every?: Prisma.UserWhereInput
-  some?: Prisma.UserWhereInput
-  none?: Prisma.UserWhereInput
-}
-
-export type UserOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -502,46 +490,8 @@ export type UserNullableScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput | null
 }
 
-export type UserCreateNestedManyWithoutFoundationInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFoundationInput, Prisma.UserUncheckedCreateWithoutFoundationInput> | Prisma.UserCreateWithoutFoundationInput[] | Prisma.UserUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFoundationInput | Prisma.UserCreateOrConnectWithoutFoundationInput[]
-  createMany?: Prisma.UserCreateManyFoundationInputEnvelope
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-}
-
-export type UserUncheckedCreateNestedManyWithoutFoundationInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFoundationInput, Prisma.UserUncheckedCreateWithoutFoundationInput> | Prisma.UserCreateWithoutFoundationInput[] | Prisma.UserUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFoundationInput | Prisma.UserCreateOrConnectWithoutFoundationInput[]
-  createMany?: Prisma.UserCreateManyFoundationInputEnvelope
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-}
-
-export type UserUpdateManyWithoutFoundationNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFoundationInput, Prisma.UserUncheckedCreateWithoutFoundationInput> | Prisma.UserCreateWithoutFoundationInput[] | Prisma.UserUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFoundationInput | Prisma.UserCreateOrConnectWithoutFoundationInput[]
-  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutFoundationInput | Prisma.UserUpsertWithWhereUniqueWithoutFoundationInput[]
-  createMany?: Prisma.UserCreateManyFoundationInputEnvelope
-  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  update?: Prisma.UserUpdateWithWhereUniqueWithoutFoundationInput | Prisma.UserUpdateWithWhereUniqueWithoutFoundationInput[]
-  updateMany?: Prisma.UserUpdateManyWithWhereWithoutFoundationInput | Prisma.UserUpdateManyWithWhereWithoutFoundationInput[]
-  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
-}
-
-export type UserUncheckedUpdateManyWithoutFoundationNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutFoundationInput, Prisma.UserUncheckedCreateWithoutFoundationInput> | Prisma.UserCreateWithoutFoundationInput[] | Prisma.UserUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFoundationInput | Prisma.UserCreateOrConnectWithoutFoundationInput[]
-  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutFoundationInput | Prisma.UserUpsertWithWhereUniqueWithoutFoundationInput[]
-  createMany?: Prisma.UserCreateManyFoundationInputEnvelope
-  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
-  update?: Prisma.UserUpdateWithWhereUniqueWithoutFoundationInput | Prisma.UserUpdateWithWhereUniqueWithoutFoundationInput[]
-  updateMany?: Prisma.UserUpdateManyWithWhereWithoutFoundationInput | Prisma.UserUpdateManyWithWhereWithoutFoundationInput[]
-  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+export type StringFieldUpdateOperationsInput = {
+  set?: string
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -608,84 +558,6 @@ export type UserUpdateOneWithoutUserDataNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUserDataInput, Prisma.UserUpdateWithoutUserDataInput>, Prisma.UserUncheckedUpdateWithoutUserDataInput>
 }
 
-export type UserCreateWithoutFoundationInput = {
-  id: string
-  name: string
-  email: string
-  emailVerified: boolean
-  image?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  banExpires?: Date | string | null
-  banReason?: string | null
-  banned?: boolean | null
-  role?: string | null
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  userData?: Prisma.UserDataCreateNestedOneWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutFoundationInput = {
-  id: string
-  name: string
-  email: string
-  emailVerified: boolean
-  image?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  banExpires?: Date | string | null
-  banReason?: string | null
-  banned?: boolean | null
-  role?: string | null
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
-  userData?: Prisma.UserDataUncheckedCreateNestedOneWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutFoundationInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutFoundationInput, Prisma.UserUncheckedCreateWithoutFoundationInput>
-}
-
-export type UserCreateManyFoundationInputEnvelope = {
-  data: Prisma.UserCreateManyFoundationInput | Prisma.UserCreateManyFoundationInput[]
-  skipDuplicates?: boolean
-}
-
-export type UserUpsertWithWhereUniqueWithoutFoundationInput = {
-  where: Prisma.UserWhereUniqueInput
-  update: Prisma.XOR<Prisma.UserUpdateWithoutFoundationInput, Prisma.UserUncheckedUpdateWithoutFoundationInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutFoundationInput, Prisma.UserUncheckedCreateWithoutFoundationInput>
-}
-
-export type UserUpdateWithWhereUniqueWithoutFoundationInput = {
-  where: Prisma.UserWhereUniqueInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutFoundationInput, Prisma.UserUncheckedUpdateWithoutFoundationInput>
-}
-
-export type UserUpdateManyWithWhereWithoutFoundationInput = {
-  where: Prisma.UserScalarWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutFoundationInput>
-}
-
-export type UserScalarWhereInput = {
-  AND?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
-  OR?: Prisma.UserScalarWhereInput[]
-  NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
-  id?: Prisma.StringFilter<"User"> | string
-  name?: Prisma.StringFilter<"User"> | string
-  email?: Prisma.StringFilter<"User"> | string
-  emailVerified?: Prisma.BoolFilter<"User"> | boolean
-  image?: Prisma.StringNullableFilter<"User"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  banExpires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  banReason?: Prisma.StringNullableFilter<"User"> | string | null
-  banned?: Prisma.BoolNullableFilter<"User"> | boolean | null
-  role?: Prisma.StringNullableFilter<"User"> | string | null
-  foundationId?: Prisma.StringNullableFilter<"User"> | string | null
-}
-
 export type UserCreateWithoutSessionsInput = {
   id: string
   name: string
@@ -698,8 +570,8 @@ export type UserCreateWithoutSessionsInput = {
   banReason?: string | null
   banned?: boolean | null
   role?: string | null
+  foundationId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutUserInput
   userData?: Prisma.UserDataCreateNestedOneWithoutUserInput
 }
 
@@ -748,8 +620,8 @@ export type UserUpdateWithoutSessionsInput = {
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutUserNestedInput
   userData?: Prisma.UserDataUpdateOneWithoutUserNestedInput
 }
 
@@ -782,8 +654,8 @@ export type UserCreateWithoutAccountsInput = {
   banReason?: string | null
   banned?: boolean | null
   role?: string | null
+  foundationId?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutUserInput
   userData?: Prisma.UserDataCreateNestedOneWithoutUserInput
 }
 
@@ -832,8 +704,8 @@ export type UserUpdateWithoutAccountsInput = {
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutUserNestedInput
   userData?: Prisma.UserDataUpdateOneWithoutUserNestedInput
 }
 
@@ -866,9 +738,9 @@ export type UserCreateWithoutUserDataInput = {
   banReason?: string | null
   banned?: boolean | null
   role?: string | null
+  foundationId?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
-  foundation?: Prisma.FoundationCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUserDataInput = {
@@ -916,9 +788,9 @@ export type UserUpdateWithoutUserDataInput = {
   banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  foundation?: Prisma.FoundationUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUserDataInput = {
@@ -936,68 +808,6 @@ export type UserUncheckedUpdateWithoutUserDataInput = {
   foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateManyFoundationInput = {
-  id: string
-  name: string
-  email: string
-  emailVerified: boolean
-  image?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  banExpires?: Date | string | null
-  banReason?: string | null
-  banned?: boolean | null
-  role?: string | null
-}
-
-export type UserUpdateWithoutFoundationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
-  userData?: Prisma.UserDataUpdateOneWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutFoundationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
-  userData?: Prisma.UserDataUncheckedUpdateOneWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateManyWithoutFoundationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  banExpires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  banReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  banned?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
-  role?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1055,7 +865,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   foundationId?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
-  foundation?: boolean | Prisma.User$foundationArgs<ExtArgs>
   userData?: boolean | Prisma.User$userDataArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -1073,7 +882,6 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   banned?: boolean
   role?: boolean
   foundationId?: boolean
-  foundation?: boolean | Prisma.User$foundationArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1089,7 +897,6 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   banned?: boolean
   role?: boolean
   foundationId?: boolean
-  foundation?: boolean | Prisma.User$foundationArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1111,23 +918,17 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
-  foundation?: boolean | Prisma.User$foundationArgs<ExtArgs>
   userData?: boolean | Prisma.User$userDataArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foundation?: boolean | Prisma.User$foundationArgs<ExtArgs>
-}
-export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foundation?: boolean | Prisma.User$foundationArgs<ExtArgs>
-}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
-    foundation: Prisma.$FoundationPayload<ExtArgs> | null
     userData: Prisma.$UserDataPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1539,7 +1340,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  foundation<T extends Prisma.User$foundationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$foundationArgs<ExtArgs>>): Prisma.Prisma__FoundationClient<runtime.Types.Result.GetResult<Prisma.$FoundationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   userData<T extends Prisma.User$userDataArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userDataArgs<ExtArgs>>): Prisma.Prisma__UserDataClient<runtime.Types.Result.GetResult<Prisma.$UserDataPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1836,10 +1636,6 @@ export type UserCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    */
   data: Prisma.UserCreateManyInput | Prisma.UserCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1910,10 +1706,6 @@ export type UserUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many Users to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -2028,25 +1820,6 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
-}
-
-/**
- * User.foundation
- */
-export type User$foundationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Foundation
-   */
-  select?: Prisma.FoundationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Foundation
-   */
-  omit?: Prisma.FoundationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.FoundationInclude<ExtArgs> | null
-  where?: Prisma.FoundationWhereInput
 }
 
 /**

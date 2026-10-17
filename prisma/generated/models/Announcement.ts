@@ -246,7 +246,6 @@ export type AnnouncementWhereInput = {
   isPublished?: Prisma.BoolFilter<"Announcement"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
-  foundation?: Prisma.XOR<Prisma.FoundationScalarRelationFilter, Prisma.FoundationWhereInput>
   user?: Prisma.XOR<Prisma.UserDataNullableScalarRelationFilter, Prisma.UserDataWhereInput> | null
 }
 
@@ -264,7 +263,6 @@ export type AnnouncementOrderByWithRelationInput = {
   isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  foundation?: Prisma.FoundationOrderByWithRelationInput
   user?: Prisma.UserDataOrderByWithRelationInput
 }
 
@@ -285,7 +283,6 @@ export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
   isPublished?: Prisma.BoolFilter<"Announcement"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
-  foundation?: Prisma.XOR<Prisma.FoundationScalarRelationFilter, Prisma.FoundationWhereInput>
   user?: Prisma.XOR<Prisma.UserDataNullableScalarRelationFilter, Prisma.UserDataWhereInput> | null
 }, "id">
 
@@ -335,11 +332,11 @@ export type AnnouncementCreateInput = {
   linkUrl?: string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
+  foundationId: string
   isActive?: boolean
   isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  foundation: Prisma.FoundationCreateNestedOneWithoutAnnouncementsInput
   user?: Prisma.UserDataCreateNestedOneWithoutAnnouncementsInput
 }
 
@@ -367,11 +364,11 @@ export type AnnouncementUpdateInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  foundationId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  foundation?: Prisma.FoundationUpdateOneRequiredWithoutAnnouncementsNestedInput
   user?: Prisma.UserDataUpdateOneWithoutAnnouncementsNestedInput
 }
 
@@ -415,6 +412,7 @@ export type AnnouncementUpdateManyMutationInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  foundationId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -495,48 +493,6 @@ export type AnnouncementMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type AnnouncementCreateNestedManyWithoutFoundationInput = {
-  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutFoundationInput, Prisma.AnnouncementUncheckedCreateWithoutFoundationInput> | Prisma.AnnouncementCreateWithoutFoundationInput[] | Prisma.AnnouncementUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutFoundationInput | Prisma.AnnouncementCreateOrConnectWithoutFoundationInput[]
-  createMany?: Prisma.AnnouncementCreateManyFoundationInputEnvelope
-  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
-}
-
-export type AnnouncementUncheckedCreateNestedManyWithoutFoundationInput = {
-  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutFoundationInput, Prisma.AnnouncementUncheckedCreateWithoutFoundationInput> | Prisma.AnnouncementCreateWithoutFoundationInput[] | Prisma.AnnouncementUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutFoundationInput | Prisma.AnnouncementCreateOrConnectWithoutFoundationInput[]
-  createMany?: Prisma.AnnouncementCreateManyFoundationInputEnvelope
-  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
-}
-
-export type AnnouncementUpdateManyWithoutFoundationNestedInput = {
-  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutFoundationInput, Prisma.AnnouncementUncheckedCreateWithoutFoundationInput> | Prisma.AnnouncementCreateWithoutFoundationInput[] | Prisma.AnnouncementUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutFoundationInput | Prisma.AnnouncementCreateOrConnectWithoutFoundationInput[]
-  upsert?: Prisma.AnnouncementUpsertWithWhereUniqueWithoutFoundationInput | Prisma.AnnouncementUpsertWithWhereUniqueWithoutFoundationInput[]
-  createMany?: Prisma.AnnouncementCreateManyFoundationInputEnvelope
-  set?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
-  disconnect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
-  delete?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
-  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
-  update?: Prisma.AnnouncementUpdateWithWhereUniqueWithoutFoundationInput | Prisma.AnnouncementUpdateWithWhereUniqueWithoutFoundationInput[]
-  updateMany?: Prisma.AnnouncementUpdateManyWithWhereWithoutFoundationInput | Prisma.AnnouncementUpdateManyWithWhereWithoutFoundationInput[]
-  deleteMany?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
-}
-
-export type AnnouncementUncheckedUpdateManyWithoutFoundationNestedInput = {
-  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutFoundationInput, Prisma.AnnouncementUncheckedCreateWithoutFoundationInput> | Prisma.AnnouncementCreateWithoutFoundationInput[] | Prisma.AnnouncementUncheckedCreateWithoutFoundationInput[]
-  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutFoundationInput | Prisma.AnnouncementCreateOrConnectWithoutFoundationInput[]
-  upsert?: Prisma.AnnouncementUpsertWithWhereUniqueWithoutFoundationInput | Prisma.AnnouncementUpsertWithWhereUniqueWithoutFoundationInput[]
-  createMany?: Prisma.AnnouncementCreateManyFoundationInputEnvelope
-  set?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
-  disconnect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
-  delete?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
-  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
-  update?: Prisma.AnnouncementUpdateWithWhereUniqueWithoutFoundationInput | Prisma.AnnouncementUpdateWithWhereUniqueWithoutFoundationInput[]
-  updateMany?: Prisma.AnnouncementUpdateManyWithWhereWithoutFoundationInput | Prisma.AnnouncementUpdateManyWithWhereWithoutFoundationInput[]
-  deleteMany?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
-}
-
 export type AnnouncementCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutUserInput, Prisma.AnnouncementUncheckedCreateWithoutUserInput> | Prisma.AnnouncementCreateWithoutUserInput[] | Prisma.AnnouncementUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutUserInput | Prisma.AnnouncementCreateOrConnectWithoutUserInput[]
@@ -579,81 +535,6 @@ export type AnnouncementUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
 }
 
-export type AnnouncementCreateWithoutFoundationInput = {
-  id?: string
-  title: string
-  content: string
-  imageUrl?: string | null
-  linkUrl?: string | null
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  isActive?: boolean
-  isPublished?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user?: Prisma.UserDataCreateNestedOneWithoutAnnouncementsInput
-}
-
-export type AnnouncementUncheckedCreateWithoutFoundationInput = {
-  id?: string
-  title: string
-  content: string
-  imageUrl?: string | null
-  linkUrl?: string | null
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  userId?: string | null
-  isActive?: boolean
-  isPublished?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type AnnouncementCreateOrConnectWithoutFoundationInput = {
-  where: Prisma.AnnouncementWhereUniqueInput
-  create: Prisma.XOR<Prisma.AnnouncementCreateWithoutFoundationInput, Prisma.AnnouncementUncheckedCreateWithoutFoundationInput>
-}
-
-export type AnnouncementCreateManyFoundationInputEnvelope = {
-  data: Prisma.AnnouncementCreateManyFoundationInput | Prisma.AnnouncementCreateManyFoundationInput[]
-  skipDuplicates?: boolean
-}
-
-export type AnnouncementUpsertWithWhereUniqueWithoutFoundationInput = {
-  where: Prisma.AnnouncementWhereUniqueInput
-  update: Prisma.XOR<Prisma.AnnouncementUpdateWithoutFoundationInput, Prisma.AnnouncementUncheckedUpdateWithoutFoundationInput>
-  create: Prisma.XOR<Prisma.AnnouncementCreateWithoutFoundationInput, Prisma.AnnouncementUncheckedCreateWithoutFoundationInput>
-}
-
-export type AnnouncementUpdateWithWhereUniqueWithoutFoundationInput = {
-  where: Prisma.AnnouncementWhereUniqueInput
-  data: Prisma.XOR<Prisma.AnnouncementUpdateWithoutFoundationInput, Prisma.AnnouncementUncheckedUpdateWithoutFoundationInput>
-}
-
-export type AnnouncementUpdateManyWithWhereWithoutFoundationInput = {
-  where: Prisma.AnnouncementScalarWhereInput
-  data: Prisma.XOR<Prisma.AnnouncementUpdateManyMutationInput, Prisma.AnnouncementUncheckedUpdateManyWithoutFoundationInput>
-}
-
-export type AnnouncementScalarWhereInput = {
-  AND?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
-  OR?: Prisma.AnnouncementScalarWhereInput[]
-  NOT?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
-  id?: Prisma.StringFilter<"Announcement"> | string
-  title?: Prisma.StringFilter<"Announcement"> | string
-  content?: Prisma.StringFilter<"Announcement"> | string
-  imageUrl?: Prisma.StringNullableFilter<"Announcement"> | string | null
-  linkUrl?: Prisma.StringNullableFilter<"Announcement"> | string | null
-  startDate?: Prisma.DateTimeNullableFilter<"Announcement"> | Date | string | null
-  endDate?: Prisma.DateTimeNullableFilter<"Announcement"> | Date | string | null
-  userId?: Prisma.StringNullableFilter<"Announcement"> | string | null
-  foundationId?: Prisma.StringFilter<"Announcement"> | string
-  isActive?: Prisma.BoolFilter<"Announcement"> | boolean
-  isPublished?: Prisma.BoolFilter<"Announcement"> | boolean
-  createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
-}
-
 export type AnnouncementCreateWithoutUserInput = {
   id?: string
   title: string
@@ -662,11 +543,11 @@ export type AnnouncementCreateWithoutUserInput = {
   linkUrl?: string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
+  foundationId: string
   isActive?: boolean
   isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  foundation: Prisma.FoundationCreateNestedOneWithoutAnnouncementsInput
 }
 
 export type AnnouncementUncheckedCreateWithoutUserInput = {
@@ -710,64 +591,23 @@ export type AnnouncementUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.AnnouncementUpdateManyMutationInput, Prisma.AnnouncementUncheckedUpdateManyWithoutUserInput>
 }
 
-export type AnnouncementCreateManyFoundationInput = {
-  id?: string
-  title: string
-  content: string
-  imageUrl?: string | null
-  linkUrl?: string | null
-  startDate?: Date | string | null
-  endDate?: Date | string | null
-  userId?: string | null
-  isActive?: boolean
-  isPublished?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type AnnouncementUpdateWithoutFoundationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserDataUpdateOneWithoutAnnouncementsNestedInput
-}
-
-export type AnnouncementUncheckedUpdateWithoutFoundationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type AnnouncementUncheckedUpdateManyWithoutFoundationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  title?: Prisma.StringFieldUpdateOperationsInput | string
-  content?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type AnnouncementScalarWhereInput = {
+  AND?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
+  OR?: Prisma.AnnouncementScalarWhereInput[]
+  NOT?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
+  id?: Prisma.StringFilter<"Announcement"> | string
+  title?: Prisma.StringFilter<"Announcement"> | string
+  content?: Prisma.StringFilter<"Announcement"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Announcement"> | string | null
+  linkUrl?: Prisma.StringNullableFilter<"Announcement"> | string | null
+  startDate?: Prisma.DateTimeNullableFilter<"Announcement"> | Date | string | null
+  endDate?: Prisma.DateTimeNullableFilter<"Announcement"> | Date | string | null
+  userId?: Prisma.StringNullableFilter<"Announcement"> | string | null
+  foundationId?: Prisma.StringFilter<"Announcement"> | string
+  isActive?: Prisma.BoolFilter<"Announcement"> | boolean
+  isPublished?: Prisma.BoolFilter<"Announcement"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
 }
 
 export type AnnouncementCreateManyUserInput = {
@@ -793,11 +633,11 @@ export type AnnouncementUpdateWithoutUserInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  foundationId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  foundation?: Prisma.FoundationUpdateOneRequiredWithoutAnnouncementsNestedInput
 }
 
 export type AnnouncementUncheckedUpdateWithoutUserInput = {
@@ -846,7 +686,6 @@ export type AnnouncementSelect<ExtArgs extends runtime.Types.Extensions.Internal
   isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  foundation?: boolean | Prisma.FoundationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
 }, ExtArgs["result"]["announcement"]>
 
@@ -864,7 +703,6 @@ export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  foundation?: boolean | Prisma.FoundationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
 }, ExtArgs["result"]["announcement"]>
 
@@ -882,7 +720,6 @@ export type AnnouncementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  foundation?: boolean | Prisma.FoundationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
 }, ExtArgs["result"]["announcement"]>
 
@@ -904,22 +741,18 @@ export type AnnouncementSelectScalar = {
 
 export type AnnouncementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "imageUrl" | "linkUrl" | "startDate" | "endDate" | "userId" | "foundationId" | "isActive" | "isPublished" | "createdAt" | "updatedAt", ExtArgs["result"]["announcement"]>
 export type AnnouncementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foundation?: boolean | Prisma.FoundationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
 }
 export type AnnouncementIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foundation?: boolean | Prisma.FoundationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
 }
 export type AnnouncementIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  foundation?: boolean | Prisma.FoundationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
 }
 
 export type $AnnouncementPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Announcement"
   objects: {
-    foundation: Prisma.$FoundationPayload<ExtArgs>
     user: Prisma.$UserDataPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1330,7 +1163,6 @@ readonly fields: AnnouncementFieldRefs;
  */
 export interface Prisma__AnnouncementClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  foundation<T extends Prisma.FoundationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FoundationDefaultArgs<ExtArgs>>): Prisma.Prisma__FoundationClient<runtime.Types.Result.GetResult<Prisma.$FoundationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.Announcement$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Announcement$userArgs<ExtArgs>>): Prisma.Prisma__UserDataClient<runtime.Types.Result.GetResult<Prisma.$UserDataPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
