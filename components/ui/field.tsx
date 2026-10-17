@@ -2,9 +2,9 @@
 
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/shadCN/utils";
+import { cn } from "@/lib/shadcn/utils";
 import { cva, type VariantProps } from "class-variance-authority";
-import { ComponentProps, ReactNode, useMemo } from "react";
+import { type ComponentProps, type ReactNode, useMemo } from "react";
 
 function FieldSet({ className, ...props }: ComponentProps<"fieldset">) {
   return (

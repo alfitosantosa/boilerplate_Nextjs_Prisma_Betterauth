@@ -1,5 +1,5 @@
 "use client";
-import { ComponentProps, createContext, useContext, useId } from "react";
+import { type ComponentProps, createContext, useContext, useId } from "react";
 
 
 import { cn } from "cn";

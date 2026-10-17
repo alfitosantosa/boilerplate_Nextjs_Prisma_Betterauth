@@ -1,9 +1,9 @@
 "use client";
 
-import { cn } from "@/lib/shadCN/utils";
+import { cn } from "@/lib/shadcn/utils";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { CheckIcon } from "lucide-react";
-import { ComponentProps } from "react";
+import { type ComponentProps } from "react";
 
 function Checkbox({
   className,

@@ -7,7 +7,7 @@ import {
   OctagonXIcon,
   TriangleAlertIcon,
 } from "lucide-react";
-import { CSSProperties } from "react";
+import { type CSSProperties } from "react";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 
 // Sera is light-only (no ThemeProvider, `.dark` is never applied), so the

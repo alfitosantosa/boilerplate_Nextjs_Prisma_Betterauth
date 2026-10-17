@@ -9,25 +9,26 @@ datasource db {
   provider = "postgresql"
 }
 
-
 model User {
-  id            String      @id @unique
+  id            String    @id @unique
   name          String
-  email         String      @unique
+  email         String    @unique
   emailVerified Boolean
   image         String?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   banExpires    DateTime?
   banReason     String?
-  banned        Boolean?    @default(false)
-  role          String?     @default("user")
-  foundationId  String?
+  banned        Boolean?  @default(false)
+  role          String?   @default("user")
+  clientId      String?
   accounts      Account[]
   sessions      Session[]
   userData      UserData?
+  membership    Membership?
+  client        Client?     @relation(fields: [clientId], references: [id], onDelete: SetNull)
 
-  @@index([foundationId])
+  @@index([clientId])
   @@map("user")
 }
 
@@ -81,43 +82,44 @@ model Verification {
 }
 
 model UserData {
-  id                      String                 @id @unique @default(cuid())
-  userId                  String?                @unique
-  academicYearId          String?
-  address                 String?
-  avatarUrl               String?
-  birthDate               DateTime?
-  birthPlace              String?
-  classId                 String?
-  employeeId              String?
-  endDate                 DateTime?
-  enrollmentDate          DateTime?
-  gender                  String?
-  graduationDate          DateTime?
-  branchId                String?
-  nik                     String?
-  nisn                    String?
-  parentPhone             String?
-  position                String?
-  relation                String?
-  roleId                  String?
-  startDate               DateTime?
-  status                  String?                @default("active")
-  studentIds              String[]
-  email                   String?
-  name                    String
-  isActive                Boolean                @default(true)
-  foundationId            String?
-  tahfidzGroupId          String?
-  createdAt               DateTime?              @default(now())
-  updatedAt               DateTime?              @updatedAt
-  Announcements           Announcement[]
-  notifications           Notification[]
-  branch                  Branch?                @relation("UserBranch", fields: [branchId], references: [id])
-  role                    Role?                  @relation(fields: [roleId], references: [id])
-  user                    User?                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id             String         @id @unique @default(cuid())
+  userId         String?        @unique
+  academicYearId String?
+  address        String?
+  avatarUrl      String?
+  birthDate      DateTime?
+  birthPlace     String?
+  classId        String?
+  employeeId     String?
+  endDate        DateTime?
+  enrollmentDate DateTime?
+  gender         String?
+  graduationDate DateTime?
+  branchId       String?
+  nik            String?
+  nisn           String?
+  parentPhone    String?
+  position       String?
+  relation       String?
+  roleId         String?
+  startDate      DateTime?
+  status         String?        @default("active")
+  studentIds     String[]
+  email          String?
+  name           String
+  isActive       Boolean        @default(true)
+  clientId       String?
+  tahfidzGroupId String?
+  createdAt      DateTime?      @default(now())
+  updatedAt      DateTime?      @updatedAt
+  Announcements  Announcement[]
+  notifications  Notification[]
+  branch         Branch?        @relation("UserBranch", fields: [branchId], references: [id])
+  role           Role?          @relation(fields: [roleId], references: [id])
+  user           User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  client         Client?        @relation(fields: [clientId], references: [id], onDelete: SetNull)
 
-  @@index([foundationId])
+  @@index([clientId])
   @@index([academicYearId])
   @@index([classId])
   @@index([branchId])
@@ -129,41 +131,40 @@ model UserData {
 }
 
 model Role {
-  id           String      @id @default(cuid())
+  id           String     @id @default(cuid())
   name         String
   description  String
-  foundationId String?
+  clientId     String?
   permissions  String[]
-  isActive     Boolean     @default(true)
+  isActive     Boolean    @default(true)
   userData     UserData[]
+  client       Client?    @relation(fields: [clientId], references: [id], onDelete: Cascade)
 
-  @@unique([foundationId, name])
-  @@index([foundationId])
+  @@unique([clientId, name])
+  @@index([clientId])
   @@map("roles")
 }
 
-
-
 model Branch {
-  id                 String              @id @default(cuid())
-  code               String
-  name               String
-  description        String?
-  isActive           Boolean             @default(true)
-  address            String?
-  phone              String?
-  adminName          String?
-  signatureUrl       String?
-  foundationId       String?
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  users              UserData[]             @relation("UserBranch")
+  id           String     @id @default(cuid())
+  code         String
+  name         String
+  description  String?
+  isActive     Boolean    @default(true)
+  address      String?
+  phone        String?
+  adminName    String?
+  signatureUrl String?
+  clientId     String?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  users        UserData[] @relation("UserBranch")
+  client       Client?    @relation(fields: [clientId], references: [id], onDelete: Cascade)
 
-  @@unique([foundationId, code])
-  @@index([foundationId])
-  @@map("branchs")
+  @@unique([clientId, code])
+  @@index([clientId])
+  @@map("branches")
 }
-
 
 model Notification {
   id        String    @id @default(cuid())
@@ -184,9 +185,8 @@ model Notification {
   @@map("notifications")
 }
 
-
 model Announcement {
-  id           String     @id @default(cuid())
+  id           String    @id @default(cuid())
   title        String
   content      String
   imageUrl     String?
@@ -194,16 +194,68 @@ model Announcement {
   startDate    DateTime?
   endDate      DateTime?
   userId       String?
-  foundationId String
-  isActive     Boolean    @default(true)
-  isPublished  Boolean    @default(false)
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  user         UserData?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clientId     String
+  isActive     Boolean   @default(true)
+  isPublished  Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  user         UserData? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  client       Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
 
-  @@index([foundationId])
+  @@index([clientId])
   @@map("announcements")
 }
 
+model Plan {
+  id          String       @id @default(cuid())
+  slug        String       @unique
+  name        String
+  description String?
+  price       Int          @default(0)
+  interval    String       @default("month")
+  features    String[]
+  isPopular   Boolean      @default(false)
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  memberships Membership[]
 
+  @@map("plans")
+}
 
+model Membership {
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  planId    String
+  status    String    @default("active")
+  startDate DateTime  @default(now())
+  endDate   DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan      Plan      @relation(fields: [planId], references: [id], onDelete: Restrict)
+
+  @@index([planId])
+  @@index([status])
+  @@map("memberships")
+}
+
+model Client {
+  id            String         @id @default(cuid())
+  name          String
+  slug          String         @unique
+  email         String?
+  phone         String?
+  address       String?
+  logoUrl       String?
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  users         User[]
+  userData      UserData[]
+  roles         Role[]
+  branches      Branch[]
+  announcements Announcement[]
+
+  @@map("clients")
+}

@@ -1,0 +1,190 @@
+"use client";
+
+/**
+ * Lightweight API client using native fetch
+ * Replaces axios for better performance and smaller bundle size
+ */
+
+interface FetchOptions extends RequestInit {
+  params?: Record<string, string | number | boolean>;
+}
+
+interface ApiResponse<T = unknown> {
+  data: T;
+  status: number;
+  statusText: string;
+}
+
+/**
+ * Build URL with query parameters
+ */
+function buildUrl(
+  url: string,
+  params?: Record<string, string | number | boolean>,
+): string {
+  if (!params) return url;
+
+  const searchParams = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    searchParams.append(key, String(value));
+  });
+
+  const queryString = searchParams.toString();
+  return queryString ? `${url}?${queryString}` : url;
+}
+
+/**
+ * Safely parse JSON from response, returns null if body is empty or invalid
+ */
+async function safeJson<T>(response: Response): Promise<T> {
+  const text = await response.text();
+  if (!text) return null as T;
+  return JSON.parse(text);
+}
+
+/**
+ * Error non-2xx wajib dilempar: tanpa ini `res.data` berisi objek error
+ * (`{ success: false, message }`) dan pemanggil menganggapnya array data.
+ */
+function assertOk<T>(response: Response, data: T): T {
+  if (response.ok) return data;
+
+  const record =
+    data && typeof data === "object"
+      ? (data as Record<string, unknown>)
+      : null;
+  const message =
+    (typeof record?.message === "string" && record.message) ||
+    (typeof record?.error === "string" && record.error) ||
+    `Request gagal (${response.status} ${response.statusText})`;
+
+  throw new Error(message);
+}
+
+/**
+ * Make a GET request
+ */
+export async function apiGet<T = unknown>(
+  url: string,
+  options?: FetchOptions,
+): Promise<ApiResponse<T>> {
+  const fullUrl = buildUrl(url, options?.params);
+
+  const response = await fetch(fullUrl, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+    ...options,
+  });
+
+  const data = assertOk(response, await safeJson<T>(response));
+  return {
+    data,
+    status: response.status,
+    statusText: response.statusText,
+  };
+}
+
+/**
+ * Make a POST request
+ */
+export async function apiPost<T = unknown>(
+  url: string,
+  body?: unknown,
+  options?: FetchOptions,
+): Promise<ApiResponse<T>> {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+    ...options,
+  });
+
+  const data = assertOk(response, await safeJson<T>(response));
+  return {
+    data,
+    status: response.status,
+    statusText: response.statusText,
+  };
+}
+
+/**
+ * Make a PUT request
+ */
+export async function apiPut<T = unknown>(
+  url: string,
+  body?: unknown,
+  options?: FetchOptions,
+): Promise<ApiResponse<T>> {
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+    ...options,
+  });
+
+  const data = assertOk(response, await safeJson<T>(response));
+  return {
+    data,
+    status: response.status,
+    statusText: response.statusText,
+  };
+}
+
+/**
+ * Make a DELETE request
+ */
+export async function apiDelete<T = unknown>(
+  url: string,
+  options?: FetchOptions,
+): Promise<ApiResponse<T>> {
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+    ...options,
+  });
+
+  const data = assertOk(response, await safeJson<T>(response));
+  return {
+    data,
+    status: response.status,
+    statusText: response.statusText,
+  };
+}
+
+/**
+ * Make a PATCH request
+ */
+export async function apiPatch<T = unknown>(
+  url: string,
+  body?: unknown,
+  options?: FetchOptions,
+): Promise<ApiResponse<T>> {
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+    ...options,
+  });
+
+  const data = assertOk(response, await safeJson<T>(response));
+  return {
+    data,
+    status: response.status,
+    statusText: response.statusText,
+  };
+}

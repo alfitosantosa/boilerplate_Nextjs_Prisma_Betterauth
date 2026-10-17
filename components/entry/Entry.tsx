@@ -2,9 +2,8 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { SeraLogo } from "@/components/SeraLogo";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/shadCN/utils";
+import { cn } from "@/lib/shadcn/utils";
 
 /**
  * The entry screens, in the house style. A split screen: the form column on

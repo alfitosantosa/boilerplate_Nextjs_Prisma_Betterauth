@@ -1,5 +1,5 @@
-import { cn } from "@/lib/shadCN/utils";
-import { ComponentProps } from "react";
+import { cn } from "@/lib/shadcn/utils";
+import { type ComponentProps } from "react";
 
 function Skeleton({ className, ...props }: ComponentProps<"div">) {
   return (

@@ -1,9 +1,9 @@
 "use client";
 
-import { cn } from "@/lib/shadCN/utils";
+import { cn } from "@/lib/shadcn/utils";
 import { XIcon } from "lucide-react";
 import { Dialog as SheetPrimitive } from "radix-ui";
-import { ComponentProps } from "react";
+import { type ComponentProps } from "react";
 
 
 function Sheet({ ...props }: ComponentProps<typeof SheetPrimitive.Root>) {

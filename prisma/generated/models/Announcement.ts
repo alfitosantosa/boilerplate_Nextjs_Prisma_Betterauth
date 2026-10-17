@@ -33,7 +33,7 @@ export type AnnouncementMinAggregateOutputType = {
   startDate: Date | null
   endDate: Date | null
   userId: string | null
-  foundationId: string | null
+  clientId: string | null
   isActive: boolean | null
   isPublished: boolean | null
   createdAt: Date | null
@@ -49,7 +49,7 @@ export type AnnouncementMaxAggregateOutputType = {
   startDate: Date | null
   endDate: Date | null
   userId: string | null
-  foundationId: string | null
+  clientId: string | null
   isActive: boolean | null
   isPublished: boolean | null
   createdAt: Date | null
@@ -65,7 +65,7 @@ export type AnnouncementCountAggregateOutputType = {
   startDate: number
   endDate: number
   userId: number
-  foundationId: number
+  clientId: number
   isActive: number
   isPublished: number
   createdAt: number
@@ -83,7 +83,7 @@ export type AnnouncementMinAggregateInputType = {
   startDate?: true
   endDate?: true
   userId?: true
-  foundationId?: true
+  clientId?: true
   isActive?: true
   isPublished?: true
   createdAt?: true
@@ -99,7 +99,7 @@ export type AnnouncementMaxAggregateInputType = {
   startDate?: true
   endDate?: true
   userId?: true
-  foundationId?: true
+  clientId?: true
   isActive?: true
   isPublished?: true
   createdAt?: true
@@ -115,7 +115,7 @@ export type AnnouncementCountAggregateInputType = {
   startDate?: true
   endDate?: true
   userId?: true
-  foundationId?: true
+  clientId?: true
   isActive?: true
   isPublished?: true
   createdAt?: true
@@ -204,7 +204,7 @@ export type AnnouncementGroupByOutputType = {
   startDate: Date | null
   endDate: Date | null
   userId: string | null
-  foundationId: string
+  clientId: string
   isActive: boolean
   isPublished: boolean
   createdAt: Date
@@ -241,12 +241,13 @@ export type AnnouncementWhereInput = {
   startDate?: Prisma.DateTimeNullableFilter<"Announcement"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Announcement"> | Date | string | null
   userId?: Prisma.StringNullableFilter<"Announcement"> | string | null
-  foundationId?: Prisma.StringFilter<"Announcement"> | string
+  clientId?: Prisma.StringFilter<"Announcement"> | string
   isActive?: Prisma.BoolFilter<"Announcement"> | boolean
   isPublished?: Prisma.BoolFilter<"Announcement"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   user?: Prisma.XOR<Prisma.UserDataNullableScalarRelationFilter, Prisma.UserDataWhereInput> | null
+  client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
 }
 
 export type AnnouncementOrderByWithRelationInput = {
@@ -258,12 +259,13 @@ export type AnnouncementOrderByWithRelationInput = {
   startDate?: Prisma.SortOrderInput | Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserDataOrderByWithRelationInput
+  client?: Prisma.ClientOrderByWithRelationInput
 }
 
 export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
@@ -278,12 +280,13 @@ export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
   startDate?: Prisma.DateTimeNullableFilter<"Announcement"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Announcement"> | Date | string | null
   userId?: Prisma.StringNullableFilter<"Announcement"> | string | null
-  foundationId?: Prisma.StringFilter<"Announcement"> | string
+  clientId?: Prisma.StringFilter<"Announcement"> | string
   isActive?: Prisma.BoolFilter<"Announcement"> | boolean
   isPublished?: Prisma.BoolFilter<"Announcement"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   user?: Prisma.XOR<Prisma.UserDataNullableScalarRelationFilter, Prisma.UserDataWhereInput> | null
+  client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
 }, "id">
 
 export type AnnouncementOrderByWithAggregationInput = {
@@ -295,7 +298,7 @@ export type AnnouncementOrderByWithAggregationInput = {
   startDate?: Prisma.SortOrderInput | Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -317,7 +320,7 @@ export type AnnouncementScalarWhereWithAggregatesInput = {
   startDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Announcement"> | Date | string | null
   endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Announcement"> | Date | string | null
   userId?: Prisma.StringNullableWithAggregatesFilter<"Announcement"> | string | null
-  foundationId?: Prisma.StringWithAggregatesFilter<"Announcement"> | string
+  clientId?: Prisma.StringWithAggregatesFilter<"Announcement"> | string
   isActive?: Prisma.BoolWithAggregatesFilter<"Announcement"> | boolean
   isPublished?: Prisma.BoolWithAggregatesFilter<"Announcement"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Announcement"> | Date | string
@@ -332,12 +335,12 @@ export type AnnouncementCreateInput = {
   linkUrl?: string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
-  foundationId: string
   isActive?: boolean
   isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user?: Prisma.UserDataCreateNestedOneWithoutAnnouncementsInput
+  client: Prisma.ClientCreateNestedOneWithoutAnnouncementsInput
 }
 
 export type AnnouncementUncheckedCreateInput = {
@@ -349,7 +352,7 @@ export type AnnouncementUncheckedCreateInput = {
   startDate?: Date | string | null
   endDate?: Date | string | null
   userId?: string | null
-  foundationId: string
+  clientId: string
   isActive?: boolean
   isPublished?: boolean
   createdAt?: Date | string
@@ -364,12 +367,12 @@ export type AnnouncementUpdateInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  foundationId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserDataUpdateOneWithoutAnnouncementsNestedInput
+  client?: Prisma.ClientUpdateOneRequiredWithoutAnnouncementsNestedInput
 }
 
 export type AnnouncementUncheckedUpdateInput = {
@@ -381,7 +384,7 @@ export type AnnouncementUncheckedUpdateInput = {
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,7 +400,7 @@ export type AnnouncementCreateManyInput = {
   startDate?: Date | string | null
   endDate?: Date | string | null
   userId?: string | null
-  foundationId: string
+  clientId: string
   isActive?: boolean
   isPublished?: boolean
   createdAt?: Date | string
@@ -412,7 +415,6 @@ export type AnnouncementUpdateManyMutationInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  foundationId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -428,7 +430,7 @@ export type AnnouncementUncheckedUpdateManyInput = {
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -454,7 +456,7 @@ export type AnnouncementCountOrderByAggregateInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -470,7 +472,7 @@ export type AnnouncementMaxOrderByAggregateInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -486,7 +488,7 @@ export type AnnouncementMinOrderByAggregateInput = {
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -535,6 +537,48 @@ export type AnnouncementUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
 }
 
+export type AnnouncementCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutClientInput, Prisma.AnnouncementUncheckedCreateWithoutClientInput> | Prisma.AnnouncementCreateWithoutClientInput[] | Prisma.AnnouncementUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutClientInput | Prisma.AnnouncementCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.AnnouncementCreateManyClientInputEnvelope
+  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+}
+
+export type AnnouncementUncheckedCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutClientInput, Prisma.AnnouncementUncheckedCreateWithoutClientInput> | Prisma.AnnouncementCreateWithoutClientInput[] | Prisma.AnnouncementUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutClientInput | Prisma.AnnouncementCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.AnnouncementCreateManyClientInputEnvelope
+  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+}
+
+export type AnnouncementUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutClientInput, Prisma.AnnouncementUncheckedCreateWithoutClientInput> | Prisma.AnnouncementCreateWithoutClientInput[] | Prisma.AnnouncementUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutClientInput | Prisma.AnnouncementCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.AnnouncementUpsertWithWhereUniqueWithoutClientInput | Prisma.AnnouncementUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.AnnouncementCreateManyClientInputEnvelope
+  set?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  disconnect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  delete?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  update?: Prisma.AnnouncementUpdateWithWhereUniqueWithoutClientInput | Prisma.AnnouncementUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.AnnouncementUpdateManyWithWhereWithoutClientInput | Prisma.AnnouncementUpdateManyWithWhereWithoutClientInput[]
+  deleteMany?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
+}
+
+export type AnnouncementUncheckedUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.AnnouncementCreateWithoutClientInput, Prisma.AnnouncementUncheckedCreateWithoutClientInput> | Prisma.AnnouncementCreateWithoutClientInput[] | Prisma.AnnouncementUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.AnnouncementCreateOrConnectWithoutClientInput | Prisma.AnnouncementCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.AnnouncementUpsertWithWhereUniqueWithoutClientInput | Prisma.AnnouncementUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.AnnouncementCreateManyClientInputEnvelope
+  set?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  disconnect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  delete?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  connect?: Prisma.AnnouncementWhereUniqueInput | Prisma.AnnouncementWhereUniqueInput[]
+  update?: Prisma.AnnouncementUpdateWithWhereUniqueWithoutClientInput | Prisma.AnnouncementUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.AnnouncementUpdateManyWithWhereWithoutClientInput | Prisma.AnnouncementUpdateManyWithWhereWithoutClientInput[]
+  deleteMany?: Prisma.AnnouncementScalarWhereInput | Prisma.AnnouncementScalarWhereInput[]
+}
+
 export type AnnouncementCreateWithoutUserInput = {
   id?: string
   title: string
@@ -543,11 +587,11 @@ export type AnnouncementCreateWithoutUserInput = {
   linkUrl?: string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
-  foundationId: string
   isActive?: boolean
   isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  client: Prisma.ClientCreateNestedOneWithoutAnnouncementsInput
 }
 
 export type AnnouncementUncheckedCreateWithoutUserInput = {
@@ -558,7 +602,7 @@ export type AnnouncementUncheckedCreateWithoutUserInput = {
   linkUrl?: string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
-  foundationId: string
+  clientId: string
   isActive?: boolean
   isPublished?: boolean
   createdAt?: Date | string
@@ -603,11 +647,67 @@ export type AnnouncementScalarWhereInput = {
   startDate?: Prisma.DateTimeNullableFilter<"Announcement"> | Date | string | null
   endDate?: Prisma.DateTimeNullableFilter<"Announcement"> | Date | string | null
   userId?: Prisma.StringNullableFilter<"Announcement"> | string | null
-  foundationId?: Prisma.StringFilter<"Announcement"> | string
+  clientId?: Prisma.StringFilter<"Announcement"> | string
   isActive?: Prisma.BoolFilter<"Announcement"> | boolean
   isPublished?: Prisma.BoolFilter<"Announcement"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Announcement"> | Date | string
+}
+
+export type AnnouncementCreateWithoutClientInput = {
+  id?: string
+  title: string
+  content: string
+  imageUrl?: string | null
+  linkUrl?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  isActive?: boolean
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user?: Prisma.UserDataCreateNestedOneWithoutAnnouncementsInput
+}
+
+export type AnnouncementUncheckedCreateWithoutClientInput = {
+  id?: string
+  title: string
+  content: string
+  imageUrl?: string | null
+  linkUrl?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  userId?: string | null
+  isActive?: boolean
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AnnouncementCreateOrConnectWithoutClientInput = {
+  where: Prisma.AnnouncementWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnnouncementCreateWithoutClientInput, Prisma.AnnouncementUncheckedCreateWithoutClientInput>
+}
+
+export type AnnouncementCreateManyClientInputEnvelope = {
+  data: Prisma.AnnouncementCreateManyClientInput | Prisma.AnnouncementCreateManyClientInput[]
+  skipDuplicates?: boolean
+}
+
+export type AnnouncementUpsertWithWhereUniqueWithoutClientInput = {
+  where: Prisma.AnnouncementWhereUniqueInput
+  update: Prisma.XOR<Prisma.AnnouncementUpdateWithoutClientInput, Prisma.AnnouncementUncheckedUpdateWithoutClientInput>
+  create: Prisma.XOR<Prisma.AnnouncementCreateWithoutClientInput, Prisma.AnnouncementUncheckedCreateWithoutClientInput>
+}
+
+export type AnnouncementUpdateWithWhereUniqueWithoutClientInput = {
+  where: Prisma.AnnouncementWhereUniqueInput
+  data: Prisma.XOR<Prisma.AnnouncementUpdateWithoutClientInput, Prisma.AnnouncementUncheckedUpdateWithoutClientInput>
+}
+
+export type AnnouncementUpdateManyWithWhereWithoutClientInput = {
+  where: Prisma.AnnouncementScalarWhereInput
+  data: Prisma.XOR<Prisma.AnnouncementUpdateManyMutationInput, Prisma.AnnouncementUncheckedUpdateManyWithoutClientInput>
 }
 
 export type AnnouncementCreateManyUserInput = {
@@ -618,7 +718,7 @@ export type AnnouncementCreateManyUserInput = {
   linkUrl?: string | null
   startDate?: Date | string | null
   endDate?: Date | string | null
-  foundationId: string
+  clientId: string
   isActive?: boolean
   isPublished?: boolean
   createdAt?: Date | string
@@ -633,11 +733,11 @@ export type AnnouncementUpdateWithoutUserInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  foundationId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUpdateOneRequiredWithoutAnnouncementsNestedInput
 }
 
 export type AnnouncementUncheckedUpdateWithoutUserInput = {
@@ -648,7 +748,7 @@ export type AnnouncementUncheckedUpdateWithoutUserInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  foundationId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -663,7 +763,67 @@ export type AnnouncementUncheckedUpdateManyWithoutUserInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  foundationId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AnnouncementCreateManyClientInput = {
+  id?: string
+  title: string
+  content: string
+  imageUrl?: string | null
+  linkUrl?: string | null
+  startDate?: Date | string | null
+  endDate?: Date | string | null
+  userId?: string | null
+  isActive?: boolean
+  isPublished?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AnnouncementUpdateWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserDataUpdateOneWithoutAnnouncementsNestedInput
+}
+
+export type AnnouncementUncheckedUpdateWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AnnouncementUncheckedUpdateManyWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -681,12 +841,13 @@ export type AnnouncementSelect<ExtArgs extends runtime.Types.Extensions.Internal
   startDate?: boolean
   endDate?: boolean
   userId?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   isActive?: boolean
   isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["announcement"]>
 
 export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -698,12 +859,13 @@ export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   startDate?: boolean
   endDate?: boolean
   userId?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   isActive?: boolean
   isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["announcement"]>
 
 export type AnnouncementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -715,12 +877,13 @@ export type AnnouncementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   startDate?: boolean
   endDate?: boolean
   userId?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   isActive?: boolean
   isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["announcement"]>
 
 export type AnnouncementSelectScalar = {
@@ -732,28 +895,32 @@ export type AnnouncementSelectScalar = {
   startDate?: boolean
   endDate?: boolean
   userId?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   isActive?: boolean
   isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AnnouncementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "imageUrl" | "linkUrl" | "startDate" | "endDate" | "userId" | "foundationId" | "isActive" | "isPublished" | "createdAt" | "updatedAt", ExtArgs["result"]["announcement"]>
+export type AnnouncementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "imageUrl" | "linkUrl" | "startDate" | "endDate" | "userId" | "clientId" | "isActive" | "isPublished" | "createdAt" | "updatedAt", ExtArgs["result"]["announcement"]>
 export type AnnouncementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }
 export type AnnouncementIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }
 export type AnnouncementIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Announcement$userArgs<ExtArgs>
+  client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }
 
 export type $AnnouncementPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Announcement"
   objects: {
     user: Prisma.$UserDataPayload<ExtArgs> | null
+    client: Prisma.$ClientPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -764,7 +931,7 @@ export type $AnnouncementPayload<ExtArgs extends runtime.Types.Extensions.Intern
     startDate: Date | null
     endDate: Date | null
     userId: string | null
-    foundationId: string
+    clientId: string
     isActive: boolean
     isPublished: boolean
     createdAt: Date
@@ -1164,6 +1331,7 @@ readonly fields: AnnouncementFieldRefs;
 export interface Prisma__AnnouncementClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.Announcement$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Announcement$userArgs<ExtArgs>>): Prisma.Prisma__UserDataClient<runtime.Types.Result.GetResult<Prisma.$UserDataPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  client<T extends Prisma.ClientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientDefaultArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1201,7 +1369,7 @@ export interface AnnouncementFieldRefs {
   readonly startDate: Prisma.FieldRef<"Announcement", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"Announcement", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Announcement", 'String'>
-  readonly foundationId: Prisma.FieldRef<"Announcement", 'String'>
+  readonly clientId: Prisma.FieldRef<"Announcement", 'String'>
   readonly isActive: Prisma.FieldRef<"Announcement", 'Boolean'>
   readonly isPublished: Prisma.FieldRef<"Announcement", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Announcement", 'DateTime'>

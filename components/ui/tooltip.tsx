@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/shadCN/utils";
+import { cn } from "@/lib/shadcn/utils";
 import { Tooltip as TooltipPrimitive } from "radix-ui";
-import { ComponentProps } from "react";
+import { type ComponentProps } from "react";
 
 function TooltipProvider({
   delayDuration = 0,

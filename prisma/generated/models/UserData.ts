@@ -50,7 +50,7 @@ export type UserDataMinAggregateOutputType = {
   email: string | null
   name: string | null
   isActive: boolean | null
-  foundationId: string | null
+  clientId: string | null
   tahfidzGroupId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -82,7 +82,7 @@ export type UserDataMaxAggregateOutputType = {
   email: string | null
   name: string | null
   isActive: boolean | null
-  foundationId: string | null
+  clientId: string | null
   tahfidzGroupId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -115,7 +115,7 @@ export type UserDataCountAggregateOutputType = {
   email: number
   name: number
   isActive: number
-  foundationId: number
+  clientId: number
   tahfidzGroupId: number
   createdAt: number
   updatedAt: number
@@ -149,7 +149,7 @@ export type UserDataMinAggregateInputType = {
   email?: true
   name?: true
   isActive?: true
-  foundationId?: true
+  clientId?: true
   tahfidzGroupId?: true
   createdAt?: true
   updatedAt?: true
@@ -181,7 +181,7 @@ export type UserDataMaxAggregateInputType = {
   email?: true
   name?: true
   isActive?: true
-  foundationId?: true
+  clientId?: true
   tahfidzGroupId?: true
   createdAt?: true
   updatedAt?: true
@@ -214,7 +214,7 @@ export type UserDataCountAggregateInputType = {
   email?: true
   name?: true
   isActive?: true
-  foundationId?: true
+  clientId?: true
   tahfidzGroupId?: true
   createdAt?: true
   updatedAt?: true
@@ -320,7 +320,7 @@ export type UserDataGroupByOutputType = {
   email: string | null
   name: string
   isActive: boolean
-  foundationId: string | null
+  clientId: string | null
   tahfidzGroupId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -374,7 +374,7 @@ export type UserDataWhereInput = {
   email?: Prisma.StringNullableFilter<"UserData"> | string | null
   name?: Prisma.StringFilter<"UserData"> | string
   isActive?: Prisma.BoolFilter<"UserData"> | boolean
-  foundationId?: Prisma.StringNullableFilter<"UserData"> | string | null
+  clientId?: Prisma.StringNullableFilter<"UserData"> | string | null
   tahfidzGroupId?: Prisma.StringNullableFilter<"UserData"> | string | null
   createdAt?: Prisma.DateTimeNullableFilter<"UserData"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"UserData"> | Date | string | null
@@ -383,6 +383,7 @@ export type UserDataWhereInput = {
   branch?: Prisma.XOR<Prisma.BranchNullableScalarRelationFilter, Prisma.BranchWhereInput> | null
   role?: Prisma.XOR<Prisma.RoleNullableScalarRelationFilter, Prisma.RoleWhereInput> | null
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
 }
 
 export type UserDataOrderByWithRelationInput = {
@@ -412,7 +413,7 @@ export type UserDataOrderByWithRelationInput = {
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientId?: Prisma.SortOrderInput | Prisma.SortOrder
   tahfidzGroupId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -421,6 +422,7 @@ export type UserDataOrderByWithRelationInput = {
   branch?: Prisma.BranchOrderByWithRelationInput
   role?: Prisma.RoleOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
+  client?: Prisma.ClientOrderByWithRelationInput
 }
 
 export type UserDataWhereUniqueInput = Prisma.AtLeast<{
@@ -453,7 +455,7 @@ export type UserDataWhereUniqueInput = Prisma.AtLeast<{
   email?: Prisma.StringNullableFilter<"UserData"> | string | null
   name?: Prisma.StringFilter<"UserData"> | string
   isActive?: Prisma.BoolFilter<"UserData"> | boolean
-  foundationId?: Prisma.StringNullableFilter<"UserData"> | string | null
+  clientId?: Prisma.StringNullableFilter<"UserData"> | string | null
   tahfidzGroupId?: Prisma.StringNullableFilter<"UserData"> | string | null
   createdAt?: Prisma.DateTimeNullableFilter<"UserData"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"UserData"> | Date | string | null
@@ -462,6 +464,7 @@ export type UserDataWhereUniqueInput = Prisma.AtLeast<{
   branch?: Prisma.XOR<Prisma.BranchNullableScalarRelationFilter, Prisma.BranchWhereInput> | null
   role?: Prisma.XOR<Prisma.RoleNullableScalarRelationFilter, Prisma.RoleWhereInput> | null
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
 }, "id" | "id" | "userId">
 
 export type UserDataOrderByWithAggregationInput = {
@@ -491,7 +494,7 @@ export type UserDataOrderByWithAggregationInput = {
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientId?: Prisma.SortOrderInput | Prisma.SortOrder
   tahfidzGroupId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -530,7 +533,7 @@ export type UserDataScalarWhereWithAggregatesInput = {
   email?: Prisma.StringNullableWithAggregatesFilter<"UserData"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"UserData"> | string
   isActive?: Prisma.BoolWithAggregatesFilter<"UserData"> | boolean
-  foundationId?: Prisma.StringNullableWithAggregatesFilter<"UserData"> | string | null
+  clientId?: Prisma.StringNullableWithAggregatesFilter<"UserData"> | string | null
   tahfidzGroupId?: Prisma.StringNullableWithAggregatesFilter<"UserData"> | string | null
   createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"UserData"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"UserData"> | Date | string | null
@@ -560,7 +563,6 @@ export type UserDataCreateInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -569,6 +571,7 @@ export type UserDataCreateInput = {
   branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
   role?: Prisma.RoleCreateNestedOneWithoutUserDataInput
   user?: Prisma.UserCreateNestedOneWithoutUserDataInput
+  client?: Prisma.ClientCreateNestedOneWithoutUserDataInput
 }
 
 export type UserDataUncheckedCreateInput = {
@@ -598,7 +601,7 @@ export type UserDataUncheckedCreateInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
+  clientId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -630,7 +633,6 @@ export type UserDataUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -639,6 +641,7 @@ export type UserDataUpdateInput = {
   branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
   role?: Prisma.RoleUpdateOneWithoutUserDataNestedInput
   user?: Prisma.UserUpdateOneWithoutUserDataNestedInput
+  client?: Prisma.ClientUpdateOneWithoutUserDataNestedInput
 }
 
 export type UserDataUncheckedUpdateInput = {
@@ -668,7 +671,7 @@ export type UserDataUncheckedUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -703,7 +706,7 @@ export type UserDataCreateManyInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
+  clientId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -733,7 +736,6 @@ export type UserDataUpdateManyMutationInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -766,7 +768,7 @@ export type UserDataUncheckedUpdateManyInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -812,7 +814,7 @@ export type UserDataCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   tahfidzGroupId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -844,7 +846,7 @@ export type UserDataMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   tahfidzGroupId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -876,7 +878,7 @@ export type UserDataMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   tahfidzGroupId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -1052,6 +1054,48 @@ export type UserDataUpdateOneWithoutAnnouncementsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserDataUpdateToOneWithWhereWithoutAnnouncementsInput, Prisma.UserDataUpdateWithoutAnnouncementsInput>, Prisma.UserDataUncheckedUpdateWithoutAnnouncementsInput>
 }
 
+export type UserDataCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.UserDataCreateWithoutClientInput, Prisma.UserDataUncheckedCreateWithoutClientInput> | Prisma.UserDataCreateWithoutClientInput[] | Prisma.UserDataUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.UserDataCreateOrConnectWithoutClientInput | Prisma.UserDataCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.UserDataCreateManyClientInputEnvelope
+  connect?: Prisma.UserDataWhereUniqueInput | Prisma.UserDataWhereUniqueInput[]
+}
+
+export type UserDataUncheckedCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.UserDataCreateWithoutClientInput, Prisma.UserDataUncheckedCreateWithoutClientInput> | Prisma.UserDataCreateWithoutClientInput[] | Prisma.UserDataUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.UserDataCreateOrConnectWithoutClientInput | Prisma.UserDataCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.UserDataCreateManyClientInputEnvelope
+  connect?: Prisma.UserDataWhereUniqueInput | Prisma.UserDataWhereUniqueInput[]
+}
+
+export type UserDataUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.UserDataCreateWithoutClientInput, Prisma.UserDataUncheckedCreateWithoutClientInput> | Prisma.UserDataCreateWithoutClientInput[] | Prisma.UserDataUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.UserDataCreateOrConnectWithoutClientInput | Prisma.UserDataCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.UserDataUpsertWithWhereUniqueWithoutClientInput | Prisma.UserDataUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.UserDataCreateManyClientInputEnvelope
+  set?: Prisma.UserDataWhereUniqueInput | Prisma.UserDataWhereUniqueInput[]
+  disconnect?: Prisma.UserDataWhereUniqueInput | Prisma.UserDataWhereUniqueInput[]
+  delete?: Prisma.UserDataWhereUniqueInput | Prisma.UserDataWhereUniqueInput[]
+  connect?: Prisma.UserDataWhereUniqueInput | Prisma.UserDataWhereUniqueInput[]
+  update?: Prisma.UserDataUpdateWithWhereUniqueWithoutClientInput | Prisma.UserDataUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.UserDataUpdateManyWithWhereWithoutClientInput | Prisma.UserDataUpdateManyWithWhereWithoutClientInput[]
+  deleteMany?: Prisma.UserDataScalarWhereInput | Prisma.UserDataScalarWhereInput[]
+}
+
+export type UserDataUncheckedUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.UserDataCreateWithoutClientInput, Prisma.UserDataUncheckedCreateWithoutClientInput> | Prisma.UserDataCreateWithoutClientInput[] | Prisma.UserDataUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.UserDataCreateOrConnectWithoutClientInput | Prisma.UserDataCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.UserDataUpsertWithWhereUniqueWithoutClientInput | Prisma.UserDataUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.UserDataCreateManyClientInputEnvelope
+  set?: Prisma.UserDataWhereUniqueInput | Prisma.UserDataWhereUniqueInput[]
+  disconnect?: Prisma.UserDataWhereUniqueInput | Prisma.UserDataWhereUniqueInput[]
+  delete?: Prisma.UserDataWhereUniqueInput | Prisma.UserDataWhereUniqueInput[]
+  connect?: Prisma.UserDataWhereUniqueInput | Prisma.UserDataWhereUniqueInput[]
+  update?: Prisma.UserDataUpdateWithWhereUniqueWithoutClientInput | Prisma.UserDataUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.UserDataUpdateManyWithWhereWithoutClientInput | Prisma.UserDataUpdateManyWithWhereWithoutClientInput[]
+  deleteMany?: Prisma.UserDataScalarWhereInput | Prisma.UserDataScalarWhereInput[]
+}
+
 export type UserDataCreateWithoutUserInput = {
   id?: string
   academicYearId?: string | null
@@ -1076,7 +1120,6 @@ export type UserDataCreateWithoutUserInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1084,6 +1127,7 @@ export type UserDataCreateWithoutUserInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
   role?: Prisma.RoleCreateNestedOneWithoutUserDataInput
+  client?: Prisma.ClientCreateNestedOneWithoutUserDataInput
 }
 
 export type UserDataUncheckedCreateWithoutUserInput = {
@@ -1112,7 +1156,7 @@ export type UserDataUncheckedCreateWithoutUserInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
+  clientId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1160,7 +1204,6 @@ export type UserDataUpdateWithoutUserInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1168,6 +1211,7 @@ export type UserDataUpdateWithoutUserInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
   role?: Prisma.RoleUpdateOneWithoutUserDataNestedInput
+  client?: Prisma.ClientUpdateOneWithoutUserDataNestedInput
 }
 
 export type UserDataUncheckedUpdateWithoutUserInput = {
@@ -1196,7 +1240,7 @@ export type UserDataUncheckedUpdateWithoutUserInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1228,7 +1272,6 @@ export type UserDataCreateWithoutRoleInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1236,6 +1279,7 @@ export type UserDataCreateWithoutRoleInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
   user?: Prisma.UserCreateNestedOneWithoutUserDataInput
+  client?: Prisma.ClientCreateNestedOneWithoutUserDataInput
 }
 
 export type UserDataUncheckedCreateWithoutRoleInput = {
@@ -1264,7 +1308,7 @@ export type UserDataUncheckedCreateWithoutRoleInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
+  clientId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1328,7 +1372,7 @@ export type UserDataScalarWhereInput = {
   email?: Prisma.StringNullableFilter<"UserData"> | string | null
   name?: Prisma.StringFilter<"UserData"> | string
   isActive?: Prisma.BoolFilter<"UserData"> | boolean
-  foundationId?: Prisma.StringNullableFilter<"UserData"> | string | null
+  clientId?: Prisma.StringNullableFilter<"UserData"> | string | null
   tahfidzGroupId?: Prisma.StringNullableFilter<"UserData"> | string | null
   createdAt?: Prisma.DateTimeNullableFilter<"UserData"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"UserData"> | Date | string | null
@@ -1358,7 +1402,6 @@ export type UserDataCreateWithoutBranchInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1366,6 +1409,7 @@ export type UserDataCreateWithoutBranchInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   role?: Prisma.RoleCreateNestedOneWithoutUserDataInput
   user?: Prisma.UserCreateNestedOneWithoutUserDataInput
+  client?: Prisma.ClientCreateNestedOneWithoutUserDataInput
 }
 
 export type UserDataUncheckedCreateWithoutBranchInput = {
@@ -1394,7 +1438,7 @@ export type UserDataUncheckedCreateWithoutBranchInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
+  clientId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1452,7 +1496,6 @@ export type UserDataCreateWithoutNotificationsInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1460,6 +1503,7 @@ export type UserDataCreateWithoutNotificationsInput = {
   branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
   role?: Prisma.RoleCreateNestedOneWithoutUserDataInput
   user?: Prisma.UserCreateNestedOneWithoutUserDataInput
+  client?: Prisma.ClientCreateNestedOneWithoutUserDataInput
 }
 
 export type UserDataUncheckedCreateWithoutNotificationsInput = {
@@ -1489,7 +1533,7 @@ export type UserDataUncheckedCreateWithoutNotificationsInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
+  clientId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1536,7 +1580,6 @@ export type UserDataUpdateWithoutNotificationsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1544,6 +1587,7 @@ export type UserDataUpdateWithoutNotificationsInput = {
   branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
   role?: Prisma.RoleUpdateOneWithoutUserDataNestedInput
   user?: Prisma.UserUpdateOneWithoutUserDataNestedInput
+  client?: Prisma.ClientUpdateOneWithoutUserDataNestedInput
 }
 
 export type UserDataUncheckedUpdateWithoutNotificationsInput = {
@@ -1573,7 +1617,7 @@ export type UserDataUncheckedUpdateWithoutNotificationsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1604,7 +1648,6 @@ export type UserDataCreateWithoutAnnouncementsInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1612,6 +1655,7 @@ export type UserDataCreateWithoutAnnouncementsInput = {
   branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
   role?: Prisma.RoleCreateNestedOneWithoutUserDataInput
   user?: Prisma.UserCreateNestedOneWithoutUserDataInput
+  client?: Prisma.ClientCreateNestedOneWithoutUserDataInput
 }
 
 export type UserDataUncheckedCreateWithoutAnnouncementsInput = {
@@ -1641,7 +1685,7 @@ export type UserDataUncheckedCreateWithoutAnnouncementsInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
+  clientId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1688,7 +1732,6 @@ export type UserDataUpdateWithoutAnnouncementsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1696,6 +1739,7 @@ export type UserDataUpdateWithoutAnnouncementsInput = {
   branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
   role?: Prisma.RoleUpdateOneWithoutUserDataNestedInput
   user?: Prisma.UserUpdateOneWithoutUserDataNestedInput
+  client?: Prisma.ClientUpdateOneWithoutUserDataNestedInput
 }
 
 export type UserDataUncheckedUpdateWithoutAnnouncementsInput = {
@@ -1725,11 +1769,105 @@ export type UserDataUncheckedUpdateWithoutAnnouncementsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserDataCreateWithoutClientInput = {
+  id?: string
+  academicYearId?: string | null
+  address?: string | null
+  avatarUrl?: string | null
+  birthDate?: Date | string | null
+  birthPlace?: string | null
+  classId?: string | null
+  employeeId?: string | null
+  endDate?: Date | string | null
+  enrollmentDate?: Date | string | null
+  gender?: string | null
+  graduationDate?: Date | string | null
+  nik?: string | null
+  nisn?: string | null
+  parentPhone?: string | null
+  position?: string | null
+  relation?: string | null
+  startDate?: Date | string | null
+  status?: string | null
+  studentIds?: Prisma.UserDataCreatestudentIdsInput | string[]
+  email?: string | null
+  name: string
+  isActive?: boolean
+  tahfidzGroupId?: string | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  Announcements?: Prisma.AnnouncementCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  branch?: Prisma.BranchCreateNestedOneWithoutUsersInput
+  role?: Prisma.RoleCreateNestedOneWithoutUserDataInput
+  user?: Prisma.UserCreateNestedOneWithoutUserDataInput
+}
+
+export type UserDataUncheckedCreateWithoutClientInput = {
+  id?: string
+  userId?: string | null
+  academicYearId?: string | null
+  address?: string | null
+  avatarUrl?: string | null
+  birthDate?: Date | string | null
+  birthPlace?: string | null
+  classId?: string | null
+  employeeId?: string | null
+  endDate?: Date | string | null
+  enrollmentDate?: Date | string | null
+  gender?: string | null
+  graduationDate?: Date | string | null
+  branchId?: string | null
+  nik?: string | null
+  nisn?: string | null
+  parentPhone?: string | null
+  position?: string | null
+  relation?: string | null
+  roleId?: string | null
+  startDate?: Date | string | null
+  status?: string | null
+  studentIds?: Prisma.UserDataCreatestudentIdsInput | string[]
+  email?: string | null
+  name: string
+  isActive?: boolean
+  tahfidzGroupId?: string | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+  Announcements?: Prisma.AnnouncementUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserDataCreateOrConnectWithoutClientInput = {
+  where: Prisma.UserDataWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserDataCreateWithoutClientInput, Prisma.UserDataUncheckedCreateWithoutClientInput>
+}
+
+export type UserDataCreateManyClientInputEnvelope = {
+  data: Prisma.UserDataCreateManyClientInput | Prisma.UserDataCreateManyClientInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserDataUpsertWithWhereUniqueWithoutClientInput = {
+  where: Prisma.UserDataWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserDataUpdateWithoutClientInput, Prisma.UserDataUncheckedUpdateWithoutClientInput>
+  create: Prisma.XOR<Prisma.UserDataCreateWithoutClientInput, Prisma.UserDataUncheckedCreateWithoutClientInput>
+}
+
+export type UserDataUpdateWithWhereUniqueWithoutClientInput = {
+  where: Prisma.UserDataWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserDataUpdateWithoutClientInput, Prisma.UserDataUncheckedUpdateWithoutClientInput>
+}
+
+export type UserDataUpdateManyWithWhereWithoutClientInput = {
+  where: Prisma.UserDataScalarWhereInput
+  data: Prisma.XOR<Prisma.UserDataUpdateManyMutationInput, Prisma.UserDataUncheckedUpdateManyWithoutClientInput>
 }
 
 export type UserDataCreateManyRoleInput = {
@@ -1758,7 +1896,7 @@ export type UserDataCreateManyRoleInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
+  clientId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1788,7 +1926,6 @@ export type UserDataUpdateWithoutRoleInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1796,6 +1933,7 @@ export type UserDataUpdateWithoutRoleInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
   user?: Prisma.UserUpdateOneWithoutUserDataNestedInput
+  client?: Prisma.ClientUpdateOneWithoutUserDataNestedInput
 }
 
 export type UserDataUncheckedUpdateWithoutRoleInput = {
@@ -1824,7 +1962,7 @@ export type UserDataUncheckedUpdateWithoutRoleInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1858,7 +1996,7 @@ export type UserDataUncheckedUpdateManyWithoutRoleInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1890,7 +2028,7 @@ export type UserDataCreateManyBranchInput = {
   email?: string | null
   name: string
   isActive?: boolean
-  foundationId?: string | null
+  clientId?: string | null
   tahfidzGroupId?: string | null
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
@@ -1920,7 +2058,6 @@ export type UserDataUpdateWithoutBranchInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1928,6 +2065,7 @@ export type UserDataUpdateWithoutBranchInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   role?: Prisma.RoleUpdateOneWithoutUserDataNestedInput
   user?: Prisma.UserUpdateOneWithoutUserDataNestedInput
+  client?: Prisma.ClientUpdateOneWithoutUserDataNestedInput
 }
 
 export type UserDataUncheckedUpdateWithoutBranchInput = {
@@ -1956,7 +2094,7 @@ export type UserDataUncheckedUpdateWithoutBranchInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1990,7 +2128,139 @@ export type UserDataUncheckedUpdateManyWithoutBranchInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type UserDataCreateManyClientInput = {
+  id?: string
+  userId?: string | null
+  academicYearId?: string | null
+  address?: string | null
+  avatarUrl?: string | null
+  birthDate?: Date | string | null
+  birthPlace?: string | null
+  classId?: string | null
+  employeeId?: string | null
+  endDate?: Date | string | null
+  enrollmentDate?: Date | string | null
+  gender?: string | null
+  graduationDate?: Date | string | null
+  branchId?: string | null
+  nik?: string | null
+  nisn?: string | null
+  parentPhone?: string | null
+  position?: string | null
+  relation?: string | null
+  roleId?: string | null
+  startDate?: Date | string | null
+  status?: string | null
+  studentIds?: Prisma.UserDataCreatestudentIdsInput | string[]
+  email?: string | null
+  name: string
+  isActive?: boolean
+  tahfidzGroupId?: string | null
+  createdAt?: Date | string | null
+  updatedAt?: Date | string | null
+}
+
+export type UserDataUpdateWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  academicYearId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  classId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enrollmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  graduationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nisn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  relation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studentIds?: Prisma.UserDataUpdatestudentIdsInput | string[]
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Announcements?: Prisma.AnnouncementUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  branch?: Prisma.BranchUpdateOneWithoutUsersNestedInput
+  role?: Prisma.RoleUpdateOneWithoutUserDataNestedInput
+  user?: Prisma.UserUpdateOneWithoutUserDataNestedInput
+}
+
+export type UserDataUncheckedUpdateWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  academicYearId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  classId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enrollmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  graduationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nisn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  relation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studentIds?: Prisma.UserDataUpdatestudentIdsInput | string[]
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  Announcements?: Prisma.AnnouncementUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserDataUncheckedUpdateManyWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  academicYearId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  birthPlace?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  classId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  employeeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  enrollmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  graduationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  branchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nik?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nisn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  relation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  studentIds?: Prisma.UserDataUpdatestudentIdsInput | string[]
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tahfidzGroupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2063,7 +2333,7 @@ export type UserDataSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   email?: boolean
   name?: boolean
   isActive?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   tahfidzGroupId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2072,6 +2342,7 @@ export type UserDataSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   branch?: boolean | Prisma.UserData$branchArgs<ExtArgs>
   role?: boolean | Prisma.UserData$roleArgs<ExtArgs>
   user?: boolean | Prisma.UserData$userArgs<ExtArgs>
+  client?: boolean | Prisma.UserData$clientArgs<ExtArgs>
   _count?: boolean | Prisma.UserDataCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["userData"]>
 
@@ -2102,13 +2373,14 @@ export type UserDataSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   email?: boolean
   name?: boolean
   isActive?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   tahfidzGroupId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   branch?: boolean | Prisma.UserData$branchArgs<ExtArgs>
   role?: boolean | Prisma.UserData$roleArgs<ExtArgs>
   user?: boolean | Prisma.UserData$userArgs<ExtArgs>
+  client?: boolean | Prisma.UserData$clientArgs<ExtArgs>
 }, ExtArgs["result"]["userData"]>
 
 export type UserDataSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2138,13 +2410,14 @@ export type UserDataSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   email?: boolean
   name?: boolean
   isActive?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   tahfidzGroupId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   branch?: boolean | Prisma.UserData$branchArgs<ExtArgs>
   role?: boolean | Prisma.UserData$roleArgs<ExtArgs>
   user?: boolean | Prisma.UserData$userArgs<ExtArgs>
+  client?: boolean | Prisma.UserData$clientArgs<ExtArgs>
 }, ExtArgs["result"]["userData"]>
 
 export type UserDataSelectScalar = {
@@ -2174,30 +2447,33 @@ export type UserDataSelectScalar = {
   email?: boolean
   name?: boolean
   isActive?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   tahfidzGroupId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserDataOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "academicYearId" | "address" | "avatarUrl" | "birthDate" | "birthPlace" | "classId" | "employeeId" | "endDate" | "enrollmentDate" | "gender" | "graduationDate" | "branchId" | "nik" | "nisn" | "parentPhone" | "position" | "relation" | "roleId" | "startDate" | "status" | "studentIds" | "email" | "name" | "isActive" | "foundationId" | "tahfidzGroupId" | "createdAt" | "updatedAt", ExtArgs["result"]["userData"]>
+export type UserDataOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "academicYearId" | "address" | "avatarUrl" | "birthDate" | "birthPlace" | "classId" | "employeeId" | "endDate" | "enrollmentDate" | "gender" | "graduationDate" | "branchId" | "nik" | "nisn" | "parentPhone" | "position" | "relation" | "roleId" | "startDate" | "status" | "studentIds" | "email" | "name" | "isActive" | "clientId" | "tahfidzGroupId" | "createdAt" | "updatedAt", ExtArgs["result"]["userData"]>
 export type UserDataInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Announcements?: boolean | Prisma.UserData$AnnouncementsArgs<ExtArgs>
   notifications?: boolean | Prisma.UserData$notificationsArgs<ExtArgs>
   branch?: boolean | Prisma.UserData$branchArgs<ExtArgs>
   role?: boolean | Prisma.UserData$roleArgs<ExtArgs>
   user?: boolean | Prisma.UserData$userArgs<ExtArgs>
+  client?: boolean | Prisma.UserData$clientArgs<ExtArgs>
   _count?: boolean | Prisma.UserDataCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserDataIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   branch?: boolean | Prisma.UserData$branchArgs<ExtArgs>
   role?: boolean | Prisma.UserData$roleArgs<ExtArgs>
   user?: boolean | Prisma.UserData$userArgs<ExtArgs>
+  client?: boolean | Prisma.UserData$clientArgs<ExtArgs>
 }
 export type UserDataIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   branch?: boolean | Prisma.UserData$branchArgs<ExtArgs>
   role?: boolean | Prisma.UserData$roleArgs<ExtArgs>
   user?: boolean | Prisma.UserData$userArgs<ExtArgs>
+  client?: boolean | Prisma.UserData$clientArgs<ExtArgs>
 }
 
 export type $UserDataPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2208,6 +2484,7 @@ export type $UserDataPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     branch: Prisma.$BranchPayload<ExtArgs> | null
     role: Prisma.$RolePayload<ExtArgs> | null
     user: Prisma.$UserPayload<ExtArgs> | null
+    client: Prisma.$ClientPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2236,7 +2513,7 @@ export type $UserDataPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     email: string | null
     name: string
     isActive: boolean
-    foundationId: string | null
+    clientId: string | null
     tahfidzGroupId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2639,6 +2916,7 @@ export interface Prisma__UserDataClient<T, Null = never, ExtArgs extends runtime
   branch<T extends Prisma.UserData$branchArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserData$branchArgs<ExtArgs>>): Prisma.Prisma__BranchClient<runtime.Types.Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   role<T extends Prisma.UserData$roleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserData$roleArgs<ExtArgs>>): Prisma.Prisma__RoleClient<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserData$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserData$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  client<T extends Prisma.UserData$clientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserData$clientArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2694,7 +2972,7 @@ export interface UserDataFieldRefs {
   readonly email: Prisma.FieldRef<"UserData", 'String'>
   readonly name: Prisma.FieldRef<"UserData", 'String'>
   readonly isActive: Prisma.FieldRef<"UserData", 'Boolean'>
-  readonly foundationId: Prisma.FieldRef<"UserData", 'String'>
+  readonly clientId: Prisma.FieldRef<"UserData", 'String'>
   readonly tahfidzGroupId: Prisma.FieldRef<"UserData", 'String'>
   readonly createdAt: Prisma.FieldRef<"UserData", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"UserData", 'DateTime'>
@@ -3201,6 +3479,25 @@ export type UserData$userArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * UserData.client
+ */
+export type UserData$clientArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Client
+   */
+  select?: Prisma.ClientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Client
+   */
+  omit?: Prisma.ClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  where?: Prisma.ClientWhereInput
 }
 
 /**

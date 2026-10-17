@@ -34,7 +34,7 @@ export type BranchMinAggregateOutputType = {
   phone: string | null
   adminName: string | null
   signatureUrl: string | null
-  foundationId: string | null
+  clientId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -49,7 +49,7 @@ export type BranchMaxAggregateOutputType = {
   phone: string | null
   adminName: string | null
   signatureUrl: string | null
-  foundationId: string | null
+  clientId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -64,7 +64,7 @@ export type BranchCountAggregateOutputType = {
   phone: number
   adminName: number
   signatureUrl: number
-  foundationId: number
+  clientId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -81,7 +81,7 @@ export type BranchMinAggregateInputType = {
   phone?: true
   adminName?: true
   signatureUrl?: true
-  foundationId?: true
+  clientId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -96,7 +96,7 @@ export type BranchMaxAggregateInputType = {
   phone?: true
   adminName?: true
   signatureUrl?: true
-  foundationId?: true
+  clientId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -111,7 +111,7 @@ export type BranchCountAggregateInputType = {
   phone?: true
   adminName?: true
   signatureUrl?: true
-  foundationId?: true
+  clientId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -199,7 +199,7 @@ export type BranchGroupByOutputType = {
   phone: string | null
   adminName: string | null
   signatureUrl: string | null
-  foundationId: string | null
+  clientId: string | null
   createdAt: Date
   updatedAt: Date
   _count: BranchCountAggregateOutputType | null
@@ -235,10 +235,11 @@ export type BranchWhereInput = {
   phone?: Prisma.StringNullableFilter<"Branch"> | string | null
   adminName?: Prisma.StringNullableFilter<"Branch"> | string | null
   signatureUrl?: Prisma.StringNullableFilter<"Branch"> | string | null
-  foundationId?: Prisma.StringNullableFilter<"Branch"> | string | null
+  clientId?: Prisma.StringNullableFilter<"Branch"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
   users?: Prisma.UserDataListRelationFilter
+  client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
 }
 
 export type BranchOrderByWithRelationInput = {
@@ -251,15 +252,16 @@ export type BranchOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   adminName?: Prisma.SortOrderInput | Prisma.SortOrder
   signatureUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  foundationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   users?: Prisma.UserDataOrderByRelationAggregateInput
+  client?: Prisma.ClientOrderByWithRelationInput
 }
 
 export type BranchWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  foundationId_code?: Prisma.BranchFoundationIdCodeCompoundUniqueInput
+  clientId_code?: Prisma.BranchClientIdCodeCompoundUniqueInput
   AND?: Prisma.BranchWhereInput | Prisma.BranchWhereInput[]
   OR?: Prisma.BranchWhereInput[]
   NOT?: Prisma.BranchWhereInput | Prisma.BranchWhereInput[]
@@ -271,11 +273,12 @@ export type BranchWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"Branch"> | string | null
   adminName?: Prisma.StringNullableFilter<"Branch"> | string | null
   signatureUrl?: Prisma.StringNullableFilter<"Branch"> | string | null
-  foundationId?: Prisma.StringNullableFilter<"Branch"> | string | null
+  clientId?: Prisma.StringNullableFilter<"Branch"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
   users?: Prisma.UserDataListRelationFilter
-}, "id" | "foundationId_code">
+  client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
+}, "id" | "clientId_code">
 
 export type BranchOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -287,7 +290,7 @@ export type BranchOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   adminName?: Prisma.SortOrderInput | Prisma.SortOrder
   signatureUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  foundationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.BranchCountOrderByAggregateInput
@@ -308,7 +311,7 @@ export type BranchScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"Branch"> | string | null
   adminName?: Prisma.StringNullableWithAggregatesFilter<"Branch"> | string | null
   signatureUrl?: Prisma.StringNullableWithAggregatesFilter<"Branch"> | string | null
-  foundationId?: Prisma.StringNullableWithAggregatesFilter<"Branch"> | string | null
+  clientId?: Prisma.StringNullableWithAggregatesFilter<"Branch"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Branch"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Branch"> | Date | string
 }
@@ -323,10 +326,10 @@ export type BranchCreateInput = {
   phone?: string | null
   adminName?: string | null
   signatureUrl?: string | null
-  foundationId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserDataCreateNestedManyWithoutBranchInput
+  client?: Prisma.ClientCreateNestedOneWithoutBranchesInput
 }
 
 export type BranchUncheckedCreateInput = {
@@ -339,7 +342,7 @@ export type BranchUncheckedCreateInput = {
   phone?: string | null
   adminName?: string | null
   signatureUrl?: string | null
-  foundationId?: string | null
+  clientId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
@@ -355,10 +358,10 @@ export type BranchUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
+  client?: Prisma.ClientUpdateOneWithoutBranchesNestedInput
 }
 
 export type BranchUncheckedUpdateInput = {
@@ -371,7 +374,7 @@ export type BranchUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
@@ -387,7 +390,7 @@ export type BranchCreateManyInput = {
   phone?: string | null
   adminName?: string | null
   signatureUrl?: string | null
-  foundationId?: string | null
+  clientId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -402,7 +405,6 @@ export type BranchUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -417,7 +419,7 @@ export type BranchUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -427,8 +429,8 @@ export type BranchNullableScalarRelationFilter = {
   isNot?: Prisma.BranchWhereInput | null
 }
 
-export type BranchFoundationIdCodeCompoundUniqueInput = {
-  foundationId: string
+export type BranchClientIdCodeCompoundUniqueInput = {
+  clientId: string
   code: string
 }
 
@@ -442,7 +444,7 @@ export type BranchCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   adminName?: Prisma.SortOrder
   signatureUrl?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -457,7 +459,7 @@ export type BranchMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   adminName?: Prisma.SortOrder
   signatureUrl?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -472,9 +474,19 @@ export type BranchMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   adminName?: Prisma.SortOrder
   signatureUrl?: Prisma.SortOrder
-  foundationId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type BranchListRelationFilter = {
+  every?: Prisma.BranchWhereInput
+  some?: Prisma.BranchWhereInput
+  none?: Prisma.BranchWhereInput
+}
+
+export type BranchOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type BranchCreateNestedOneWithoutUsersInput = {
@@ -493,6 +505,48 @@ export type BranchUpdateOneWithoutUsersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BranchUpdateToOneWithWhereWithoutUsersInput, Prisma.BranchUpdateWithoutUsersInput>, Prisma.BranchUncheckedUpdateWithoutUsersInput>
 }
 
+export type BranchCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutClientInput, Prisma.BranchUncheckedCreateWithoutClientInput> | Prisma.BranchCreateWithoutClientInput[] | Prisma.BranchUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutClientInput | Prisma.BranchCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.BranchCreateManyClientInputEnvelope
+  connect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
+}
+
+export type BranchUncheckedCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutClientInput, Prisma.BranchUncheckedCreateWithoutClientInput> | Prisma.BranchCreateWithoutClientInput[] | Prisma.BranchUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutClientInput | Prisma.BranchCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.BranchCreateManyClientInputEnvelope
+  connect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
+}
+
+export type BranchUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutClientInput, Prisma.BranchUncheckedCreateWithoutClientInput> | Prisma.BranchCreateWithoutClientInput[] | Prisma.BranchUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutClientInput | Prisma.BranchCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.BranchUpsertWithWhereUniqueWithoutClientInput | Prisma.BranchUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.BranchCreateManyClientInputEnvelope
+  set?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
+  disconnect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
+  delete?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
+  connect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
+  update?: Prisma.BranchUpdateWithWhereUniqueWithoutClientInput | Prisma.BranchUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.BranchUpdateManyWithWhereWithoutClientInput | Prisma.BranchUpdateManyWithWhereWithoutClientInput[]
+  deleteMany?: Prisma.BranchScalarWhereInput | Prisma.BranchScalarWhereInput[]
+}
+
+export type BranchUncheckedUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.BranchCreateWithoutClientInput, Prisma.BranchUncheckedCreateWithoutClientInput> | Prisma.BranchCreateWithoutClientInput[] | Prisma.BranchUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.BranchCreateOrConnectWithoutClientInput | Prisma.BranchCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.BranchUpsertWithWhereUniqueWithoutClientInput | Prisma.BranchUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.BranchCreateManyClientInputEnvelope
+  set?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
+  disconnect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
+  delete?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
+  connect?: Prisma.BranchWhereUniqueInput | Prisma.BranchWhereUniqueInput[]
+  update?: Prisma.BranchUpdateWithWhereUniqueWithoutClientInput | Prisma.BranchUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.BranchUpdateManyWithWhereWithoutClientInput | Prisma.BranchUpdateManyWithWhereWithoutClientInput[]
+  deleteMany?: Prisma.BranchScalarWhereInput | Prisma.BranchScalarWhereInput[]
+}
+
 export type BranchCreateWithoutUsersInput = {
   id?: string
   code: string
@@ -503,9 +557,9 @@ export type BranchCreateWithoutUsersInput = {
   phone?: string | null
   adminName?: string | null
   signatureUrl?: string | null
-  foundationId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  client?: Prisma.ClientCreateNestedOneWithoutBranchesInput
 }
 
 export type BranchUncheckedCreateWithoutUsersInput = {
@@ -518,7 +572,7 @@ export type BranchUncheckedCreateWithoutUsersInput = {
   phone?: string | null
   adminName?: string | null
   signatureUrl?: string | null
-  foundationId?: string | null
+  clientId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -549,9 +603,9 @@ export type BranchUpdateWithoutUsersInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUpdateOneWithoutBranchesNestedInput
 }
 
 export type BranchUncheckedUpdateWithoutUsersInput = {
@@ -564,7 +618,139 @@ export type BranchUncheckedUpdateWithoutUsersInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  foundationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BranchCreateWithoutClientInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  isActive?: boolean
+  address?: string | null
+  phone?: string | null
+  adminName?: string | null
+  signatureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserDataCreateNestedManyWithoutBranchInput
+}
+
+export type BranchUncheckedCreateWithoutClientInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  isActive?: boolean
+  address?: string | null
+  phone?: string | null
+  adminName?: string | null
+  signatureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserDataUncheckedCreateNestedManyWithoutBranchInput
+}
+
+export type BranchCreateOrConnectWithoutClientInput = {
+  where: Prisma.BranchWhereUniqueInput
+  create: Prisma.XOR<Prisma.BranchCreateWithoutClientInput, Prisma.BranchUncheckedCreateWithoutClientInput>
+}
+
+export type BranchCreateManyClientInputEnvelope = {
+  data: Prisma.BranchCreateManyClientInput | Prisma.BranchCreateManyClientInput[]
+  skipDuplicates?: boolean
+}
+
+export type BranchUpsertWithWhereUniqueWithoutClientInput = {
+  where: Prisma.BranchWhereUniqueInput
+  update: Prisma.XOR<Prisma.BranchUpdateWithoutClientInput, Prisma.BranchUncheckedUpdateWithoutClientInput>
+  create: Prisma.XOR<Prisma.BranchCreateWithoutClientInput, Prisma.BranchUncheckedCreateWithoutClientInput>
+}
+
+export type BranchUpdateWithWhereUniqueWithoutClientInput = {
+  where: Prisma.BranchWhereUniqueInput
+  data: Prisma.XOR<Prisma.BranchUpdateWithoutClientInput, Prisma.BranchUncheckedUpdateWithoutClientInput>
+}
+
+export type BranchUpdateManyWithWhereWithoutClientInput = {
+  where: Prisma.BranchScalarWhereInput
+  data: Prisma.XOR<Prisma.BranchUpdateManyMutationInput, Prisma.BranchUncheckedUpdateManyWithoutClientInput>
+}
+
+export type BranchScalarWhereInput = {
+  AND?: Prisma.BranchScalarWhereInput | Prisma.BranchScalarWhereInput[]
+  OR?: Prisma.BranchScalarWhereInput[]
+  NOT?: Prisma.BranchScalarWhereInput | Prisma.BranchScalarWhereInput[]
+  id?: Prisma.StringFilter<"Branch"> | string
+  code?: Prisma.StringFilter<"Branch"> | string
+  name?: Prisma.StringFilter<"Branch"> | string
+  description?: Prisma.StringNullableFilter<"Branch"> | string | null
+  isActive?: Prisma.BoolFilter<"Branch"> | boolean
+  address?: Prisma.StringNullableFilter<"Branch"> | string | null
+  phone?: Prisma.StringNullableFilter<"Branch"> | string | null
+  adminName?: Prisma.StringNullableFilter<"Branch"> | string | null
+  signatureUrl?: Prisma.StringNullableFilter<"Branch"> | string | null
+  clientId?: Prisma.StringNullableFilter<"Branch"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Branch"> | Date | string
+}
+
+export type BranchCreateManyClientInput = {
+  id?: string
+  code: string
+  name: string
+  description?: string | null
+  isActive?: boolean
+  address?: string | null
+  phone?: string | null
+  adminName?: string | null
+  signatureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BranchUpdateWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserDataUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchUncheckedUpdateWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserDataUncheckedUpdateManyWithoutBranchNestedInput
+}
+
+export type BranchUncheckedUpdateManyWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  adminName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  signatureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -610,10 +796,11 @@ export type BranchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   phone?: boolean
   adminName?: boolean
   signatureUrl?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   users?: boolean | Prisma.Branch$usersArgs<ExtArgs>
+  client?: boolean | Prisma.Branch$clientArgs<ExtArgs>
   _count?: boolean | Prisma.BranchCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["branch"]>
 
@@ -627,9 +814,10 @@ export type BranchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   phone?: boolean
   adminName?: boolean
   signatureUrl?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  client?: boolean | Prisma.Branch$clientArgs<ExtArgs>
 }, ExtArgs["result"]["branch"]>
 
 export type BranchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -642,9 +830,10 @@ export type BranchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   phone?: boolean
   adminName?: boolean
   signatureUrl?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  client?: boolean | Prisma.Branch$clientArgs<ExtArgs>
 }, ExtArgs["result"]["branch"]>
 
 export type BranchSelectScalar = {
@@ -657,23 +846,29 @@ export type BranchSelectScalar = {
   phone?: boolean
   adminName?: boolean
   signatureUrl?: boolean
-  foundationId?: boolean
+  clientId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BranchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "isActive" | "address" | "phone" | "adminName" | "signatureUrl" | "foundationId" | "createdAt" | "updatedAt", ExtArgs["result"]["branch"]>
+export type BranchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "isActive" | "address" | "phone" | "adminName" | "signatureUrl" | "clientId" | "createdAt" | "updatedAt", ExtArgs["result"]["branch"]>
 export type BranchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Branch$usersArgs<ExtArgs>
+  client?: boolean | Prisma.Branch$clientArgs<ExtArgs>
   _count?: boolean | Prisma.BranchCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type BranchIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type BranchIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type BranchIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  client?: boolean | Prisma.Branch$clientArgs<ExtArgs>
+}
+export type BranchIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  client?: boolean | Prisma.Branch$clientArgs<ExtArgs>
+}
 
 export type $BranchPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Branch"
   objects: {
     users: Prisma.$UserDataPayload<ExtArgs>[]
+    client: Prisma.$ClientPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -685,7 +880,7 @@ export type $BranchPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     phone: string | null
     adminName: string | null
     signatureUrl: string | null
-    foundationId: string | null
+    clientId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["branch"]>
@@ -1083,6 +1278,7 @@ readonly fields: BranchFieldRefs;
 export interface Prisma__BranchClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   users<T extends Prisma.Branch$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserDataPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  client<T extends Prisma.Branch$clientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Branch$clientArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1121,7 +1317,7 @@ export interface BranchFieldRefs {
   readonly phone: Prisma.FieldRef<"Branch", 'String'>
   readonly adminName: Prisma.FieldRef<"Branch", 'String'>
   readonly signatureUrl: Prisma.FieldRef<"Branch", 'String'>
-  readonly foundationId: Prisma.FieldRef<"Branch", 'String'>
+  readonly clientId: Prisma.FieldRef<"Branch", 'String'>
   readonly createdAt: Prisma.FieldRef<"Branch", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Branch", 'DateTime'>
 }
@@ -1378,6 +1574,10 @@ export type BranchCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.BranchCreateManyInput | Prisma.BranchCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BranchIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1448,6 +1648,10 @@ export type BranchUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many Branches to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BranchIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1538,6 +1742,25 @@ export type Branch$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.UserDataScalarFieldEnum | Prisma.UserDataScalarFieldEnum[]
+}
+
+/**
+ * Branch.client
+ */
+export type Branch$clientArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Client
+   */
+  select?: Prisma.ClientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Client
+   */
+  omit?: Prisma.ClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInclude<ExtArgs> | null
+  where?: Prisma.ClientWhereInput
 }
 
 /**

@@ -3,8 +3,8 @@
 import { ChevronDownIcon } from "lucide-react";
 import { Accordion as AccordionPrimitive } from "radix-ui";
 
-import { cn } from "@/lib/shadCN/utils";
-import { ComponentProps } from "react";
+import { cn } from "@/lib/shadcn/utils";
+import { type ComponentProps } from "react";
 
 function Accordion({
   ...props

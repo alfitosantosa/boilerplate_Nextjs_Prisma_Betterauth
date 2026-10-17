@@ -86,3 +86,18 @@ export type Notification = Prisma.NotificationModel
  * 
  */
 export type Announcement = Prisma.AnnouncementModel
+/**
+ * Model Plan
+ * 
+ */
+export type Plan = Prisma.PlanModel
+/**
+ * Model Membership
+ * 
+ */
+export type Membership = Prisma.MembershipModel
+/**
+ * Model Client
+ * 
+ */
+export type Client = Prisma.ClientModel

@@ -2,7 +2,7 @@
 
 import { cn } from "cn";
 import { Label as LabelPrimitive } from "radix-ui";
-import { ComponentProps } from "react";
+import { type ComponentProps } from "react";
 
 function Label({
   className,

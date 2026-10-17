@@ -24,12 +24,17 @@ export async function proxy(request: NextRequest) {
 
     // Redirect to sign-in for dashboard routes
     // console.log("No session cookie found, redirecting to sign-in");
-    return NextResponse.redirect(new URL("/auth/sign-in", request.url));
+    return NextResponse.redirect(new URL("/auth/signIn", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/dashboard", "/api/:path*"], // Protect dashboard and API routes
+  matcher: [
+    "/dashboard/:path*",
+    "/dashboard",
+    "/onboarding",
+    "/api/:path*",
+  ],
 };

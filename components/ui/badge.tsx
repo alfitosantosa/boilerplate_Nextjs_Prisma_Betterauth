@@ -1,7 +1,7 @@
-import { cn } from "@/lib/shadCN/utils";
+import { cn } from "@/lib/shadcn/utils";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { ComponentProps } from "react";
+import { type ComponentProps } from "react";
 
 
 const badgeVariants = cva(
