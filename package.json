@@ -1,6 +1,6 @@
 {
-  "name": "lms-platform-app",
-  "version": "0.4.0",
+  "name": "Sera - Boilerplate",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",

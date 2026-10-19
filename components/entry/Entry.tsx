@@ -103,7 +103,7 @@ export function EntryField({
   );
 }
 
-/** A named run of fields — one panel in the column. */
+/** A named run of fields — a labelled section in the column, no card chrome. */
 export function EntryGroup({
   label,
   delay,
@@ -116,13 +116,12 @@ export function EntryGroup({
   return (
     <section
       aria-label={label}
-      className={cn(
-        "border-border bg-card animate-element rounded-3xl border p-6",
-        delay,
-      )}
+      className={cn("animate-element space-y-4", delay)}
     >
-      <h2 className="text-sm font-semibold">{label}</h2>
-      <div className="mt-5 space-y-5">{children}</div>
+      <h2 className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+        {label}
+      </h2>
+      <div className="space-y-5">{children}</div>
     </section>
   );
 }

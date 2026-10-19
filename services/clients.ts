@@ -72,10 +72,9 @@ function slugify(value: string): string {
     .slice(0, 48);
 }
 
-/**
- * Onboarding: buat client + role Admin + branch Main + userData pemilik.
- * Satu transaksi supaya akun tidak pernah setengah jadi.
- */
+//  Onboarding: buat client + role Admin + branch Main + userData pemilik.
+//  Satu transaksi supaya akun tidak pernah setengah jadi.
+
 export async function createClientForUser(
   userId: string,
   input: { name: string; email?: string; phone?: string; address?: string },

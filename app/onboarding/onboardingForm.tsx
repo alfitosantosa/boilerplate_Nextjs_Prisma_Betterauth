@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { getErrorMessage } from "@/types";
-import { apiPost } from "@/lib/http/apiClient";
+import { useCreateClient } from "@/hooks/clients/useClients";
 
 export default function OnboardingForm({
   defaultName,
@@ -26,7 +26,7 @@ export default function OnboardingForm({
   defaultEmail: string;
 }) {
   const router = useRouter();
-  const [isSaving, setIsSaving] = useState(false);
+  const createClient = useCreateClient();
   const [form, setForm] = useState({
     name: defaultName ? `${defaultName}'s Workspace` : "",
     email: defaultEmail,
@@ -44,16 +44,13 @@ export default function OnboardingForm({
       return;
     }
 
-    setIsSaving(true);
     try {
-      await apiPost("/api/clients", form);
+      await createClient.mutateAsync(form);
       toast.success("Client berhasil dibuat.");
       router.replace("/dashboard");
       router.refresh();
     } catch (error) {
       toast.error(getErrorMessage(error));
-    } finally {
-      setIsSaving(false);
     }
   };
 
@@ -108,8 +105,12 @@ export default function OnboardingForm({
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={isSaving}>
-            {isSaving ? "Membuat client..." : "Buat client"}
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={createClient.isPending}
+          >
+            {createClient.isPending ? "Membuat client..." : "Buat client"}
           </Button>
         </form>
       </CardContent>
